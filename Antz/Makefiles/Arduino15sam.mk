@@ -8,7 +8,7 @@
 # All rights reserved
 #
 #
-# Last update: Jul 09, 2014 release 166
+# Last update: May 14, 2014 release 159
 
 # ARDUINO 1.5.X IS STILL IN BETA, UNSTABLE AND PRONE TO BUGS
 WARNING_MESSAGE = 'ARDUINO 1.5.X IS STILL IN BETA, UNSTABLE AND PRONE TO BUGS'
@@ -22,14 +22,7 @@ BUILD_CORE       := sam
 PLATFORM_TAG      = ARDUINO=155 ARDUINO_ARCH_SAM EMBEDXCODE=$(RELEASE_NOW)
 APPLICATION_PATH := $(ARDUINO_PATH)
 
-# New GCC for ARM tool-suite
-#
-ifeq ($(wildcard $(APPLICATION_PATH)/hardware/tools/g++_arm_none_eabi),)
-    APP_TOOLS_PATH   := $(APPLICATION_PATH)/hardware/tools/gcc-arm-none-eabi-4.8.3-2014q1/bin
-else
-    APP_TOOLS_PATH   := $(APPLICATION_PATH)/hardware/tools/g++_arm_none_eabi/bin
-endif
-
+APP_TOOLS_PATH   := $(APPLICATION_PATH)/hardware/tools/g++_arm_none_eabi/bin
 CORE_LIB_PATH    := $(APPLICATION_PATH)/hardware/arduino/sam/cores/arduino
 APP_LIB_PATH     := $(APPLICATION_PATH)/libraries
 BOARDS_TXT       := $(APPLICATION_PATH)/hardware/arduino/sam/boards.txt
@@ -142,8 +135,6 @@ EXTRA_LDFLAGS   = -T$(VARIANT_PATH)/$(LDSCRIPT) -Wl,-Map,Builds/embeddedcomputin
 EXTRA_LDFLAGS  += -lgcc -mthumb -Wl,--cref -Wl,--check-sections -Wl,--gc-sections -Wl,--entry=Reset_Handler 
 EXTRA_LDFLAGS  += -Wl,--unresolved-symbols=report-all -Wl,--warn-common -Wl,--warn-section-align 
 EXTRA_LDFLAGS  += -Wl,--warn-unresolved-symbols
-
-LDFLAGS         = -$(MCU_FLAG_NAME)=$(MCU) -lm -Wl,--gc-sections,-u,main $(OPTIMISATION) $(EXTRA_LDFLAGS)
 
 EXTRA_CPPFLAGS  = -I$(VARIANT_PATH) $(addprefix -D, $(PLATFORM_TAG)) -D__SAM3X8E__ -mthumb -fno-rtti
 EXTRA_CPPFLAGS += -nostdlib --param max-inline-insns-single=500 -Dprintf=iprintf $(SYSTEM_FLAGS)

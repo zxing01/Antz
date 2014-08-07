@@ -8,7 +8,7 @@
 # All rights reserved
 #
 #
-# Last update: Jul 02, 2014 release 166
+# Last update: May 14, 2014 release 159
 
 
 # Serial port check and selection
@@ -788,7 +788,7 @@ endif
 # Release management
 # ----------------------------------
 #
-RELEASE_NOW   := 167
+RELEASE_NOW   := 159
 
 
 # Rules

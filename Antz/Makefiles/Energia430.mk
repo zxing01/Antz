@@ -8,7 +8,7 @@
 # All rights reserved
 #
 #
-# Last update: Jul 05, 2014 release 165
+# Last update: Dec 10, 2013 release 119
 
 
 
@@ -16,7 +16,7 @@
 # ----------------------------------
 #
 PLATFORM         := Energia
-PLATFORM_TAG      = ENERGIA=12 ARDUINO=101 EMBEDXCODE=$(RELEASE_NOW) $(filter __%__ ,$(GCC_PREPROCESSOR_DEFINITIONS))
+PLATFORM_TAG      = ENERGIA=9 ARDUINO=101 EMBEDXCODE=$(RELEASE_NOW) $(filter __%__ ,$(GCC_PREPROCESSOR_DEFINITIONS))
 #PLATFORM_TAG      = ENERGIA=9 ARDUINO=101 EMBEDXCODE=$(RELEASE_NOW) $(filter-out ENERGIA,$(GCC_PREPROCESSOR_DEFINITIONS))
 APPLICATION_PATH := $(ENERGIA_PATH)
 

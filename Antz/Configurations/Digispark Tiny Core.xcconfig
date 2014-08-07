@@ -31,7 +31,7 @@ GCC_PREPROCESSOR_DEFINITIONS = __AVR_ATtinyX5__ DIGISPARK
 // Specify the full path and name of the application
 // with /Contents/Resources/Java/** after
 //
-HEADER_SEARCH_PATHS = /Applications/DigisparkArduino.app/Contents/Resources/Java/** /Applications/Arduino.app/Contents/Resources/Java/** /Applications/Arduino.app/Contents/Java/**
+HEADER_SEARCH_PATHS = /Applications/DigisparkArduino.app/Contents/Resources/Java/** /Applications/Arduino.app/Contents/Resources/Java/**
 
 // Maximum RAM size in bytes
 // given by <tag>.upload.maximum_ram_size in boards.txt for Maple and Teensy

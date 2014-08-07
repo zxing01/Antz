@@ -11,7 +11,7 @@
 //  Copyright   (c) 2012-2014 http://embedxcode.weebly.com
 //  License     All rigths reserved
 //
-// Last update: Jul 09, 2014 release 166
+// Last update: Feb 06, 2014 release 131
 
 // Board identifier
 // See Boards.txt for <tag>.name=Arduino Uno (16 MHz)
@@ -35,7 +35,7 @@ GCC_PREPROCESSOR_DEFINITIONS = __SAM3X8E__ ARDUINO
 // Specify the full path and name of the application
 // with /Contents/Resources/Java/** after
 //
-HEADER_SEARCH_PATHS = /Applications/Arduino.app/Contents/Resources/Java/** /Applications/Arduino.app/Contents/Java/**
+HEADER_SEARCH_PATHS = /Applications/Arduino.app/Contents/Resources/Java/**
 
 // Maximum RAM size in bytes
 // given by <tag>.upload.maximum_ram_size in boards.txt for Maple and Teensy
