@@ -15,6 +15,7 @@
 		3D5842A71959F8F7002A52B4 /* Sender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D5842A11959F8F7002A52B4 /* Sender.cpp */; };
 		3D5842A81959F8F7002A52B4 /* Sonar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D5842A31959F8F7002A52B4 /* Sonar.cpp */; };
 		3D98C17D193E359D00B2FEA4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D98C17C193E359D00B2FEA4 /* main.cpp */; };
+		3D9D646219A2814A0028E290 /* Antz.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D9D646019A2814A0028E290 /* Antz.cpp */; };
 		AA2A140603125918AA000005 /* Arduino.h in Sources */ = {isa = PBXBuildFile; fileRef = AAAA140603125918AA000005 /* Arduino.h */; };
 		AA2A140603125918AA000007 /* malloc.c in Sources */ = {isa = PBXBuildFile; fileRef = AAAA140603125918AA000007 /* malloc.c */; };
 		AA2A140603125918AA000008 /* realloc.c in Sources */ = {isa = PBXBuildFile; fileRef = AAAA140603125918AA000008 /* realloc.c */; };
@@ -326,6 +327,8 @@
 		3D98C1C2193E359D00B2FEA4 /* embedXcode_chrono */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = embedXcode_chrono; path = Utilities/embedXcode_chrono; sourceTree = "<group>"; };
 		3D98C1C3193E359D00B2FEA4 /* TemplateIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = TemplateIcon.icns; path = Utilities/TemplateIcon.icns; sourceTree = "<group>"; };
 		3D98C1C4193E359D00B2FEA4 /* Antz.ino */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; path = Antz.ino; sourceTree = "<group>"; };
+		3D9D646019A2814A0028E290 /* Antz.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Antz.cpp; sourceTree = "<group>"; };
+		3D9D646119A2814A0028E290 /* Antz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Antz.h; sourceTree = "<group>"; };
 		AAAA140603125918AA000005 /* Arduino.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Arduino.h; sourceTree = "<group>"; };
 		AAAA140603125918AA000007 /* malloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = malloc.c; sourceTree = "<group>"; };
 		AAAA140603125918AA000008 /* realloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = realloc.c; sourceTree = "<group>"; };
@@ -596,6 +599,8 @@
 				3D5842A21959F8F7002A52B4 /* Sender.h */,
 				3D41E4C21963213500E2D578 /* ServoSweep.cpp */,
 				3D41E4C31963213500E2D578 /* ServoSweep.h */,
+				3D9D646019A2814A0028E290 /* Antz.cpp */,
+				3D9D646119A2814A0028E290 /* Antz.h */,
 				3D98C1C4193E359D00B2FEA4 /* Antz.ino */,
 				3D98C183193E359D00B2FEA4 /* Sketchbook */,
 				AAAA140603125918AA000000 /* Resources */,
@@ -1310,6 +1315,7 @@
 				AA2A140603125918AA00006F /* Firmata.cpp in Sources */,
 				AA2A140603125918AA000070 /* Firmata.h in Sources */,
 				3D18C83419646A6F0055C6E7 /* Infrared.cpp in Sources */,
+				3D9D646219A2814A0028E290 /* Antz.cpp in Sources */,
 				AA2A140603125918AA000072 /* GSM.h in Sources */,
 				AA2A140603125918AA000073 /* GSM3CircularBuffer.cpp in Sources */,
 				AA2A140603125918AA000074 /* GSM3CircularBuffer.h in Sources */,
