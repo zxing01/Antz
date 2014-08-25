@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Zhi Xing. All rights reserved.
 //
 
-#ifndef ANTZ_MOTOR_H
-#define ANTZ_MOTOR_H
+#ifndef __Antz__Motor__
+#define __Antz__Motor__
 
 #define TOGGLE    4
 #define LEFT_DIR  7
@@ -19,8 +19,7 @@
 #include <Arduino.h>
 
 namespace Antz {
-    class Motor
-    {
+    class Motor {
     public:
         Motor(double speed = 1); // speed is 0 - 1
         void changeSpeed(double speed);

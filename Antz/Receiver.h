@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Zhi Xing. All rights reserved.
 //
 
-#ifndef ANTZ_RECEIVER_H
-#define ANTZ_RECEIVER_H
+#ifndef __Antz__Receiver__
+#define __Antz__Receiver__
 
 // state machine states
 #define STATE_IDLE      0
@@ -34,11 +34,9 @@
 #include "Communication.h"
 
 namespace Antz {
-    class Receiver
-    {
+    class Receiver {
     public:
-        struct RecvState
-        {
+        struct RecvState {
             RecvState(uint8_t intn, uint8_t iscn0, volatile uint8_t &eicrx)
             :INTn(intn), ISCn0(iscn0), EICRx(eicrx) {}
             uint32_t data;   // output value, only valid when state is STATE_DONE

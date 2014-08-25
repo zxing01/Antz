@@ -11,8 +11,7 @@
 using namespace Antz;
 
 ////////////////////////////////////////////////////////////////
-Motor::Motor(double speed) : speed_(MAX_SPD * speed)
-{
+Motor::Motor(double speed) : speed_(MAX_SPD * speed) {
     pinMode(TOGGLE, OUTPUT);
     pinMode(LEFT_DIR, OUTPUT);
     pinMode(LEFT_SPD, OUTPUT);
@@ -23,14 +22,12 @@ Motor::Motor(double speed) : speed_(MAX_SPD * speed)
 }
 
 ////////////////////////////////////////////////////////////////
-void Motor::changeSpeed(double speed)
-{
+void Motor::changeSpeed(double speed) {
     speed_ = MAX_SPD * speed;
 }
 
 ////////////////////////////////////////////////////////////////
-void Motor::forward()
-{
+void Motor::forward() {
     digitalWrite(LEFT_DIR, LOW);
     digitalWrite(RIGHT_DIR, HIGH);
     analogWrite(LEFT_SPD, speed_);
@@ -38,8 +35,7 @@ void Motor::forward()
 }
 
 ////////////////////////////////////////////////////////////////
-void Motor::backward()
-{
+void Motor::backward() {
     digitalWrite(LEFT_DIR, HIGH);
     digitalWrite(RIGHT_DIR, LOW);
     analogWrite(LEFT_SPD, speed_);
@@ -47,8 +43,7 @@ void Motor::backward()
 }
 
 ////////////////////////////////////////////////////////////////
-void Motor::turnLeft()
-{
+void Motor::turnLeft() {
     digitalWrite(LEFT_DIR, LOW);
     digitalWrite(RIGHT_DIR, HIGH);
     analogWrite(LEFT_SPD, 0);
@@ -56,8 +51,7 @@ void Motor::turnLeft()
 }
 
 ////////////////////////////////////////////////////////////////
-void Motor::turnRight()
-{
+void Motor::turnRight() {
     digitalWrite(LEFT_DIR, LOW);
     digitalWrite(RIGHT_DIR, HIGH);
     analogWrite(LEFT_SPD, speed_);
@@ -65,8 +59,7 @@ void Motor::turnRight()
 }
 
 ////////////////////////////////////////////////////////////////
-void Motor::turnLeftInPlace()
-{
+void Motor::turnLeftInPlace() {
     digitalWrite(LEFT_DIR, HIGH);
     digitalWrite(RIGHT_DIR, HIGH);
     analogWrite(LEFT_SPD, speed_);
@@ -74,8 +67,7 @@ void Motor::turnLeftInPlace()
 }
 
 ////////////////////////////////////////////////////////////////
-void Motor::turnRightInPlace()
-{
+void Motor::turnRightInPlace() {
     digitalWrite(LEFT_DIR, LOW);
     digitalWrite(RIGHT_DIR, LOW);
     analogWrite(LEFT_SPD, speed_);
@@ -83,8 +75,7 @@ void Motor::turnRightInPlace()
 }
 
 ////////////////////////////////////////////////////////////////
-void Motor::deviateLeft()
-{
+void Motor::deviateLeft() {
     digitalWrite(LEFT_DIR, LOW);
     digitalWrite(RIGHT_DIR, HIGH);
     analogWrite(LEFT_SPD, speed_ * 3 / 4);
@@ -92,8 +83,7 @@ void Motor::deviateLeft()
 }
 
 ////////////////////////////////////////////////////////////////
-void Motor::deviateRight()
-{
+void Motor::deviateRight() {
     digitalWrite(LEFT_DIR, LOW);
     digitalWrite(RIGHT_DIR, HIGH);
     analogWrite(LEFT_SPD, speed_);
@@ -101,8 +91,7 @@ void Motor::deviateRight()
 }
 
 ////////////////////////////////////////////////////////////////
-void Motor::stop()
-{
+void Motor::stop() {
     analogWrite(LEFT_SPD, 0);
     analogWrite(RIGHT_SPD, 0);
 }

@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Zhi Xing. All rights reserved.
 //
 
-#ifndef ANTZ_SENDER_H
-#define ANTZ_SENDER_H
+#ifndef __Antz__Sender__
+#define __Antz__Sender__
 
 #define SYSCLOCK        16000 // in KHz
 #define IR_KHZ          56
@@ -18,8 +18,7 @@
 #include "Communication.h"
 
 namespace Antz {
-    class Sender
-    {
+    class Sender {
     public:
         Sender();
         void send(uint32_t data, uint32_t duration);

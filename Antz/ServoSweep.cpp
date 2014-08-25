@@ -11,21 +11,17 @@
 using namespace Antz;
 
 ////////////////////////////////////////////////////////////////
-ServoSweep::ServoSweep() : forward(true)
-{
-}
+ServoSweep::ServoSweep() : forward(true) {}
 
 ////////////////////////////////////////////////////////////////
-void ServoSweep::startup()
-{
+void ServoSweep::startup() {
     servo.attach(SERVO_PIN);
     servo.write(MAX_POS);
     delay(SERVO_SPD * 3);
 }
 
 ////////////////////////////////////////////////////////////////
-void ServoSweep::sweep(double *left, double *right, double* closest)
-{
+void ServoSweep::sweep(double *left, double *right, double* closest) {
     *closest = 10000; // max double?
     
 #ifdef DEBUG

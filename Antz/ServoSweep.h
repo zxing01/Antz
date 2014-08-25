@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Zhi Xing. All rights reserved.
 //
 
-#ifndef ANTZ_SERVOSWEEP_H
-#define ANTZ_SERVOSWEEP_H
+#ifndef __Antz__ServoSweep__
+#define __Antz__ServoSweep__
 
 #define SERVO_PIN     53
 #define SERVO_SPD     120 // per 60 degrees

@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Zhi Xing. All rights reserved.
 //
 
-#ifndef ANTZ_COMMUNICATION_H
-#define ANTZ_COMMUNICATION_H
+#ifndef __Antz__Communication__
+#define __Antz__Communication__
 
 // number of bits in a signal
 #define NUM_BITS        16

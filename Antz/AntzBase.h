@@ -1,13 +1,13 @@
 //
-//  Antz.h
+//  AntzBase.h
 //  Antz
 //
 //  Created by Zhi Xing on 8/18/14.
 //  Copyright (c) 2014 Zhi Xing. All rights reserved.
 //
 
-#ifndef ANTZ_ANTZ_H
-#define ANTZ_ANTZ_H
+#ifndef __Antz__AntzBase__
+#define __Antz__AntzBase__
 
 #include "Sender.h"
 #include "Receiver.h"
@@ -16,11 +16,11 @@
 #include "ServoSweep.h"
 
 namespace Antz {
-    class Antz {
+    class AntzBase {
     public:
-        Antz();
+        AntzBase();
         virtual void run() = 0;
-    private:
+    protected:
         Sender sender;
         Receiver recver;
         Motor motor;

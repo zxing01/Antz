@@ -11,17 +11,16 @@
 using namespace Antz;
 
 ////////////////////////////////////////////////////////////////
-Sender::Sender() : on(false)
-{
+Sender::Sender() : on(false) {
     TIMSK1 = 0; //Timer2 Overflow Interrupt
     pinMode(TIMER_PWM_PIN, OUTPUT);
     digitalWrite(TIMER_PWM_PIN, LOW); // When not sending PWM, we want it low
 }
 
 ////////////////////////////////////////////////////////////////
-void Sender::send(uint32_t data, uint32_t duration)
-{
-    if (!on) return;
+void Sender::send(uint32_t data, uint32_t duration) {
+    if (!on)
+        return;
     
     uint8_t original = EIMSK;
     EIMSK = 0; // disable external interrupts
@@ -46,33 +45,28 @@ void Sender::send(uint32_t data, uint32_t duration)
 }
 
 ////////////////////////////////////////////////////////////////
-void Sender::startup()
-{
+void Sender::startup() {
     on = true;
 }
 
 ////////////////////////////////////////////////////////////////
-void Sender::shutdown()
-{
+void Sender::shutdown() {
     on = false;
 }
 
 ////////////////////////////////////////////////////////////////
-bool Sender::isOn()
-{
+bool Sender::isOn() {
     return on;
 }
 
 ////////////////////////////////////////////////////////////////
-void Sender::signal(uint32_t time)
-{
+void Sender::signal(uint32_t time) {
     TCCR1A |= (1 << COM1B1);
     delayMicroseconds(time);
 }
 
 ////////////////////////////////////////////////////////////////
-void Sender::interval(uint32_t time)
-{
+void Sender::interval(uint32_t time) {
     TCCR1A &= ~(1 << COM1B1);
     delayMicroseconds(time);
 }

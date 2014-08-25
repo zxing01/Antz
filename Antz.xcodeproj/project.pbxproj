@@ -15,7 +15,9 @@
 		3D5842A71959F8F7002A52B4 /* Sender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D5842A11959F8F7002A52B4 /* Sender.cpp */; };
 		3D5842A81959F8F7002A52B4 /* Sonar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D5842A31959F8F7002A52B4 /* Sonar.cpp */; };
 		3D98C17D193E359D00B2FEA4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D98C17C193E359D00B2FEA4 /* main.cpp */; };
-		3D9D646519A2877A0028E290 /* Antz.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D9D646319A2877A0028E290 /* Antz.cpp */; };
+		3D9D646519A2877A0028E290 /* AntzBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D9D646319A2877A0028E290 /* AntzBase.cpp */; };
+		3D9D646819A289E50028E290 /* Walker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D9D646619A289E50028E290 /* Walker.cpp */; };
+		3D9D646B19A289F90028E290 /* Beacon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D9D646919A289F90028E290 /* Beacon.cpp */; };
 		AA2A140603125918AA000005 /* Arduino.h in Sources */ = {isa = PBXBuildFile; fileRef = AAAA140603125918AA000005 /* Arduino.h */; };
 		AA2A140603125918AA000007 /* malloc.c in Sources */ = {isa = PBXBuildFile; fileRef = AAAA140603125918AA000007 /* malloc.c */; };
 		AA2A140603125918AA000008 /* realloc.c in Sources */ = {isa = PBXBuildFile; fileRef = AAAA140603125918AA000008 /* realloc.c */; };
@@ -319,16 +321,18 @@
 		3D98C1B7193E359D00B2FEA4 /* Teensy2.mk */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; name = Teensy2.mk; path = Makefiles/Teensy2.mk; sourceTree = "<group>"; };
 		3D98C1B8193E359D00B2FEA4 /* Teensy3.mk */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; name = Teensy3.mk; path = Makefiles/Teensy3.mk; sourceTree = "<group>"; };
 		3D98C1B9193E359D00B2FEA4 /* Avrdude.mk */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; name = Avrdude.mk; path = Makefiles/Avrdude.mk; sourceTree = "<group>"; };
-		3D98C1BA193E359D00B2FEA4 /* ReadMe.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = ReadMe.txt; sourceTree = "<group>"; };
-		3D98C1BC193E359D00B2FEA4 /* About.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = About.txt; path = About/About.txt; sourceTree = "<group>"; };
 		3D98C1BE193E359D00B2FEA4 /* reset.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; name = reset.py; path = Utilities/reset.py; sourceTree = "<group>"; };
 		3D98C1BF193E359D00B2FEA4 /* serial1200.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; name = serial1200.py; path = Utilities/serial1200.py; sourceTree = "<group>"; };
 		3D98C1C1193E359D00B2FEA4 /* embedXcode_check */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = embedXcode_check; path = Utilities/embedXcode_check; sourceTree = "<group>"; };
 		3D98C1C2193E359D00B2FEA4 /* embedXcode_chrono */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = embedXcode_chrono; path = Utilities/embedXcode_chrono; sourceTree = "<group>"; };
 		3D98C1C3193E359D00B2FEA4 /* TemplateIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = TemplateIcon.icns; path = Utilities/TemplateIcon.icns; sourceTree = "<group>"; };
 		3D98C1C4193E359D00B2FEA4 /* Antz.ino */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; path = Antz.ino; sourceTree = "<group>"; };
-		3D9D646319A2877A0028E290 /* Antz.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Antz.cpp; sourceTree = "<group>"; };
-		3D9D646419A2877A0028E290 /* Antz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Antz.h; sourceTree = "<group>"; };
+		3D9D646319A2877A0028E290 /* AntzBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AntzBase.cpp; sourceTree = "<group>"; };
+		3D9D646419A2877A0028E290 /* AntzBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AntzBase.h; sourceTree = "<group>"; };
+		3D9D646619A289E50028E290 /* Walker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Walker.cpp; sourceTree = "<group>"; };
+		3D9D646719A289E50028E290 /* Walker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Walker.h; sourceTree = "<group>"; };
+		3D9D646919A289F90028E290 /* Beacon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Beacon.cpp; sourceTree = "<group>"; };
+		3D9D646A19A289F90028E290 /* Beacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Beacon.h; sourceTree = "<group>"; };
 		AAAA140603125918AA000005 /* Arduino.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Arduino.h; sourceTree = "<group>"; };
 		AAAA140603125918AA000007 /* malloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = malloc.c; sourceTree = "<group>"; };
 		AAAA140603125918AA000008 /* realloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = realloc.c; sourceTree = "<group>"; };
@@ -585,7 +589,6 @@
 			children = (
 				3D98C17C193E359D00B2FEA4 /* main.cpp */,
 				3D98C181193E359D00B2FEA4 /* Makefile */,
-				3D98C1BA193E359D00B2FEA4 /* ReadMe.txt */,
 				3D58429D1959F8F7002A52B4 /* Motor.cpp */,
 				3D58429E1959F8F7002A52B4 /* Motor.h */,
 				3D5842A31959F8F7002A52B4 /* Sonar.cpp */,
@@ -599,14 +602,17 @@
 				3D5842A21959F8F7002A52B4 /* Sender.h */,
 				3D41E4C21963213500E2D578 /* ServoSweep.cpp */,
 				3D41E4C31963213500E2D578 /* ServoSweep.h */,
-				3D9D646319A2877A0028E290 /* Antz.cpp */,
-				3D9D646419A2877A0028E290 /* Antz.h */,
+				3D9D646319A2877A0028E290 /* AntzBase.cpp */,
+				3D9D646419A2877A0028E290 /* AntzBase.h */,
+				3D9D646619A289E50028E290 /* Walker.cpp */,
+				3D9D646719A289E50028E290 /* Walker.h */,
+				3D9D646919A289F90028E290 /* Beacon.cpp */,
+				3D9D646A19A289F90028E290 /* Beacon.h */,
 				3D98C1C4193E359D00B2FEA4 /* Antz.ino */,
 				3D98C183193E359D00B2FEA4 /* Sketchbook */,
 				AAAA140603125918AA000000 /* Resources */,
 				3D98C185193E359D00B2FEA4 /* Configurations */,
 				3D98C1A7193E359D00B2FEA4 /* Makefiles */,
-				3D98C1BB193E359D00B2FEA4 /* About */,
 				3D98C1BD193E359D00B2FEA4 /* Utilities */,
 			);
 			path = Antz;
@@ -683,14 +689,6 @@
 				3D98C1B9193E359D00B2FEA4 /* Avrdude.mk */,
 			);
 			name = Makefiles;
-			sourceTree = "<group>";
-		};
-		3D98C1BB193E359D00B2FEA4 /* About */ = {
-			isa = PBXGroup;
-			children = (
-				3D98C1BC193E359D00B2FEA4 /* About.txt */,
-			);
-			name = About;
 			sourceTree = "<group>";
 		};
 		3D98C1BD193E359D00B2FEA4 /* Utilities */ = {
@@ -1283,6 +1281,7 @@
 				AA2A140603125918AA00004A /* wiring.c in Sources */,
 				AA2A140603125918AA00004B /* wiring_analog.c in Sources */,
 				AA2A140603125918AA00004C /* wiring_digital.c in Sources */,
+				3D9D646B19A289F90028E290 /* Beacon.cpp in Sources */,
 				AA2A140603125918AA00004D /* wiring_private.h in Sources */,
 				AA2A140603125918AA00004E /* wiring_pulse.c in Sources */,
 				3D5842A81959F8F7002A52B4 /* Sonar.cpp in Sources */,
@@ -1315,7 +1314,7 @@
 				AA2A140603125918AA00006F /* Firmata.cpp in Sources */,
 				AA2A140603125918AA000070 /* Firmata.h in Sources */,
 				3D18C83419646A6F0055C6E7 /* Infrared.cpp in Sources */,
-				3D9D646519A2877A0028E290 /* Antz.cpp in Sources */,
+				3D9D646519A2877A0028E290 /* AntzBase.cpp in Sources */,
 				AA2A140603125918AA000072 /* GSM.h in Sources */,
 				AA2A140603125918AA000073 /* GSM3CircularBuffer.cpp in Sources */,
 				AA2A140603125918AA000074 /* GSM3CircularBuffer.h in Sources */,
@@ -1389,6 +1388,7 @@
 				AA2A140603125918AA0000B7 /* LiquidCrystal.h in Sources */,
 				AA2A140603125918AA0000B9 /* Adafruit_GFX.cpp in Sources */,
 				AA2A140603125918AA0000BA /* Adafruit_GFX.h in Sources */,
+				3D9D646819A289E50028E290 /* Walker.cpp in Sources */,
 				AA2A140603125918AA0000BB /* Arduino_LCD.cpp in Sources */,
 				AA2A140603125918AA0000BC /* Arduino_LCD.h in Sources */,
 				AA2A140603125918AA0000BD /* ArduinoRobot.cpp in Sources */,

@@ -6,16 +6,15 @@
 //  Copyright (c) 2014 Zhi Xing. All rights reserved.
 //
 
-#ifndef ANTZ_SONAR_H
-#define ANTZ_SONAR_H
+#ifndef __Antz__Sonar__
+#define __Antz__Sonar__
 
 #define SONAR_PIN 52
 
 #include <Arduino.h>
 
 namespace Antz {
-    class Sonar
-    {
+    class Sonar {
     public:
         Sonar();
         double getRange(); // in meter(s)

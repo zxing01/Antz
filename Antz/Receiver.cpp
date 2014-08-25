@@ -20,8 +20,7 @@ volatile Receiver::RecvState Receiver::recver4(INT4, ISC40, EICRB);
 volatile Receiver::RecvState Receiver::recver5(INT5, ISC50, EICRB);
 
 ////////////////////////////////////////////////////////////////
-Receiver::Receiver()
-{
+Receiver::Receiver() {
     pinMode(RECV_PIN0, INPUT);
     pinMode(RECV_PIN1, INPUT);
     pinMode(RECV_PIN2, INPUT);
@@ -35,8 +34,7 @@ Receiver::Receiver()
 }
 
 ////////////////////////////////////////////////////////////////
-uint32_t Receiver::recvFrom(uint8_t index)
-{
+uint32_t Receiver::recvFrom(uint8_t index) {
     switch (index) {
         case 0:
             return getData(recver0);
@@ -54,8 +52,7 @@ uint32_t Receiver::recvFrom(uint8_t index)
 }
 
 ////////////////////////////////////////////////////////////////
-void Receiver::getMax(uint32_t *value, uint8_t *index)
-{
+void Receiver::getMax(uint32_t *value, uint8_t *index) {
     *value = 0;
     *index = 0;
 
@@ -85,8 +82,7 @@ void Receiver::getMax(uint32_t *value, uint8_t *index)
 }
 
 ////////////////////////////////////////////////////////////////
-uint32_t Receiver::getData(volatile RecvState &recver)
-{
+uint32_t Receiver::getData(volatile RecvState &recver) {
     uint32_t ret = 0;
     if (recver.state == STATE_DONE) {
         EIMSK &= ~(1 << recver.INTn);
@@ -101,14 +97,12 @@ uint32_t Receiver::getData(volatile RecvState &recver)
 }
 
 ////////////////////////////////////////////////////////////////
-void Receiver::stateTransit(volatile RecvState &recver)
-{
+void Receiver::stateTransit(volatile RecvState &recver) {
     uint32_t time = micros();
     uint32_t duration = time - recver.start; // duration of signal
     recver.start = time; // record starting time
     
     switch (recver.state) {
-            
         case STATE_IDLE:
             recver.EICRx |= (1 << recver.ISCn0); // change event to raising edge
             recver.state = STATE_SIGN; // receiving signature
@@ -144,7 +138,7 @@ void Receiver::stateTransit(volatile RecvState &recver)
                 recver.state = STATE_INTR;
                 recver.data |= ((uint32_t)1 << recver.bit++);
             }
-            else if (duration >= LOW_LEN(LEN_ZERO) && duration <= HIGH_LEN(LEN_ZERO) && recver.bit < NUM_BITS){
+            else if (duration >= LOW_LEN(LEN_ZERO) && duration <= HIGH_LEN(LEN_ZERO) && recver.bit < NUM_BITS) {
                 recver.state = STATE_INTR;
                 recver.data &= ~((uint32_t)1 << recver.bit++);
             }
@@ -170,37 +164,31 @@ void Receiver::stateTransit(volatile RecvState &recver)
 }
 
 ////////////////////////////////////////////////////////////////
-ISR(INT0_vect)
-{
+ISR(INT0_vect) {
     Receiver::stateTransit(Receiver::recver0);
 }
 
 ////////////////////////////////////////////////////////////////
-ISR(INT1_vect)
-{
+ISR(INT1_vect) {
     Receiver::stateTransit(Receiver::recver1);
 }
 
 ////////////////////////////////////////////////////////////////
-ISR(INT2_vect)
-{
+ISR(INT2_vect) {
     Receiver::stateTransit(Receiver::recver2);
 }
 
 ////////////////////////////////////////////////////////////////
-ISR(INT3_vect)
-{
+ISR(INT3_vect) {
     Receiver::stateTransit(Receiver::recver3);
 }
 
 ////////////////////////////////////////////////////////////////
-ISR(INT4_vect)
-{
+ISR(INT4_vect) {
     Receiver::stateTransit(Receiver::recver4);
 }
 
 ////////////////////////////////////////////////////////////////
-ISR(INT5_vect)
-{
+ISR(INT5_vect) {
     Receiver::stateTransit(Receiver::recver5);
 }

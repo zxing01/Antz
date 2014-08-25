@@ -1,41 +1,42 @@
 //
-//  Antz.cpp
+//  AntzBase.cpp
 //  Antz
 //
 //  Created by Zhi Xing on 8/18/14.
 //  Copyright (c) 2014 Zhi Xing. All rights reserved.
 //
 
-#include "Antz.h"
+#include "AntzBase.h"
 
 using namespace Antz;
 
 ////////////////////////////////////////////////////////////////
-Antz::Antz()
-{
+AntzBase::AntzBase() {
     randomSeed(analogRead(0));
     servo.startup();
 }
 
 ////////////////////////////////////////////////////////////////
-void Antz::goForward()
-{
+void AntzBase::run() {
+    
+}
+
+////////////////////////////////////////////////////////////////
+void AntzBase::goForward() {
     motor.forward();
     delay(550);
     motor.stop();
 }
 
 ////////////////////////////////////////////////////////////////
-void Antz::turnLeft()
-{
+void AntzBase::turnLeft() {
     motor.turnLeftInPlace();
     delay(550);
     motor.stop();
 }
 
 ////////////////////////////////////////////////////////////////
-void Antz::turnRight()
-{
+void AntzBase::turnRight() {
     motor.turnRightInPlace();
     delay(550);
     motor.stop();

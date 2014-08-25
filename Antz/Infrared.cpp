@@ -12,17 +12,14 @@
 using namespace Antz;
 
 ////////////////////////////////////////////////////////////////
-Infrared::Infrared(uint8_t nReadings):_nReadings(nReadings)
-{
+Infrared::Infrared(uint8_t nReadings):_nReadings(nReadings) {
     pinMode(IR_PIN, INPUT);
-    if (_nReadings == 0) {
+    if (_nReadings == 0)
         _nReadings = 1;
-    }
 }
 
 ////////////////////////////////////////////////////////////////
-double Infrared::getRange()
-{
+double Infrared::getRange() {
     double distance = 10000; // default to 100cm
     double sum = 0;
     uint8_t count = 0;
@@ -35,9 +32,8 @@ double Infrared::getRange()
             ++count;
         }
     }
-    if (count > 0) {
+    if (count > 0)
         distance = sum / count;
-    }
     
     return distance;
 }

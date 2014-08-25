@@ -6,16 +6,15 @@
 //  Copyright (c) 2014 Zhi Xing. All rights reserved.
 //
 
-#ifndef ANTZ_INFRARED_H
-#define ANTZ_INFRARED_H
+#ifndef __Antz__Infrared__
+#define __Antz__Infrared__
 
 #define IR_PIN A15
 
 #include <Arduino.h>
 
 namespace Antz {
-    class Infrared
-    {
+    class Infrared {
     public:
         Infrared(uint8_t nReadings = 5);
         double getRange(); // in centimeter(s)
