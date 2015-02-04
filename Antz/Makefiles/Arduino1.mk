@@ -3,26 +3,42 @@
 # ----------------------------------
 # Embedded Computing on Xcode
 #
-# Copyright © Rei VILO, 2010-2014
+# Copyright © Rei VILO, 2010-2015
 # http://embedxcode.weebly.com
 # All rights reserved
 #
 #
-# Last update: Jun 21, 2013 release 54
+# Last update: Nov 26, 2014 release 234
 
 
 
+# Adafruit 1.0.x specifics
 # Arduino 1.0.x specifics
+# LittleRobotsFriends 1.0.x specifics
 # ----------------------------------
 #
-PLATFORM         := Arduino
-PLATFORM_TAG      = ARDUINO=105 EMBEDXCODE=$(RELEASE_NOW)
-APPLICATION_PATH := $(ARDUINO_PATH)
+ifneq ($(findstring LITTLEROBOTFRIENDS,$(GCC_PREPROCESSOR_DEFINITIONS)),)
+    PLATFORM         := LittleRobotFriends
+    PLATFORM_TAG      = ARDUINO=$(LITTLEROBOTFRIENDS_RELEASE) EMBEDXCODE=$(RELEASE_NOW) $(GCC_PREPROCESSOR_DEFINITIONS)
+    APPLICATION_PATH := $(LITTLEROBOTFRIENDS_PATH)
+    BOARDS_TXT       := $(LITTLEROBOTFRIENDS_BOARDS)
+    USER_LIBS_LIST   := $(filter-out 0,$(USER_LIBS_LIST)) LittleRobotFriends
+else ifneq ($(findstring ADAFRUIT,$(GCC_PREPROCESSOR_DEFINITIONS)),)
+	PLATFORM         := Adafruit
+	PLATFORM_TAG      = ARDUINO=$(ARDUINO_RELEASE) ADAFRUIT EMBEDXCODE=$(RELEASE_NOW)
+	APPLICATION_PATH := $(ARDUINO_PATH)
+	BOARDS_TXT       := $(APPLICATION_PATH)/hardware/arduino/boards.txt
+else
+    PLATFORM         := Arduino
+    PLATFORM_TAG      = ARDUINO=$(ARDUINO_RELEASE) EMBEDXCODE=$(RELEASE_NOW)
+    APPLICATION_PATH := $(ARDUINO_PATH)
+    BOARDS_TXT       := $(APPLICATION_PATH)/hardware/arduino/boards.txt
+endif
 
 APP_TOOLS_PATH   := $(APPLICATION_PATH)/hardware/tools/avr/bin
 CORE_LIB_PATH    := $(APPLICATION_PATH)/hardware/arduino/cores/arduino
 APP_LIB_PATH     := $(APPLICATION_PATH)/libraries
-BOARDS_TXT       := $(APPLICATION_PATH)/hardware/arduino/boards.txt
+
 
 # Sketchbook/Libraries path
 # wildcard required for ~ management
@@ -55,11 +71,14 @@ NM      = $(APP_TOOLS_PATH)/avr-nm
 
 # Specific AVRDUDE location and options
 #
-AVRDUDE_COM_OPTS  = -D -p$(MCU) -C$(AVRDUDE_CONF)
+#AVRDUDE_COM_OPTS  = -D -p$(MCU) -C$(AVRDUDE_CONF)
+AVRDUDE_COM_OPTS   = -p$(MCU) -C$(AVRDUDE_CONF)
 
 BOARD        = $(call PARSE_BOARD,$(BOARD_TAG),board)
 #LDSCRIPT     = $(call PARSE_BOARD,$(BOARD_TAG),ldscript)
-VARIANT      = $(call PARSE_BOARD,$(BOARD_TAG),build.variant)
+# Adafruit Pro Trinket uses arduino:eightanaloginputs
+a101         = $(call PARSE_BOARD,$(BOARD_TAG),build.variant)
+VARIANT      = $(patsubst arduino:%,%,$(a101))
 VARIANT_PATH = $(APPLICATION_PATH)/hardware/arduino/variants/$(VARIANT)
 
 MCU_FLAG_NAME  = mmcu
@@ -87,5 +106,5 @@ endif
 # Serial 1200 reset
 #
 ifeq ($(USB_TOUCH),avr109)
-    USB_RESET  = $(UTILITIES_PATH)/serial1200.py
+    USB_RESET  = python $(UTILITIES_PATH)/reset_1200.py
 endif

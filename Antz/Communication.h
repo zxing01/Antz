@@ -16,5 +16,7 @@
 #define LEN_ONE         1200
 #define LEN_ZERO        600
 #define LEN_INTR        600
+// preservation time for received data
+#define LEN_PRSV        (LEN_INTR * NUM_BITS * 6)
 
 #endif

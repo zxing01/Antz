@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0600"
+   LastUpgradeVersion = "0610"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3D98C178193E359D00B2FEA4"
+               BlueprintIdentifier = "3DD277A01A716FB900D3154B"
                BuildableName = "Index"
                BlueprintName = "Index"
                ReferencedContainer = "container:Antz.xcodeproj">
@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3D98C178193E359D00B2FEA4"
+            BlueprintIdentifier = "3DD277A01A716FB900D3154B"
             BuildableName = "Index"
             BlueprintName = "Index"
             ReferencedContainer = "container:Antz.xcodeproj">
@@ -51,7 +51,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3D98C178193E359D00B2FEA4"
+            BlueprintIdentifier = "3DD277A01A716FB900D3154B"
             BuildableName = "Index"
             BlueprintName = "Index"
             ReferencedContainer = "container:Antz.xcodeproj">
@@ -69,7 +69,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3D98C178193E359D00B2FEA4"
+            BlueprintIdentifier = "3DD277A01A716FB900D3154B"
             BuildableName = "Index"
             BlueprintName = "Index"
             ReferencedContainer = "container:Antz.xcodeproj">

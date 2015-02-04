@@ -9,24 +9,29 @@
 //
 //  Created by  Joel Saltzman on 4/12/13
 //  Copyright   (c) 2013 joelsaltzman.com
-//  License     All rigths reserved
+//  Licence     All rigths reserved
 //
-//  Maintained by Rei VILO on Mar 12, 2012
-//  Copyright   (c) 2012-2014 http://embedxcode.weebly.com
-//  License     All rights reserved
+//  Maintained by Rei Vilo on Mar 12, 2012
+//  Copyright   (c) 2010-2015 http://embedxcode.weebly.com
+//  Licence     All rights reserved
 //
-// Last update: Feb 06, 2014 release 131
+// Last update: Nov 07, 2014 release 233
 
 // Board identifier
 // See Boards.txt for .name=Arduino Uno (16 MHz)
 //
-BOARD_TAG = uno
+BOARD_TAG = atmega328
+
+// For Arduino 1.5.x, if different from Arduino 1.0.x
+//
+BOARD_TAG1 = diecimila
+BOARD_TAG2 = diecimila.menu.cpu.atmega328
 
 // Port (optionnal)
 // most common are /dev/tty.usbserial*, /dev/tty.usbmodem* or /dev/tty.uart*
 //
 BOARD_PORT = /dev/tty.usbserial*
-AVRDUDE_BAUDRATE = 57600
+//AVRDUDE_BAUDRATE = 57600
 
 // References for Xcode code-sense
 // See Boards.txt for .build.mcu=
@@ -36,7 +41,7 @@ GCC_PREPROCESSOR_DEFINITIONS = AVR_ATmega328P ARDUINO
 // Specify the full path and name of the application
 // with /Contents/Resources/Java/** after
 //
-HEADER_SEARCH_PATHS = /Applications/Arduino.app/Contents/Resources/Java/**
+HEADER_SEARCH_PATHS = /Applications/Arduino.app/Contents/Resources/Java/** /Applications/Arduino.app/Contents/Java/**
 
 // Maximum RAM size in bytes
 // given by <tag>.upload.maximum_ram_size in boards.txt for Maple and Teensy

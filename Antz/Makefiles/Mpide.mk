@@ -3,12 +3,12 @@
 # ----------------------------------
 # Embedded Computing on Xcode
 #
-# Copyright © Rei VILO, 2010-2014
+# Copyright © Rei VILO, 2010-2015
 # http://embedxcode.weebly.com
 # All rights reserved
 #
 #
-# Last update: Jan 20, 2014 release 125
+# Last update: Aug 08, 2014 release 173
 
 
 
@@ -25,7 +25,11 @@ APPLICATION_PATH := $(MPIDE_PATH)
 APP_TOOLS_PATH   := $(APPLICATION_PATH)/hardware/pic32/compiler/pic32-tools/bin
 CORE_LIB_PATH    := $(APPLICATION_PATH)/hardware/pic32/cores/pic32
 APP_LIB_PATH     := $(APPLICATION_PATH)/hardware/pic32/libraries
+
 BOARDS_TXT       := $(APPLICATION_PATH)/hardware/pic32/boards.txt
+ifeq ($(call PARSE_FILE,$(BOARD_TAG),name,$(BOARDS_TXT)),)
+    BOARDS_TXT   := $(APPLICATION_PATH)/hardware/pic32/variants/picadillo_35t/boards.txt
+endif
 
 # Sketchbook/Libraries path
 # wildcard required for ~ management
@@ -70,8 +74,11 @@ LDSCRIPT = $(call PARSE_BOARD,$(BOARD_TAG),ldscript)
 VARIANT  = $(call PARSE_BOARD,$(BOARD_TAG),build.variant)
 VARIANT_PATH = $(APPLICATION_PATH)/hardware/pic32/variants/$(VARIANT)
 
-MCU_FLAG_NAME  = mprocessor
+OPTIMISATION   = -O2
+
+MCU_FLAG_NAME    = mprocessor
 # chipKIT-application-COMMON.ld added by MPIDE release 0023-macosx-20130715
-EXTRA_LDFLAGS  = -T$(CORE_LIB_PATH)/$(LDSCRIPT) -T$(CORE_LIB_PATH)/chipKIT-application-COMMON.ld
-EXTRA_CPPFLAGS = -mdebugger -Wcast-align -O2 -mno-smart-io -G1024 $(addprefix -D, $(PLATFORM_TAG)) -D$(BOARD) -I$(VARIANT_PATH)
+EXTRA_LDFLAGS    = -T$(CORE_LIB_PATH)/$(LDSCRIPT) -T$(CORE_LIB_PATH)/chipKIT-application-COMMON.ld
+EXTRA_CPPFLAGS   = -fno-short-double -mdebugger -Wcast-align $(OPTIMISATION) -mno-smart-io -G1024 -Wa,--gdwarf-2
+EXTRA_CPPFLAGS  += $(addprefix -D, $(PLATFORM_TAG)) -D$(BOARD) -I$(VARIANT_PATH)
 

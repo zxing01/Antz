@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>Boards.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>Build.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -17,42 +22,47 @@
 		<key>Index.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>5</integer>
 		</dict>
 		<key>Serial.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>3</integer>
 		</dict>
 		<key>Upload.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>4</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>3D98C173193E359D00B2FEA4</key>
+		<key>3DD2779A1A716FB900D3154B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3D98C174193E359D00B2FEA4</key>
+		<key>3DD2779B1A716FB900D3154B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3D98C175193E359D00B2FEA4</key>
+		<key>3DD2779C1A716FB900D3154B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3D98C176193E359D00B2FEA4</key>
+		<key>3DD2779D1A716FB900D3154B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3D98C178193E359D00B2FEA4</key>
+		<key>3DD2779E1A716FB900D3154B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3DD277A01A716FB900D3154B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

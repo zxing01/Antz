@@ -3,7 +3,7 @@
 # ----------------------------------
 # Embedded Computing on Xcode
 #
-# Copyright © Rei VILO, 2010-2014
+# Copyright © Rei VILO, 2010-2015
 # http://embedxcode.weebly.com
 # All rights reserved
 #
@@ -30,10 +30,10 @@ PLATFORM_TAG      = MAPLE_IDE EMBEDXCODE=$(RELEASE_NOW)
 APPLICATION_PATH := $(MAPLE_PATH)
 
 UPLOADER          = dfu-util
-DFU_UTIL_PATH     = $(APPLICATION_PATH)/hardware/tools/arm/bin
-DFU_UTIL          = $(DFU_UTIL_PATH)/dfu-util
-DFU_UTIL_OPTS     = -a$(call PARSE_BOARD,$(BOARD_TAG),upload.altID) -d $(call PARSE_BOARD,$(BOARD_TAG),upload.usbID)
-DFU_RESET         = $(UTILITIES_PATH)/reset.py
+UPLOADER_PATH     = $(APPLICATION_PATH)/hardware/tools/arm/bin
+UPLOADER_EXEC          = $(UPLOADER_PATH)/dfu-util
+UPLOADER_OPTS     = -a$(call PARSE_BOARD,$(BOARD_TAG),upload.altID) -d $(call PARSE_BOARD,$(BOARD_TAG),upload.usbID)
+UPLOADER_RESET         = $(UTILITIES_PATH)/reset_maple.py
 
 APP_TOOLS_PATH   := $(APPLICATION_PATH)/hardware/tools/arm/bin
 CORE_LIB_PATH    := $(APPLICATION_PATH)/hardware/leaflabs/cores/maple
@@ -45,7 +45,7 @@ BOARDS_TXT       := $(APPLICATION_PATH)/hardware/leaflabs/boards.txt
 # ?ibraries required for libraries and Libraries
 #
 ifeq ($(USER_PATH)/Library/MapleIDE/preferences.txt,)
-    $(error Error: run Mpide once and define the sketchbook path)
+    $(error Error: run MapleIDE once and define the sketchbook path)
 endif
 
 ifeq ($(wildcard $(SKETCHBOOK_DIR)),)
@@ -74,8 +74,6 @@ OBJDUMP = $(APP_TOOLS_PATH)/arm-none-eabi-objdump
 OBJCOPY = $(APP_TOOLS_PATH)/arm-none-eabi-objcopy
 SIZE    = $(APP_TOOLS_PATH)/arm-none-eabi-size
 NM      = $(APP_TOOLS_PATH)/arm-none-eabi-nm
-
-lplm4f120h5qr.build.mcu=cortex-m4
 
 BOARD    = $(call PARSE_BOARD,$(BOARD_TAG),build.board)
 LDSCRIPT = $(call PARSE_BOARD,$(BOARD_TAG),build.linker)

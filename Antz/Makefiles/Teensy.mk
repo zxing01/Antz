@@ -3,12 +3,12 @@
 # ----------------------------------
 # Embedded Computing on Xcode
 #
-# Copyright © Rei VILO, 2010-2014
+# Copyright © Rei VILO, 2010-2015
 # http://embedxcode.weebly.com
 # All rights reserved
 #
 #
-# Last update: May 11, 2014 release 158
+# Last update: Oct 30, 2014 release 225
 
 
 
@@ -16,7 +16,7 @@
 # ----------------------------------
 #
 PLATFORM         := Teensy
-PLATFORM_TAG      = ARDUINO=105 TEENSYDUINO=118 EMBEDXCODE=$(RELEASE_NOW)
+PLATFORM_TAG      = ARDUINO=105 TEENSYDUINO=120 TEENSY_CORE EMBEDXCODE=$(RELEASE_NOW)
 APPLICATION_PATH := $(TEENSY_PATH)
 
 
@@ -33,7 +33,7 @@ else
     $(error $(BUILD_CORE) unknown) 
 endif
 
-# Teensy USB PID VID
+# Teensy USB kind, layout, PID and VID
 #
 USB_VID   := $(call PARSE_BOARD,$(BOARD_TAG),build.vid)
 USB_PID   := $(call PARSE_BOARD,$(BOARD_TAG),build.pid)

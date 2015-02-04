@@ -10,10 +10,10 @@
 #define __Antz__ServoSweep__
 
 #define SERVO_PIN     53
-#define SERVO_SPD     120 // per 60 degrees
-#define MIN_POS       10
-#define MAX_POS       170
-#define NUM_OF_STOPS  5
+#define SERVO_SPD     120.0 // per 60 degrees
+#define MIN_POS       10.0
+#define MAX_POS       170.0
+#define NUM_OF_STOPS  11
 #define INTERVAL      (MAX_POS - MIN_POS) / (NUM_OF_STOPS - 1)
 
 #include <Arduino.h>
@@ -25,7 +25,7 @@ namespace Antz {
     public:
         ServoSweep();
         void startup();
-        void sweep(double *left, double *right, double* closest);
+        double sweep(double* angle);
     private:
         bool forward;
         Servo servo;

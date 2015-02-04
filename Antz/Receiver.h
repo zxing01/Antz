@@ -22,8 +22,6 @@
 #define RECV_PIN3       18
 #define RECV_PIN4       2
 #define RECV_PIN5       3
-// preservation time for received data
-#define LEN_PRSV        26400 // (LEN_SIGN + LEN_INTR * NUM_BITS + LEN_ZERO * NUM_BITS/2 + LEN_ONE * NUM_BITS/2)
 // signal tolerance
 #define TOLERANCE       0.25
 #define LOW_LEN(us)     (int) (us * (1.0 - TOLERANCE))

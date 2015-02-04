@@ -3,22 +3,25 @@
 # ----------------------------------
 # Embedded Computing on Xcode
 #
-# Copyright © Rei VILO, 2010-2014
+# Copyright © Rei VILO, 2010-2015
 # http://embedxcode.weebly.com
 # All rights reserved
 #
 #
-# Last update: Dec 10, 2013 release 119
+# Last update: Jul 05, 2014 release 165
 
 
 
 # Energia LaunchPad MSP430 and FR5739 specifics
 # ----------------------------------
 #
-PLATFORM         := Energia
-PLATFORM_TAG      = ENERGIA=9 ARDUINO=101 EMBEDXCODE=$(RELEASE_NOW) $(filter __%__ ,$(GCC_PREPROCESSOR_DEFINITIONS))
-#PLATFORM_TAG      = ENERGIA=9 ARDUINO=101 EMBEDXCODE=$(RELEASE_NOW) $(filter-out ENERGIA,$(GCC_PREPROCESSOR_DEFINITIONS))
 APPLICATION_PATH := $(ENERGIA_PATH)
+ENERGIA_RELEASE  := $(shell tail -c2 $(APPLICATION_PATH)/lib/version.txt)
+ARDUINO_RELEASE  := $(shell head -c4 $(APPLICATION_PATH)/lib/version.txt | tail -c3)
+
+PLATFORM         := Energia
+BUILD_CORE       := msp430
+PLATFORM_TAG      = ENERGIA=$(ENERGIA_RELEASE) ARDUINO=$(ARDUINO_RELEASE) EMBEDXCODE=$(RELEASE_NOW) $(filter __%__ ,$(GCC_PREPROCESSOR_DEFINITIONS))
 
 UPLOADER          = mspdebug
 MSPDEBUG_PATH     = $(APPLICATION_PATH)/hardware/tools/msp430/mspdebug
@@ -70,12 +73,13 @@ OBJDUMP = $(APP_TOOLS_PATH)/msp430-objdump
 OBJCOPY = $(APP_TOOLS_PATH)/msp430-objcopy
 SIZE    = $(APP_TOOLS_PATH)/msp430-size
 NM      = $(APP_TOOLS_PATH)/msp430-nm
-GDB     = $(APP_TOOLS_PATH)/msp430-gdb
 
 BOARD          = $(call PARSE_BOARD,$(BOARD_TAG),board)
 #LDSCRIPT = $(call PARSE_BOARD,$(BOARD_TAG),ldscript)
 VARIANT        = $(call PARSE_BOARD,$(BOARD_TAG),build.variant)
 VARIANT_PATH   = $(APPLICATION_PATH)/hardware/msp430/variants/$(VARIANT)
+
+OPTIMISATION   = -Os
 
 MCU_FLAG_NAME  = mmcu
 EXTRA_LDFLAGS  =

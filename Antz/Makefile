@@ -3,7 +3,7 @@
 # ----------------------------------
 # Embedded Computing on Xcode
 #
-# Copyright © Rei VILO, 2010-2014
+# Copyright © Rei VILO, 2010-2015
 # All rights reserved
 # http://embedxcode.weebly.com
 #
@@ -22,14 +22,14 @@
 # default = 0 = none
 #
 # ARDUINO = EEPROM Esplora Ethernet Firmata GSM 
-#	LiquidCrystal Robot_Control Robot_Motor SD 
+#	LiquidCrystal Robot_Control Robot_Motor SD Servo SoftwareSerial SPI 
+#	Stepper TFT WiFi Wire 
 #
 APP_LIBS_LIST = Servo
 
 # List user's libraries here 
 # default = 0 = none
 #
-
 #
 USER_LIBS_LIST = 0
 

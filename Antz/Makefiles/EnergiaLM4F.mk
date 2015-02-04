@@ -3,22 +3,29 @@
 # ----------------------------------
 # Embedded Computing on Xcode
 #
-# Copyright © Rei VILO, 2010-2014
+# Copyright © Rei VILO, 2010-2015
 # http://embedxcode.weebly.com
 # All rights reserved
 #
 #
-# Last update: Mar 01, 2014 release 136
+# Last update: Sep 06, 2014 release 176
 
 
 
 # Energia LaunchPad Stellaris and Tiva C specifics
 # ----------------------------------
 #
-PLATFORM         := Energia
-PLATFORM_TAG      = ENERGIA=9 ARDUINO=101 EMBEDXCODE=$(RELEASE_NOW) $(filter __%__ ,$(GCC_PREPROCESSOR_DEFINITIONS))
-#PLATFORM_TAG      = ENERGIA=9 ARDUINO=101 EMBEDXCODE=$(RELEASE_NOW) $(filter-out ENERGIA,$(GCC_PREPROCESSOR_DEFINITIONS))
 APPLICATION_PATH := $(ENERGIA_PATH)
+ENERGIA_RELEASE  := $(shell tail -c2 $(APPLICATION_PATH)/lib/version.txt)
+ARDUINO_RELEASE  := $(shell head -c4 $(APPLICATION_PATH)/lib/version.txt | tail -c3)
+
+ifeq ($(shell if [[ '$(ENERGIA_RELEASE)' -ge '13' ]] ; then echo 1 ; else echo 0 ; fi ),0)
+    $(error Energia release 13 required.)
+endif
+
+PLATFORM         := Energia
+BUILD_CORE       := tm4c
+PLATFORM_TAG      = ENERGIA=$(ENERGIA_RELEASE) ARDUINO=$(ARDUINO_RELEASE) EMBEDXCODE=$(RELEASE_NOW) $(filter __%__ ,$(GCC_PREPROCESSOR_DEFINITIONS))
 
 UPLOADER          = lm4flash
 LM4FLASH_PATH     = $(APPLICATION_PATH)/hardware/tools
@@ -39,13 +46,9 @@ BUILD_CORE_LIBS_LIST = $(subst .h,,$(subst $(BUILD_CORE_LIB_PATH)/,,$(wildcard $
 
 BUILD_CORE_C_SRCS    = $(wildcard $(BUILD_CORE_LIB_PATH)/*.c) # */
 
-ifneq ($(strip $(NO_CORE_MAIN_FUNCTION)),)
-    BUILD_CORE_CPP_SRCS = $(filter-out %program.cpp %main.cpp,$(wildcard $(BUILD_CORE_LIB_PATH)/*.cpp)) # */
-else
-    BUILD_CORE_CPP_SRCS = $(filter-out %program.cpp, $(wildcard $(BUILD_CORE_LIB_PATH)/*.cpp)) # */
-endif
+BUILD_CORE_CPP_SRCS = $(filter-out %program.cpp %main.cpp,$(wildcard $(BUILD_CORE_LIB_PATH)/*.cpp)) # */
 
-BUILD_CORE_OBJ_FILES  = $(BUILD_CORE_C_SRCS:.c=.o) $(BUILD_CORE_CPP_SRCS:.cpp=.o)
+BUILD_CORE_OBJ_FILES  = $(BUILD_CORE_C_SRCS:.c=.c.o) $(BUILD_CORE_CPP_SRCS:.cpp=.cpp.o)
 BUILD_CORE_OBJS       = $(patsubst $(BUILD_CORE_LIB_PATH)/%,$(OBJDIR)/%,$(BUILD_CORE_OBJ_FILES))
 
 # Sketchbook/Libraries path
@@ -81,7 +84,6 @@ OBJDUMP = $(APP_TOOLS_PATH)/arm-none-eabi-objdump
 OBJCOPY = $(APP_TOOLS_PATH)/arm-none-eabi-objcopy
 SIZE    = $(APP_TOOLS_PATH)/arm-none-eabi-size
 NM      = $(APP_TOOLS_PATH)/arm-none-eabi-nm
-GDB     = $(APP_TOOLS_PATH)/arm-none-eabi-gdb
 
 
 BOARD    = $(call PARSE_BOARD,$(BOARD_TAG),board)
@@ -89,13 +91,15 @@ LDSCRIPT = $(call PARSE_BOARD,$(BOARD_TAG),ldscript)
 VARIANT  = $(call PARSE_BOARD,$(BOARD_TAG),build.variant)
 VARIANT_PATH = $(APPLICATION_PATH)/hardware/lm4f/variants/$(VARIANT)
 
+OPTIMISATION   = -Os
+
 MCU_FLAG_NAME   = mcpu
 EXTRA_LDFLAGS   = -nostartfiles -T$(CORE_LIB_PATH)/$(LDSCRIPT) -Wl,--gc-sections -Wl,-Map=$(OBJDIR)/lm4f.map
 EXTRA_LDFLAGS  += -mthumb --entry=ResetISR
 EXTRA_LDFLAGS  += -mfloat-abi=hard -mfpu=fpv4-sp-d16 -fsingle-precision-constant -nostdlib
 
 EXTRA_CPPFLAGS  = $(addprefix -D, $(PLATFORM_TAG)) -I$(VARIANT_PATH)
-EXTRA_CPPFLAGS += -fno-exceptions -fno-rtti -mthumb
+EXTRA_CPPFLAGS += -fno-exceptions -fno-rtti -mthumb $(OPTIMISATION)
 EXTRA_CPPFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16 -fsingle-precision-constant
 
 OBJCOPYFLAGS  = -v -Obinary 

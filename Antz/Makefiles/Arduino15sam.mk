@@ -3,12 +3,12 @@
 # ----------------------------------
 # Embedded Computing on Xcode
 #
-# Copyright © Rei VILO, 2010-2014
+# Copyright © Rei VILO, 2010-2015
 # http://embedxcode.weebly.com
 # All rights reserved
 #
 #
-# Last update: May 14, 2014 release 159
+# Last update: Sep 06, 2014 release 176
 
 # ARDUINO 1.5.X IS STILL IN BETA, UNSTABLE AND PRONE TO BUGS
 WARNING_MESSAGE = 'ARDUINO 1.5.X IS STILL IN BETA, UNSTABLE AND PRONE TO BUGS'
@@ -19,10 +19,17 @@ WARNING_MESSAGE = 'ARDUINO 1.5.X IS STILL IN BETA, UNSTABLE AND PRONE TO BUGS'
 #
 PLATFORM         := Arduino
 BUILD_CORE       := sam
-PLATFORM_TAG      = ARDUINO=155 ARDUINO_ARCH_SAM EMBEDXCODE=$(RELEASE_NOW)
+PLATFORM_TAG      = ARDUINO=$(ARDUINO_RELEASE) ARDUINO_ARCH_SAM EMBEDXCODE=$(RELEASE_NOW)
 APPLICATION_PATH := $(ARDUINO_PATH)
 
-APP_TOOLS_PATH   := $(APPLICATION_PATH)/hardware/tools/g++_arm_none_eabi/bin
+# New GCC for ARM tool-suite
+#
+ifeq ($(wildcard $(APPLICATION_PATH)/hardware/tools/g++_arm_none_eabi),)
+    APP_TOOLS_PATH   := $(APPLICATION_PATH)/hardware/tools/gcc-arm-none-eabi-4.8.3-2014q1/bin
+else
+    APP_TOOLS_PATH   := $(APPLICATION_PATH)/hardware/tools/g++_arm_none_eabi/bin
+endif
+
 CORE_LIB_PATH    := $(APPLICATION_PATH)/hardware/arduino/sam/cores/arduino
 APP_LIB_PATH     := $(APPLICATION_PATH)/libraries
 BOARDS_TXT       := $(APPLICATION_PATH)/hardware/arduino/sam/boards.txt
@@ -41,7 +48,7 @@ BOSSAC_OPTS       = --port=$(BOSSAC_PORT) -U false -e -w -v -b
 # wildcard required for ~ management
 # ?ibraries required for libraries and Libraries
 #
-ifeq ($(USER_PATH)/Library/Arduino/preferences.txt,)
+ifeq ($(USER_PATH)/Library/Arduino15/preferences.txt,)
     $(error Error: run Arduino once and define the sketchbook path)
 endif
 
@@ -78,7 +85,7 @@ LDSCRIPT = $(call PARSE_BOARD,$(BOARD_TAG),build.ldscript)
 VARIANT  = $(call PARSE_BOARD,$(BOARD_TAG),build.variant)
 VARIANT_PATH = $(APPLICATION_PATH)/hardware/arduino/sam/variants/$(VARIANT)
 VARIANT_CPP_SRCS  = $(wildcard $(VARIANT_PATH)/*.cpp) # */  $(VARIANT_PATH)/*/*.cpp #*/
-VARIANT_OBJ_FILES = $(VARIANT_CPP_SRCS:.cpp=.o)
+VARIANT_OBJ_FILES = $(VARIANT_CPP_SRCS:.cpp=.cpp.o)
 VARIANT_OBJS      = $(patsubst $(VARIANT_PATH)/%,$(OBJDIR)/%,$(VARIANT_OBJ_FILES))
 
 SYSTEM_LIB  = $(call PARSE_BOARD,$(BOARD_TAG),build.variant_system_lib)
@@ -91,14 +98,14 @@ SYSTEM_OBJS = $(SYSTEM_PATH)/$(SYSTEM_LIB)
 BUILD_APP_LIB_PATH  = $(APPLICATION_PATH)/hardware/arduino/$(BUILD_CORE)/libraries
 
 ifndef APP_LIBS_LIST
-    w1             = $(realpath $(sort $(dir $(wildcard $(APP_LIB_PATH)/*/*.h $(APP_LIB_PATH)/*/*/*.h $(APP_LIB_PATH)/*/*/*/*.h)))) # */
-    APP_LIBS_LIST  = $(subst $(APP_LIB_PATH)/,,$(filter-out $(EXCLUDE_LIST),$(w1)))
+    a1501             = $(realpath $(sort $(dir $(wildcard $(APP_LIB_PATH)/*/*.h $(APP_LIB_PATH)/*/*/*.h $(APP_LIB_PATH)/*/*/*/*.h)))) # */
+    APP_LIBS_LIST  = $(subst $(APP_LIB_PATH)/,,$(filter-out $(EXCLUDE_LIST),$(a1501)))
 
-    w2             = $(realpath $(sort $(dir $(wildcard $(BUILD_APP_LIB_PATH)/*/*.h $(BUILD_APP_LIB_PATH)/*/*/*.h $(BUILD_APP_LIB_PATH)/*/*/*/*.h)))) # */
-    BUILD_APP_LIBS_LIST = $(subst $(BUILD_APP_LIB_PATH)/,,$(filter-out $(EXCLUDE_LIST),$(w2)))
+    a1502             = $(realpath $(sort $(dir $(wildcard $(BUILD_APP_LIB_PATH)/*/*.h $(BUILD_APP_LIB_PATH)/*/*/*.h $(BUILD_APP_LIB_PATH)/*/*/*/*.h)))) # */
+    BUILD_APP_LIBS_LIST = $(subst $(BUILD_APP_LIB_PATH)/,,$(filter-out $(EXCLUDE_LIST),$(a1502)))
 else
-    w2             = $(realpath $(sort $(dir $(wildcard $(BUILD_APP_LIB_PATH)/*/*.h $(BUILD_APP_LIB_PATH)/*/*/*.h $(BUILD_APP_LIB_PATH)/*/*/*/*.h)))) # */
-    BUILD_APP_LIBS_LIST = $(subst $(BUILD_APP_LIB_PATH)/,,$(filter-out $(EXCLUDE_LIST),$(w2)))
+    a1502             = $(realpath $(sort $(dir $(wildcard $(BUILD_APP_LIB_PATH)/*/*.h $(BUILD_APP_LIB_PATH)/*/*/*.h $(BUILD_APP_LIB_PATH)/*/*/*/*.h)))) # */
+    BUILD_APP_LIBS_LIST = $(subst $(BUILD_APP_LIB_PATH)/,,$(filter-out $(EXCLUDE_LIST),$(a1502)))
 endif
 
 
@@ -106,23 +113,23 @@ endif
 # Another example of Arduino's quick and dirty job
 #
 ifneq ($(APP_LIBS_LIST),0)
-    w3              = $(patsubst %,$(APP_LIB_PATH)/%/src,$(APP_LIBS_LIST))
-    w3             += $(patsubst %,$(APP_LIB_PATH)/%/arch/$(BUILD_CORE),$(APP_LIBS_LIST))
-    APP_LIBS        = $(realpath $(sort $(dir $(foreach dir,$(w3),$(wildcard $(dir)/*.h $(dir)/*/*.h $(dir)/*/*/*.h))))) # */
+    a1503              = $(patsubst %,$(APP_LIB_PATH)/%/src,$(APP_LIBS_LIST))
+    a1503             += $(patsubst %,$(APP_LIB_PATH)/%/arch/$(BUILD_CORE),$(APP_LIBS_LIST))
+    APP_LIBS        = $(realpath $(sort $(dir $(foreach dir,$(a1503),$(wildcard $(dir)/*.h $(dir)/*/*.h $(dir)/*/*/*.h))))) # */
 
-    APP_LIB_CPP_SRC = $(wildcard $(patsubst %,%/*.cpp,$(APP_LIBS))) # */
-    APP_LIB_C_SRC   = $(wildcard $(patsubst %,%/*.c,$(APP_LIBS))) # */
+    APP_LIB_CPP_SRC = $(realpath $(sort $(foreach dir,$(APP_LIBS),$(wildcard $(dir)/*.cpp $(dir)/*/*.cpp $(dir)/*/*/*.cpp))))
+    APP_LIB_C_SRC   = $(realpath $(sort $(foreach dir,$(APP_LIBS),$(wildcard $(dir)/*.c $(dir)/*/*.c $(dir)/*/*/*.c))))
 
-    APP_LIB_OBJS    = $(patsubst $(APP_LIB_PATH)/%.cpp,$(OBJDIR)/libs/%.o,$(APP_LIB_CPP_SRC))
-    APP_LIB_OBJS   += $(patsubst $(APP_LIB_PATH)/%.c,$(OBJDIR)/libs/%.o,$(APP_LIB_C_SRC))
+    APP_LIB_OBJS    = $(patsubst $(APP_LIB_PATH)/%.cpp,$(OBJDIR)/libs/%.cpp.o,$(APP_LIB_CPP_SRC))
+    APP_LIB_OBJS   += $(patsubst $(APP_LIB_PATH)/%.c,$(OBJDIR)/libs/%.c.o,$(APP_LIB_C_SRC))
 
     BUILD_APP_LIBS        = $(patsubst %,$(BUILD_APP_LIB_PATH)/%,$(BUILD_APP_LIBS_LIST))
 
     BUILD_APP_LIB_CPP_SRC = $(wildcard $(patsubst %,%/*.cpp,$(BUILD_APP_LIBS))) # */
     BUILD_APP_LIB_C_SRC   = $(wildcard $(patsubst %,%/*.c,$(BUILD_APP_LIBS))) # */
 
-    BUILD_APP_LIB_OBJS    = $(patsubst $(BUILD_APP_LIB_PATH)/%.cpp,$(OBJDIR)/libs/%.o,$(BUILD_APP_LIB_CPP_SRC))
-    BUILD_APP_LIB_OBJS   += $(patsubst $(BUILD_APP_LIB_PATH)/%.c,$(OBJDIR)/libs/%.o,$(BUILD_APP_LIB_C_SRC))
+    BUILD_APP_LIB_OBJS    = $(patsubst $(BUILD_APP_LIB_PATH)/%.cpp,$(OBJDIR)/libs/%.cpp.o,$(BUILD_APP_LIB_CPP_SRC))
+    BUILD_APP_LIB_OBJS   += $(patsubst $(BUILD_APP_LIB_PATH)/%.c,$(OBJDIR)/libs/%.c.o,$(BUILD_APP_LIB_C_SRC))
 endif
 
 SYSTEM_FLAGS    = -I$(APPLICATION_PATH)/hardware/arduino/sam/system/libsam 
@@ -135,6 +142,8 @@ EXTRA_LDFLAGS   = -T$(VARIANT_PATH)/$(LDSCRIPT) -Wl,-Map,Builds/embeddedcomputin
 EXTRA_LDFLAGS  += -lgcc -mthumb -Wl,--cref -Wl,--check-sections -Wl,--gc-sections -Wl,--entry=Reset_Handler 
 EXTRA_LDFLAGS  += -Wl,--unresolved-symbols=report-all -Wl,--warn-common -Wl,--warn-section-align 
 EXTRA_LDFLAGS  += -Wl,--warn-unresolved-symbols
+
+LDFLAGS         = -$(MCU_FLAG_NAME)=$(MCU) -lm -Wl,--gc-sections,-u,main $(OPTIMISATION) $(EXTRA_LDFLAGS)
 
 EXTRA_CPPFLAGS  = -I$(VARIANT_PATH) $(addprefix -D, $(PLATFORM_TAG)) -D__SAM3X8E__ -mthumb -fno-rtti
 EXTRA_CPPFLAGS += -nostdlib --param max-inline-insns-single=500 -Dprintf=iprintf $(SYSTEM_FLAGS)
@@ -154,5 +163,5 @@ USB_FLAGS += -DUSBCON
 # Arduino Due serial 1200 reset
 #
 USB_TOUCH := $(call PARSE_BOARD,$(BOARD_TAG),upload.protocol)
-USB_RESET  = $(UTILITIES_PATH)/serial1200.py
+USB_RESET  = python $(UTILITIES_PATH)/reset_1200.py
 
