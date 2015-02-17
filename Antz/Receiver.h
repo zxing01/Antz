@@ -48,7 +48,6 @@ namespace Antz {
         
         Receiver();
         uint32_t recvFrom(uint8_t index); // index is 0 - 5, 6 IR receivers, will return 0 if the receiver's not ready or the index is invalid
-        void getMax(uint32_t *value, uint8_t *index); // defaults are 0
         
         static void stateTransit(volatile RecvState &recver);
         static volatile RecvState recver0;

@@ -52,36 +52,6 @@ uint32_t Receiver::recvFrom(uint8_t index) {
 }
 
 ////////////////////////////////////////////////////////////////
-void Receiver::getMax(uint32_t *value, uint8_t *index) {
-    *value = 0;
-    *index = 0;
-
-#ifdef DEBUG
-    Serial.print(" # Antz::Receiver --");
-#endif
-    
-    for (uint8_t i = 0; i < 6; ++i) {
-        uint32_t temp = recvFrom(i);
-        
-#ifdef DEBUG
-        Serial.print(" PIN");
-        Serial.print(i);
-        Serial.print(":");
-        Serial.print(temp);
-#endif
-        
-        if (*value < temp) {
-            *value = temp;
-            *index = i;
-        }
-    }
-    
-#ifdef DEBUG
-    Serial.println();
-#endif
-}
-
-////////////////////////////////////////////////////////////////
 uint32_t Receiver::getData(volatile RecvState &recver) {
     uint32_t ret = 0;
     if (recver.state == STATE_DONE) {

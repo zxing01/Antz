@@ -11,17 +11,14 @@
 using namespace Antz;
 
 ////////////////////////////////////////////////////////////////
-Sender::Sender() : on(false) {
+Sender::Sender() {
     TIMSK1 = 0; //Timer2 Overflow Interrupt
     pinMode(TIMER_PWM_PIN, OUTPUT);
     digitalWrite(TIMER_PWM_PIN, LOW); // When not sending PWM, we want it low
 }
 
 ////////////////////////////////////////////////////////////////
-void Sender::send(uint32_t data, uint32_t duration) {
-    if (!on)
-        return;
-    
+void Sender::send(uint32_t data, uint32_t duration) {    
     uint8_t original = EIMSK;
     EIMSK = 0; // disable external interrupts
     
@@ -41,21 +38,6 @@ void Sender::send(uint32_t data, uint32_t duration) {
     } while (millis() - cur < duration);
     
     EIMSK = original; // enable external interrupts
-}
-
-////////////////////////////////////////////////////////////////
-void Sender::startup() {
-    on = true;
-}
-
-////////////////////////////////////////////////////////////////
-void Sender::shutdown() {
-    on = false;
-}
-
-////////////////////////////////////////////////////////////////
-bool Sender::isOn() {
-    return on;
 }
 
 ////////////////////////////////////////////////////////////////
