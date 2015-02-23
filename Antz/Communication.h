@@ -10,7 +10,7 @@
 #define __Antz__Communication__
 
 // number of bits in a signal
-#define NUM_BITS        16
+#define NUM_BITS        32
 // signal length in microseconds
 #define LEN_SIGN        2400
 #define LEN_ONE         1200

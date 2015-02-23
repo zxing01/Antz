@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3D2278081A716FB900D3154B /* Antz.ino in Sources */ = {isa = PBXBuildFile; fileRef = 3DD278081A716FB900D3154B /* Antz.ino */; };
+		3D4CA2AD1A96650A0045B78E /* Display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4CA2AB1A96650A0045B78E /* Display.cpp */; };
 		3DD277A51A716FB900D3154B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD277A41A716FB900D3154B /* main.cpp */; };
 		3DD278301A71703B00D3154B /* AntzBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2781D1A71703B00D3154B /* AntzBase.cpp */; };
 		3DD278311A71703B00D3154B /* Beacon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2781F1A71703B00D3154B /* Beacon.cpp */; };
@@ -299,6 +300,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D4CA2AB1A96650A0045B78E /* Display.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Display.cpp; sourceTree = "<group>"; };
+		3D4CA2AC1A96650A0045B78E /* Display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Display.h; sourceTree = "<group>"; };
 		3DD277A11A716FB900D3154B /* Index */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Index; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DD277A41A716FB900D3154B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		3DD277A61A716FB900D3154B /* Makefile */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
@@ -711,6 +714,8 @@
 				3DD278211A71703B00D3154B /* Communication.h */,
 				3DD278221A71703B00D3154B /* Infrared.cpp */,
 				3DD278231A71703B00D3154B /* Infrared.h */,
+				3D4CA2AB1A96650A0045B78E /* Display.cpp */,
+				3D4CA2AC1A96650A0045B78E /* Display.h */,
 				3DD278241A71703B00D3154B /* Motor.cpp */,
 				3DD278251A71703B00D3154B /* Motor.h */,
 				3DD278261A71703B00D3154B /* Receiver.cpp */,
@@ -1621,6 +1626,7 @@
 				AA2A150122125003AA00006E /* Boards.h in Sources */,
 				AA2A150122125003AA00006F /* Firmata.cpp in Sources */,
 				AA2A150122125003AA000070 /* Firmata.h in Sources */,
+				3D4CA2AD1A96650A0045B78E /* Display.cpp in Sources */,
 				AA2A150122125003AA000072 /* GSM.h in Sources */,
 				AA2A150122125003AA000073 /* GSM3CircularBuffer.cpp in Sources */,
 				AA2A150122125003AA000074 /* GSM3CircularBuffer.h in Sources */,

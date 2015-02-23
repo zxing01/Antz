@@ -22,6 +22,9 @@
 #include "Motor.h"
 #include "Infrared.h"
 #include "ServoSweep.h"
+#include "Display.h"
+
+#define ID ((uint32_t)4)
 
 using namespace Antz;
 
@@ -30,41 +33,73 @@ Receiver recver;
 Motor motor;
 ServoSweep servo;
 Infrared ir;
-double leftDistance, rightDistance, closestDistance;
-bool reach = false;
-uint8_t target = 1;
+Display display;
+
+uint8_t target = 1; // 0 - nest, 1 - food
+uint8_t state = 0; // 0 - walker, 1 - beacon
 
 ////////////////////////////////////////////////////////////////
-void reachTower() {
-    if (reach)
-        return;
-    
-    double angle;
-    while (servo.sweep(&angle) <= 15) {
-        motor.changeSpeed(1);
-        motor.backward();
-        delay(500);
-        motor.changeSpeed(0.5);
-        motor.turnLeftInPlace();
-    }
-    
-    uint32_t max;
-    uint8_t max_index;
-    //recver.getMax(&max, &max_index);
-    
-    //Serial.println(max);
-    //delay(500);
-    
-    if (max == 10) {
-        reach = true;
-        motor.stop();
-    }
-    else {
-        if (max_index == 0) {
+void walker() {
+    uint16_t id1 = 0;
+    uint16_t id2 = 0;
+    unsigned long cur = millis();
+
+    do {
+        double angle;
+        while (servo.sweep(&angle) <= 10) {
+            motor.changeSpeed(1);
+            motor.backward();
+            delay(500);
+            motor.changeSpeed(0.5);
+            motor.turnLeftInPlace();
+        }
+        
+        uint8_t min = 0xFF;
+        uint8_t index = 0;
+        
+        for (int i = 0; i < 6; ++i) {
+            uint32_t number = recver.recvFrom(i);
+            uint16_t id = (uint16_t)(number >> 16);
+            if (id1 == 0 || id1 == id)
+                id1 = id;
+            else if (id > 0)
+                id2 = id;
+            
+            Serial.print(" number = ");
+            Serial.print(number, BIN);
+            Serial.print(" i = ");
+            Serial.println(i);
+            
+            if (target == 0) { // going towards nest
+                uint8_t nest = (uint8_t)(number & 0xFF);
+                if (nest == 1)
+                    target = 1;
+                else if (nest > 0 && nest < min) {
+                    min = nest;
+                    index = i;
+                }
+            }
+            else if (target == 1) {
+                uint8_t food = (uint8_t)(number >> 8);
+                if (food == 1)
+                    target = 0;
+                else if (food > 0 && food < min) {
+                    min = food;
+                    index = i;
+                }
+            }
+        }
+        
+        //Serial.print(" signal = ");
+        //Serial.print(min);
+        //Serial.print(" index = ");
+        //Serial.println(index);
+        
+        if (index == 0) {
             motor.changeSpeed(1);
             motor.forward();
         }
-        else if (max_index < 3) {
+        else if (index < 3) {
             motor.changeSpeed(0.5);
             motor.turnRightInPlace();
         }
@@ -72,81 +107,38 @@ void reachTower() {
             motor.changeSpeed(0.5);
             motor.turnLeftInPlace();
         }
-    }
-}
-
-////////////////////////////////////////////////////////////////
-void walker() {
-    double angle;
-    while (servo.sweep(&angle) <= 10) {
-        motor.changeSpeed(1);
-        motor.backward();
-        delay(500);
-        motor.changeSpeed(0.5);
-        motor.turnLeftInPlace();
-    }
+    } while (millis() - cur < 3000);
     
-    uint8_t min = 0xFF;
-    uint8_t index = 0;
-    
-    for (int i = 0; i < 6; ++i) {
-        uint16_t number = recver.recvFrom(i);
-        
-        Serial.print(" number = ");
-        Serial.print(number, BIN);
-        Serial.print(" i = ");
-        Serial.println(i);
-        
-        if (target == 0) { // going towards nest
-            uint8_t nest = (uint8_t)(number & 0xFF);
-            if (nest == 1)
-                target = !target;
-            else if (nest > 0 && nest < min) {
-                min = nest;
-                index = i;
-            }
-        }
-        else if (target == 1) {
-            uint8_t food = (uint8_t)(number >> 8);
-            if (food == 1)
-                target = !target;
-            else if (food > 0 && food < min) {
-                min = food;
-                index = i;
-            }
-        }
-    }
-    
-    Serial.print(" signal = ");
-    Serial.print(min);
-    Serial.print(" index = ");
-    Serial.println(index);
-    
-    if (index == 0) {
-        motor.changeSpeed(1);
-        motor.forward();
-    }
-    else if (index < 3) {
-        motor.changeSpeed(0.5);
-        motor.turnRightInPlace();
-    }
-    else {
-        motor.changeSpeed(0.5);
-        motor.turnLeftInPlace();
-    }
+    if (id2 == 0) // become beacon
+        state = 1;
 }
 
 ////////////////////////////////////////////////////////////////
 void beacon() {
-    while (1) {
-        motor.changeSpeed(0.5);
-        motor.turnLeftInPlace();
+    motor.changeSpeed(0.5);
+    motor.turnLeftInPlace();
+
+    uint16_t id1 = 0;
+    uint16_t id2 = 0;
+    uint16_t id3 = 0;
+    unsigned long cur = millis();
+    
+    do {
         uint16_t minFood = 0x00FF;
         uint16_t minNest = 0x00FF;
-        unsigned long cur = millis();
+        unsigned long cur2 = millis();
         do {
             for (int i = 0; i < 6; ++i) {
-                uint16_t number = recver.recvFrom(i);
+                uint32_t number = recver.recvFrom(i);
+                uint16_t id = (uint16_t)(number >> 16);
+                
+                if (id1 == 0 || id1 == id)
+                    id1 = id;
+                else if (id2 == 0 || id2 == id)
+                    id2 = id;
+                else if (id > 0)
+                    id3 = id;
+                
                 uint8_t nest = (uint8_t)(number & 0xFF);
                 uint8_t food = (uint8_t)(number >> 8);
                 if (nest > 0 && nest < minNest)
@@ -154,30 +146,31 @@ void beacon() {
                 if (food > 0 && food < minFood)
                     minFood = food;
             }
-        } while (millis() - cur < 1000);
+        } while (millis() - cur2 < 1000);
         
-        Serial.print(" minNest: ");
-        Serial.print(minNest);
-        Serial.print(" minFood: ");
-        Serial.println(minFood);
+        //Serial.print(" minNest: ");
+        //Serial.print(minNest);
+        //Serial.print(" minFood: ");
+        //Serial.println(minFood);
         
-        uint16_t myNumber = 0xFFFF;
+        uint32_t myNumber = (ID << 16) | 0xFFFF;
         if (minNest < (uint16_t)0x00FF)
             myNumber = (myNumber & 0xFF00) | (minNest + 1);
         if (minFood < (uint16_t)0x00FF)
             myNumber = (myNumber & 0x00FF) | ((minFood + 1) << 8);
         Serial.print(" Send: ");
-        Serial.print(myNumber, BIN);
+        Serial.print(myNumber, HEX);
         Serial.print(" nest = ");
         Serial.print(minNest + 1);
         Serial.print(" food = ");
         Serial.println(minFood + 1);
         
-        for (int i = 0; i < 50; ++i) {
+        for (int i = 0; i < 50; ++i)
             sender.send(myNumber, 0);
-            delay(random(50));
-        }
-    }
+    } while (millis() - cur < 3000);
+    
+    if (id3 != 0)
+        state = 0;
 }
 
 ////////////////////////////////////////////////////////////////
@@ -189,5 +182,40 @@ void setup() {
 
 ////////////////////////////////////////////////////////////////
 void loop() {
-    walker();
+    //if (state == 0)
+        //walker();
+    //else if (state == 1)
+        //beacon();
+    //motor.changeSpeed(0.5);
+    //motor.turnLeftInPlace();
+    //sender.send(0x0001, 0);
+    /*
+    display.red(true);
+    delay(500);
+    display.red(false);
+    delay(500);
+    
+    display.green(true);
+    delay(500);
+    display.green(false);
+    delay(500);
+    
+    display.blue(true);
+    delay(500);
+    display.blue(false);
+    delay(500);
+    
+    display.yellow(true);
+    delay(500);
+    display.yellow(false);
+    delay(500);
+         */
+    for (int i = 0; i < 10; ++i) {
+        display.number(true, i);
+        delay(500);
+    }
+    
+    //delay(500);
+    //display.number(false, 8);
+    //delay(500);
 }

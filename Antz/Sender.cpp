@@ -15,6 +15,7 @@ Sender::Sender() {
     TIMSK1 = 0; //Timer2 Overflow Interrupt
     pinMode(TIMER_PWM_PIN, OUTPUT);
     digitalWrite(TIMER_PWM_PIN, LOW); // When not sending PWM, we want it low
+    randomSeed(analogRead(0));
 }
 
 ////////////////////////////////////////////////////////////////
@@ -34,7 +35,7 @@ void Sender::send(uint32_t data, uint32_t duration) {
             interval(LEN_INTR);
             signal(((uint32_t)1 << i) & data ? LEN_ONE : LEN_ZERO);
         }
-        interval(LEN_PRSV / 2); // big interval between signals
+        interval(LEN_PRSV/4 + random(LEN_PRSV/4)); // big interval between signals
     } while (millis() - cur < duration);
     
     EIMSK = original; // enable external interrupts
