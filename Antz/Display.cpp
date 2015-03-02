@@ -11,7 +11,7 @@
 using namespace Antz;
 
 ////////////////////////////////////////////////////////////////
-Display::Display() {
+Display::Display():curNum(0) {
     pinMode(HIGH1, OUTPUT);
     pinMode(HIGH2, OUTPUT);
     pinMode(TOP, OUTPUT);
@@ -61,6 +61,7 @@ void Display::yellow(bool on) {
 
 ////////////////////////////////////////////////////////////////
 void Display::number(bool on, uint8_t n) {
+    curNum = n;
     if (!on) {
         digitalWrite(HIGH1, LOW);
         digitalWrite(HIGH2, LOW);
@@ -69,15 +70,6 @@ void Display::number(bool on, uint8_t n) {
         digitalWrite(HIGH1, HIGH);
         digitalWrite(HIGH2, HIGH);
         switch (n) {
-            case 0:
-                digitalWrite(TOP, LOW);
-                digitalWrite(MID, HIGH);
-                digitalWrite(BOT, LOW);
-                digitalWrite(TOPLEFT, LOW);
-                digitalWrite(TOPRGHT, LOW);
-                digitalWrite(BOTLEFT, LOW);
-                digitalWrite(BOTRGHT, LOW);
-                break;
             case 1:
                 digitalWrite(TOP, HIGH);
                 digitalWrite(MID, HIGH);
@@ -160,14 +152,19 @@ void Display::number(bool on, uint8_t n) {
                 digitalWrite(BOTRGHT, LOW);
                 break;
             default:
-                digitalWrite(TOP, HIGH);
+                digitalWrite(TOP, LOW);
                 digitalWrite(MID, HIGH);
-                digitalWrite(BOT, HIGH);
-                digitalWrite(TOPLEFT, HIGH);
-                digitalWrite(TOPRGHT, HIGH);
-                digitalWrite(BOTLEFT, HIGH);
-                digitalWrite(BOTRGHT, HIGH);
+                digitalWrite(BOT, LOW);
+                digitalWrite(TOPLEFT, LOW);
+                digitalWrite(TOPRGHT, LOW);
+                digitalWrite(BOTLEFT, LOW);
+                digitalWrite(BOTRGHT, LOW);
                 break;
         }
     }
+}
+
+////////////////////////////////////////////////////////////////
+uint8_t Display::currentNumber() {
+    return curNum;
 }

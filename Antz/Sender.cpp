@@ -35,7 +35,7 @@ void Sender::send(uint32_t data, uint32_t duration) {
             interval(LEN_INTR);
             signal(((uint32_t)1 << i) & data ? LEN_ONE : LEN_ZERO);
         }
-        interval(LEN_PRSV/4 + random(LEN_PRSV/4)); // big interval between signals
+        interval(LEN_PRSV/2 + random(LEN_PRSV/2)); // big interval between signals
     } while (millis() - cur < duration);
     
     EIMSK = original; // enable external interrupts
