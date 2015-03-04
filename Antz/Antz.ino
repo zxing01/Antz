@@ -146,8 +146,8 @@ void walker() {
 
 ////////////////////////////////////////////////////////////////
 void beacon() {
-    motor.changeSpeed(0.5);
-    motor.turnLeftInPlace();
+    //motor.changeSpeed(0.5);
+    //motor.turnLeftInPlace();
 
     //uint16_t id1 = 0;
     //uint16_t id2 = 0;
@@ -181,10 +181,10 @@ void beacon() {
             }
         } while (millis() - cur2 < 1000);
         
-        //Serial.print(" minNest: ");
-        //Serial.print(minNest);
-        //Serial.print(" minFood: ");
-        //Serial.println(minFood);
+        Serial.print(" minNest: ");
+        Serial.print(minNest);
+        Serial.print(" minFood: ");
+        Serial.println(minFood);
         
         uint32_t myNumber = (ID << 16) | 0xFFFF;
         if (minNest < (uint16_t)0x00FF)
@@ -199,7 +199,7 @@ void beacon() {
         //Serial.println(minFood + 1);
         
         display.number(true, (uint8_t)(minNest + 1));
-        //for (int i = 0; i < 10; ++i)
+        for (int i = 0; i < 10; ++i)
             sender.send(myNumber, 0);
     //} while (millis() - cur < 5000);
     
@@ -244,5 +244,5 @@ void loop() {
     
     //motor.changeSpeed(0.5);
     //motor.turnLeftInPlace();
-    //sender.send(0x02000100, 0);
+    //sender.send(0x02000001, 0);
 }
