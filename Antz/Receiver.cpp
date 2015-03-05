@@ -30,7 +30,8 @@ Receiver::Receiver() {
     
     EICRA = (1 << ISC01) + (1 << ISC11) + (1 << ISC21) + (1 << ISC31);
     EICRB = (1 << ISC41) + (1 << ISC51);
-    EIMSK = (1 << INT0) + (1 << INT1) + (1 << INT2) + (1 << INT3) + (1 << INT4) + (1 << INT5);
+    // all interrupts are initially disabled
+    //EIMSK = (1 << INT0) + (1 << INT1) + (1 << INT2) + (1 << INT3) + (1 << INT4) + (1 << INT5);
 }
 
 ////////////////////////////////////////////////////////////////
@@ -54,15 +55,22 @@ uint32_t Receiver::recvFrom(uint8_t index) {
 ////////////////////////////////////////////////////////////////
 uint32_t Receiver::getData(volatile RecvState &recver) {
     uint32_t ret = 0;
-    if (recver.state == STATE_DONE) {
-        EIMSK &= ~(1 << recver.INTn);
-        ret = recver.data;
-        recver.EICRx &= ~(1 << recver.ISCn0);
-        recver.state = STATE_IDLE;
-        recver.data = 0;
-        recver.bit = 0;
-        EIMSK |= (1 << recver.INTn);
-    }
+    EIMSK |= (1 << recver.INTn); // enable interrupt for the receiver
+    unsigned long start = micros();
+    do {
+        if (recver.state == STATE_DONE) {
+            EIMSK &= ~(1 << recver.INTn);
+            ret = recver.data;
+            recver.EICRx &= ~(1 << recver.ISCn0);
+            recver.state = STATE_IDLE;
+            recver.data = 0;
+            recver.bit = 0;
+            EIMSK |= (1 << recver.INTn);
+        }
+        if (ret > 0)
+            break;
+    } while (micros() - start < LEN_PRSV * 10);
+    EIMSK &= ~(1 << recver.INTn); // disable interrupt for the receiver
     return ret;
 }
 

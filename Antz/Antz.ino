@@ -162,7 +162,7 @@ void beacon() {
             for (int i = 0; i < 6; ++i) {
                 uint32_t number = recver.recvFrom(i); // <- problem
                 //uint16_t id = (uint16_t)(number >> 16);
-                
+                //Serial.println(number);
                 //if (id1 == 0 || id1 == id)
                     //id1 = id;
                 //else if (id2 == 0 || id2 == id)
@@ -240,9 +240,40 @@ void loop() {
         display.blue(false);
     }
      */
-    beacon();
     
-    //motor.changeSpeed(0.5);
-    //motor.turnLeftInPlace();
-    //sender.send(0x02000001, 0);
+    /*
+    uint32_t tot = 0;
+    uint32_t cnt = 0;
+    
+    unsigned long cur = millis();
+    do {
+        ++tot;
+        uint32_t number = recver.recvFrom(4); // <- problem
+        if (number > 0)
+            ++cnt;
+    } while (millis() - cur < 1000);
+
+    Serial.print(" cnt = ");
+    Serial.print(cnt);
+    Serial.print(" tot = ");
+    Serial.print(tot);
+    Serial.print(" ratio = ");
+    Serial.println((double)cnt/(double)tot, 10);
+    */
+    /*
+    uint32_t num = recver.recvFrom(3);
+    display.number(true, num);
+    if (num > 0) {
+        display.green(true);
+        display.red(false);
+    }
+    else {
+        display.green(false);
+        display.red(true);
+    }
+     */
+    
+    display.green(true);
+    display.number(true, 1);
+    sender.send(1, 0);
 }

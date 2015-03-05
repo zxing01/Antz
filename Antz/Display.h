@@ -20,6 +20,7 @@
 #define TOPRGHT     30
 #define BOTLEFT     25
 #define BOTRGHT     28
+#define DOT         27
 #define RED         35
 #define GREEN       34
 #define BLUE        33

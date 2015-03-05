@@ -21,6 +21,7 @@ Display::Display():curNum(0) {
     pinMode(TOPRGHT, OUTPUT);
     pinMode(BOTLEFT, OUTPUT);
     pinMode(BOTRGHT, OUTPUT);
+    pinMode(DOT, OUTPUT);
     pinMode(RED, OUTPUT);
     pinMode(GREEN, OUTPUT);
     pinMode(BLUE, OUTPUT);
@@ -70,6 +71,16 @@ void Display::number(bool on, uint8_t n) {
         digitalWrite(HIGH1, HIGH);
         digitalWrite(HIGH2, HIGH);
         switch (n) {
+            case 0:
+                digitalWrite(TOP, LOW);
+                digitalWrite(MID, HIGH);
+                digitalWrite(BOT, LOW);
+                digitalWrite(TOPLEFT, LOW);
+                digitalWrite(TOPRGHT, LOW);
+                digitalWrite(BOTLEFT, LOW);
+                digitalWrite(BOTRGHT, LOW);
+                digitalWrite(DOT, HIGH);
+                break;
             case 1:
                 digitalWrite(TOP, HIGH);
                 digitalWrite(MID, HIGH);
@@ -78,6 +89,7 @@ void Display::number(bool on, uint8_t n) {
                 digitalWrite(TOPRGHT, LOW);
                 digitalWrite(BOTLEFT, HIGH);
                 digitalWrite(BOTRGHT, LOW);
+                digitalWrite(DOT, HIGH);
                 break;
             case 2:
                 digitalWrite(TOP, LOW);
@@ -87,6 +99,7 @@ void Display::number(bool on, uint8_t n) {
                 digitalWrite(TOPRGHT, LOW);
                 digitalWrite(BOTLEFT, LOW);
                 digitalWrite(BOTRGHT, HIGH);
+                digitalWrite(DOT, HIGH);
                 break;
             case 3:
                 digitalWrite(TOP, LOW);
@@ -96,6 +109,7 @@ void Display::number(bool on, uint8_t n) {
                 digitalWrite(TOPRGHT, LOW);
                 digitalWrite(BOTLEFT, HIGH);
                 digitalWrite(BOTRGHT, LOW);
+                digitalWrite(DOT, HIGH);
                 break;
             case 4:
                 digitalWrite(TOP, HIGH);
@@ -105,6 +119,7 @@ void Display::number(bool on, uint8_t n) {
                 digitalWrite(TOPRGHT, LOW);
                 digitalWrite(BOTLEFT, HIGH);
                 digitalWrite(BOTRGHT, LOW);
+                digitalWrite(DOT, HIGH);
                 break;
             case 5:
                 digitalWrite(TOP, LOW);
@@ -114,6 +129,7 @@ void Display::number(bool on, uint8_t n) {
                 digitalWrite(TOPRGHT, HIGH);
                 digitalWrite(BOTLEFT, HIGH);
                 digitalWrite(BOTRGHT, LOW);
+                digitalWrite(DOT, HIGH);
                 break;
             case 6:
                 digitalWrite(TOP, LOW);
@@ -123,6 +139,7 @@ void Display::number(bool on, uint8_t n) {
                 digitalWrite(TOPRGHT, HIGH);
                 digitalWrite(BOTLEFT, LOW);
                 digitalWrite(BOTRGHT, LOW);
+                digitalWrite(DOT, HIGH);
                 break;
             case 7:
                 digitalWrite(TOP, LOW);
@@ -132,6 +149,7 @@ void Display::number(bool on, uint8_t n) {
                 digitalWrite(TOPRGHT, LOW);
                 digitalWrite(BOTLEFT, HIGH);
                 digitalWrite(BOTRGHT, LOW);
+                digitalWrite(DOT, HIGH);
                 break;
             case 8:
                 digitalWrite(TOP, LOW);
@@ -141,6 +159,7 @@ void Display::number(bool on, uint8_t n) {
                 digitalWrite(TOPRGHT, LOW);
                 digitalWrite(BOTLEFT, LOW);
                 digitalWrite(BOTRGHT, LOW);
+                digitalWrite(DOT, HIGH);
                 break;
             case 9:
                 digitalWrite(TOP, LOW);
@@ -150,15 +169,17 @@ void Display::number(bool on, uint8_t n) {
                 digitalWrite(TOPRGHT, LOW);
                 digitalWrite(BOTLEFT, HIGH);
                 digitalWrite(BOTRGHT, LOW);
+                digitalWrite(DOT, HIGH);
                 break;
             default:
                 digitalWrite(TOP, LOW);
-                digitalWrite(MID, HIGH);
+                digitalWrite(MID, LOW);
                 digitalWrite(BOT, LOW);
                 digitalWrite(TOPLEFT, LOW);
                 digitalWrite(TOPRGHT, LOW);
-                digitalWrite(BOTLEFT, LOW);
+                digitalWrite(BOTLEFT, HIGH);
                 digitalWrite(BOTRGHT, LOW);
+                digitalWrite(DOT, LOW);
                 break;
         }
     }
