@@ -12,10 +12,10 @@
 // number of bits in a signal
 #define NUM_BITS        32
 // signal length in microseconds
-#define LEN_SIGN        2400
-#define LEN_ONE         1200
-#define LEN_ZERO        600
-#define LEN_INTR        600
+#define LEN_SIGN        1200
+#define LEN_ONE         600
+#define LEN_ZERO        300
+#define LEN_INTR        300
 // preservation time for received data
 #define LEN_PRSV        ((uint32_t)LEN_INTR * NUM_BITS * 2)
 
