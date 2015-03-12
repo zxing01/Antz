@@ -28,8 +28,8 @@
 
 using namespace Antz;
 
-//Sender sender;
-Receiver recver;
+Sender sender;
+//Receiver recver;
 Motor motor;
 ServoSweep servo;
 Infrared ir;
@@ -236,7 +236,7 @@ void loop() {
     Serial.print(" ratio = ");
     Serial.println((double)cnt/(double)tot, 10);
     */
-    
+    /*
     uint32_t num = recver.recvFrom(3);
     display.number(true, num);
     if (num > 0) {
@@ -247,8 +247,8 @@ void loop() {
         display.green(false);
         display.red(true);
     }
-    
-    //display.green(true);
-    //display.number(true, 1);
-    //sender.send(1, 0);
+    */
+    display.green(true);
+    display.number(true, 1);
+    sender.send(1, 0);
 }

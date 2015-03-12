@@ -14,7 +14,7 @@ using namespace Antz;
 Sender::Sender() {
     TIMSK1 = 0; //Timer2 Overflow Interrupt
     pinMode(TIMER_PWM_PIN, OUTPUT);
-    digitalWrite(TIMER_PWM_PIN, LOW); // When not sending PWM, we want it low
+    digitalWrite(TIMER_PWM_PIN, HIGH); // When not sending PWM, we want it high (because the transistor will invert the output)
     randomSeed(analogRead(0));
 }
 
@@ -35,7 +35,7 @@ void Sender::send(uint32_t data, uint32_t duration) {
             interval(LEN_INTR);
             signal(((uint32_t)1 << i) & data ? LEN_ONE : LEN_ZERO);
         }
-        interval(LEN_INTR + random(LEN_PRSV)); // big interval between signals
+        interval(LEN_INTR * 5 + random(LEN_PRSV * 5)); // big interval between signals
     } while (millis() - cur < duration);
     
     EIMSK = original; // enable external interrupts

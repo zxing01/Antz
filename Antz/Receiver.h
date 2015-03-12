@@ -26,6 +26,9 @@
 #define TOLERANCE       0.25
 #define LOW_LEN(us)     (int) (us * (1.0 - TOLERANCE))
 #define HIGH_LEN(us)    (int) (us * (1.0 + TOLERANCE))
+// switch pin
+#define SWITCH          52
+#define RESET_THR       10
 
 #include <avr/interrupt.h>
 #include <Arduino.h>
@@ -58,6 +61,7 @@ namespace Antz {
         static volatile RecvState recver5;
     private:
         uint32_t getData(volatile RecvState &recver);
+        uint8_t counter; // count of null signals: if there has been more than RESET_THR, reset the receivers
     };
 }
 

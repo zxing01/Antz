@@ -27,9 +27,13 @@ Receiver::Receiver() {
     pinMode(RECV_PIN3, INPUT);
     pinMode(RECV_PIN4, INPUT);
     pinMode(RECV_PIN5, INPUT);
+    pinMode(SWITCH, OUTPUT);
+    digitalWrite(SWITCH, HIGH);
     
     EICRA = (1 << ISC01) + (1 << ISC11) + (1 << ISC21) + (1 << ISC31);
     EICRB = (1 << ISC41) + (1 << ISC51);
+    
+    counter = 0;
     // all interrupts are initially disabled
     //EIMSK = (1 << INT0) + (1 << INT1) + (1 << INT2) + (1 << INT3) + (1 << INT4) + (1 << INT5);
 }
@@ -71,6 +75,19 @@ uint32_t Receiver::getData(volatile RecvState &recver) {
             break;
     } while (micros() - start < LEN_PRSV * 10);
     EIMSK &= ~(1 << recver.INTn); // disable interrupt for the receiver
+    
+    if (ret == 0)
+        ++counter;
+    else
+        counter = 0;
+    
+    if (counter > RESET_THR) {
+        digitalWrite(SWITCH, LOW);
+        delay(5); // a delay for the receivers to cool off
+        digitalWrite(SWITCH, HIGH);
+        counter = 0;
+    }
+    
     return ret;
 }
 
