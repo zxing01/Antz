@@ -73,7 +73,7 @@ uint32_t Receiver::getData(volatile RecvState &recver) {
         }
         if (ret > 0)
             break;
-    } while (micros() - start < LEN_PRSV * 10);
+    } while (micros() - start < LEN_PRSV * 5);
     EIMSK &= ~(1 << recver.INTn); // disable interrupt for the receiver
     
     if (ret == 0)
@@ -89,6 +89,12 @@ uint32_t Receiver::getData(volatile RecvState &recver) {
     }
     
     return ret;
+}
+
+////////////////////////////////////////////////////////////////
+bool Receiver::canHearSignal() {    
+    return !(digitalRead(RECV_PIN0) && digitalRead(RECV_PIN1) && digitalRead(RECV_PIN2)
+             && digitalRead(RECV_PIN3) && digitalRead(RECV_PIN4) && digitalRead(RECV_PIN5));
 }
 
 ////////////////////////////////////////////////////////////////

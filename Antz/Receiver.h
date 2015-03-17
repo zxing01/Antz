@@ -50,7 +50,8 @@ namespace Antz {
         };
         
         Receiver();
-        uint32_t recvFrom(uint8_t index); // index is 0 - 5, 6 IR receivers, will return 0 if the receiver's not ready or the index is invalid
+        uint32_t recvFrom(uint8_t index); // blocking call, receive data from receiver #index
+        bool canHearSignal(); // non-blocking call, quickly check if there's any signal on all the receivers
         
         static void stateTransit(volatile RecvState &recver);
         static volatile RecvState recver0;

@@ -29,7 +29,7 @@
 using namespace Antz;
 
 Sender sender;
-//Receiver recver;
+Receiver recver;
 Motor motor;
 ServoSweep servo;
 Infrared ir;
@@ -248,7 +248,19 @@ void loop() {
         display.red(true);
     }
     */
-    display.green(true);
-    display.number(true, 1);
-    sender.send(1, 0);
+    uint32_t number = 5;
+    
+    display.red(true);
+    display.green(false);
+    display.number(true, number);
+
+    if (!recver.canHearSignal()) {
+        delay(random(100) * 20);
+        if (!recver.canHearSignal()) {
+            display.red(false);
+            display.green(true);
+            display.number(true, number);
+            sender.send(number, 1000);
+        }
+    }
 }
