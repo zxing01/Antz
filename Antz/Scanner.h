@@ -1,14 +1,15 @@
 //
-//  ServoSweep.h
+//  Scanner.h
 //  Antz
 //
 //  Created by Zhi Xing on 7/1/14.
 //  Copyright (c) 2014 Zhi Xing. All rights reserved.
 //
 
-#ifndef __Antz__ServoSweep__
-#define __Antz__ServoSweep__
+#ifndef __Antz__Scanner__
+#define __Antz__Scanner__
 
+#define IR_PIN A15
 #define SERVO_PIN     53
 #define SERVO_SPD     120.0 // per 60 degrees
 #define MIN_POS       10.0
@@ -18,14 +19,21 @@
 
 #include <Arduino.h>
 #include <Servo.h>
-#include "Infrared.h"
 
 namespace Antz {
-    class ServoSweep {
+    class Infrared {
     public:
-        ServoSweep();
+        Infrared(uint8_t nReadings = 5);
+        double getDistance(); // in centimeter(s)
+    private:
+        uint8_t _nReadings;
+    };
+    
+    class Scanner {
+    public:
+        Scanner();
         void startup();
-        double sweep(double* angle);
+        double scan(double* angle);
     private:
         bool forward;
         Servo servo;

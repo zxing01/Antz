@@ -9,16 +9,11 @@
 /* Begin PBXBuildFile section */
 		3D2278081A716FB900D3154B /* Antz.ino in Sources */ = {isa = PBXBuildFile; fileRef = 3DD278081A716FB900D3154B /* Antz.ino */; };
 		3D4CA2AD1A96650A0045B78E /* Display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4CA2AB1A96650A0045B78E /* Display.cpp */; };
+		3DC8F1BC1AB9EBF1002ECEF2 /* Scanner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC8F1BA1AB9EBF1002ECEF2 /* Scanner.cpp */; };
 		3DD277A51A716FB900D3154B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD277A41A716FB900D3154B /* main.cpp */; };
-		3DD278301A71703B00D3154B /* AntzBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2781D1A71703B00D3154B /* AntzBase.cpp */; };
-		3DD278311A71703B00D3154B /* Beacon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2781F1A71703B00D3154B /* Beacon.cpp */; };
-		3DD278321A71703B00D3154B /* Infrared.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD278221A71703B00D3154B /* Infrared.cpp */; };
 		3DD278331A71703B00D3154B /* Motor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD278241A71703B00D3154B /* Motor.cpp */; };
 		3DD278341A71703B00D3154B /* Receiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD278261A71703B00D3154B /* Receiver.cpp */; };
 		3DD278351A71703B00D3154B /* Sender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD278281A71703B00D3154B /* Sender.cpp */; };
-		3DD278361A71703B00D3154B /* ServoSweep.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2782A1A71703B00D3154B /* ServoSweep.cpp */; };
-		3DD278371A71703B00D3154B /* Sonar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2782C1A71703B00D3154B /* Sonar.cpp */; };
-		3DD278381A71703B00D3154B /* Walker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2782E1A71703B00D3154B /* Walker.cpp */; };
 		AA2A150122125003AA000005 /* Arduino.h in Sources */ = {isa = PBXBuildFile; fileRef = AAAA150122125003AA000005 /* Arduino.h */; };
 		AA2A150122125003AA000007 /* malloc.c in Sources */ = {isa = PBXBuildFile; fileRef = AAAA150122125003AA000007 /* malloc.c */; };
 		AA2A150122125003AA000008 /* realloc.c in Sources */ = {isa = PBXBuildFile; fileRef = AAAA150122125003AA000008 /* realloc.c */; };
@@ -302,6 +297,8 @@
 /* Begin PBXFileReference section */
 		3D4CA2AB1A96650A0045B78E /* Display.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Display.cpp; sourceTree = "<group>"; };
 		3D4CA2AC1A96650A0045B78E /* Display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Display.h; sourceTree = "<group>"; };
+		3DC8F1BA1AB9EBF1002ECEF2 /* Scanner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scanner.cpp; sourceTree = "<group>"; };
+		3DC8F1BB1AB9EBF1002ECEF2 /* Scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scanner.h; sourceTree = "<group>"; };
 		3DD277A11A716FB900D3154B /* Index */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Index; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DD277A41A716FB900D3154B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		3DD277A61A716FB900D3154B /* Makefile */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
@@ -391,25 +388,13 @@
 		3DD278061A716FB900D3154B /* TemplateIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = TemplateIcon.icns; path = Utilities/TemplateIcon.icns; sourceTree = "<group>"; };
 		3DD278071A716FB900D3154B /* uploader_izmir.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = uploader_izmir.sh; path = Utilities/uploader_izmir.sh; sourceTree = "<group>"; };
 		3DD278081A716FB900D3154B /* Antz.ino */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; path = Antz.ino; sourceTree = "<group>"; };
-		3DD2781D1A71703B00D3154B /* AntzBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AntzBase.cpp; sourceTree = "<group>"; };
-		3DD2781E1A71703B00D3154B /* AntzBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AntzBase.h; sourceTree = "<group>"; };
-		3DD2781F1A71703B00D3154B /* Beacon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Beacon.cpp; sourceTree = "<group>"; };
-		3DD278201A71703B00D3154B /* Beacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Beacon.h; sourceTree = "<group>"; };
 		3DD278211A71703B00D3154B /* Communication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Communication.h; sourceTree = "<group>"; };
-		3DD278221A71703B00D3154B /* Infrared.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Infrared.cpp; sourceTree = "<group>"; };
-		3DD278231A71703B00D3154B /* Infrared.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Infrared.h; sourceTree = "<group>"; };
 		3DD278241A71703B00D3154B /* Motor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Motor.cpp; sourceTree = "<group>"; };
 		3DD278251A71703B00D3154B /* Motor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Motor.h; sourceTree = "<group>"; };
 		3DD278261A71703B00D3154B /* Receiver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Receiver.cpp; sourceTree = "<group>"; };
 		3DD278271A71703B00D3154B /* Receiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Receiver.h; sourceTree = "<group>"; };
 		3DD278281A71703B00D3154B /* Sender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sender.cpp; sourceTree = "<group>"; };
 		3DD278291A71703B00D3154B /* Sender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sender.h; sourceTree = "<group>"; };
-		3DD2782A1A71703B00D3154B /* ServoSweep.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ServoSweep.cpp; sourceTree = "<group>"; };
-		3DD2782B1A71703B00D3154B /* ServoSweep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServoSweep.h; sourceTree = "<group>"; };
-		3DD2782C1A71703B00D3154B /* Sonar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sonar.cpp; sourceTree = "<group>"; };
-		3DD2782D1A71703B00D3154B /* Sonar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sonar.h; sourceTree = "<group>"; };
-		3DD2782E1A71703B00D3154B /* Walker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Walker.cpp; sourceTree = "<group>"; };
-		3DD2782F1A71703B00D3154B /* Walker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Walker.h; sourceTree = "<group>"; };
 		AAAA150122125003AA000005 /* Arduino.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Arduino.h; sourceTree = "<group>"; };
 		AAAA150122125003AA000007 /* malloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = malloc.c; sourceTree = "<group>"; };
 		AAAA150122125003AA000008 /* realloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = realloc.c; sourceTree = "<group>"; };
@@ -710,30 +695,20 @@
 		3DD277A31A716FB900D3154B /* Antz */ = {
 			isa = PBXGroup;
 			children = (
-				3DD277A41A716FB900D3154B /* main.cpp */,
+				3DD278081A716FB900D3154B /* Antz.ino */,
 				3DD278211A71703B00D3154B /* Communication.h */,
 				3DD278261A71703B00D3154B /* Receiver.cpp */,
 				3DD278271A71703B00D3154B /* Receiver.h */,
 				3DD278281A71703B00D3154B /* Sender.cpp */,
 				3DD278291A71703B00D3154B /* Sender.h */,
-				3DD278221A71703B00D3154B /* Infrared.cpp */,
-				3DD278231A71703B00D3154B /* Infrared.h */,
+				3DC8F1BA1AB9EBF1002ECEF2 /* Scanner.cpp */,
+				3DC8F1BB1AB9EBF1002ECEF2 /* Scanner.h */,
 				3D4CA2AB1A96650A0045B78E /* Display.cpp */,
 				3D4CA2AC1A96650A0045B78E /* Display.h */,
 				3DD278241A71703B00D3154B /* Motor.cpp */,
 				3DD278251A71703B00D3154B /* Motor.h */,
-				3DD2782A1A71703B00D3154B /* ServoSweep.cpp */,
-				3DD2782B1A71703B00D3154B /* ServoSweep.h */,
-				3DD2782C1A71703B00D3154B /* Sonar.cpp */,
-				3DD2782D1A71703B00D3154B /* Sonar.h */,
-				3DD2781D1A71703B00D3154B /* AntzBase.cpp */,
-				3DD2781E1A71703B00D3154B /* AntzBase.h */,
-				3DD2781F1A71703B00D3154B /* Beacon.cpp */,
-				3DD278201A71703B00D3154B /* Beacon.h */,
-				3DD2782E1A71703B00D3154B /* Walker.cpp */,
-				3DD2782F1A71703B00D3154B /* Walker.h */,
+				3DD277A41A716FB900D3154B /* main.cpp */,
 				3DD277A61A716FB900D3154B /* Makefile */,
-				3DD278081A716FB900D3154B /* Antz.ino */,
 				3DD277AC1A716FB900D3154B /* Sketchbook */,
 				AAAA150122125003AA000000 /* Resources */,
 				3DD277AE1A716FB900D3154B /* Configurations */,
@@ -1524,7 +1499,6 @@
 			files = (
 				3DD277A51A716FB900D3154B /* main.cpp in Sources */,
 				3D2278081A716FB900D3154B /* Antz.ino in Sources */,
-				3DD278381A71703B00D3154B /* Walker.cpp in Sources */,
 				AA2A150122125003AA000005 /* Arduino.h in Sources */,
 				AA2A150122125003AA000007 /* malloc.c in Sources */,
 				AA2A150122125003AA000008 /* realloc.c in Sources */,
@@ -1649,7 +1623,6 @@
 				AA2A150122125003AA000085 /* GSM3MobileServerProvider.cpp in Sources */,
 				AA2A150122125003AA000086 /* GSM3MobileServerProvider.h in Sources */,
 				AA2A150122125003AA000087 /* GSM3MobileServerService.cpp in Sources */,
-				3DD278371A71703B00D3154B /* Sonar.cpp in Sources */,
 				AA2A150122125003AA000088 /* GSM3MobileServerService.h in Sources */,
 				AA2A150122125003AA000089 /* GSM3MobileSMSProvider.cpp in Sources */,
 				AA2A150122125003AA00008A /* GSM3MobileSMSProvider.h in Sources */,
@@ -1686,10 +1659,10 @@
 				AA2A150122125003AA0000A9 /* GSM3ShieldV1ServerProvider.cpp in Sources */,
 				AA2A150122125003AA0000AA /* GSM3ShieldV1ServerProvider.h in Sources */,
 				AA2A150122125003AA0000AB /* GSM3ShieldV1SMSProvider.cpp in Sources */,
+				3DC8F1BC1AB9EBF1002ECEF2 /* Scanner.cpp in Sources */,
 				AA2A150122125003AA0000AC /* GSM3ShieldV1SMSProvider.h in Sources */,
 				AA2A150122125003AA0000AD /* GSM3ShieldV1VoiceProvider.cpp in Sources */,
 				AA2A150122125003AA0000AE /* GSM3ShieldV1VoiceProvider.h in Sources */,
-				3DD278311A71703B00D3154B /* Beacon.cpp in Sources */,
 				AA2A150122125003AA0000AF /* GSM3SMSService.cpp in Sources */,
 				AA2A150122125003AA0000B0 /* GSM3SMSService.h in Sources */,
 				AA2A150122125003AA0000B1 /* GSM3SoftSerial.cpp in Sources */,
@@ -1708,7 +1681,6 @@
 				AA2A150122125003AA0000C0 /* Compass.cpp in Sources */,
 				AA2A150122125003AA0000C1 /* Compass.h in Sources */,
 				AA2A150122125003AA0000C2 /* EasyTransfer2.cpp in Sources */,
-				3DD278321A71703B00D3154B /* Infrared.cpp in Sources */,
 				AA2A150122125003AA0000C3 /* EasyTransfer2.h in Sources */,
 				AA2A150122125003AA0000C4 /* EEPROM_I2C.cpp in Sources */,
 				AA2A150122125003AA0000C5 /* EEPROM_I2C.h in Sources */,
@@ -1740,7 +1712,6 @@
 				AA2A150122125003AA0000DF /* SquawkSD.h in Sources */,
 				AA2A150122125003AA0000E1 /* RobotTextManager.cpp in Sources */,
 				AA2A150122125003AA0000E2 /* RobotTextManager.h in Sources */,
-				3DD278301A71703B00D3154B /* AntzBase.cpp in Sources */,
 				AA2A150122125003AA0000E3 /* scripts_Hello_User.h in Sources */,
 				AA2A150122125003AA0000E4 /* twi.c in Sources */,
 				3DD278351A71703B00D3154B /* Sender.cpp in Sources */,
@@ -1763,7 +1734,6 @@
 				AA2A150122125003AA0000F8 /* FatStructs.h in Sources */,
 				AA2A150122125003AA0000F9 /* Sd2Card.cpp in Sources */,
 				AA2A150122125003AA0000FA /* Sd2Card.h in Sources */,
-				3DD278361A71703B00D3154B /* ServoSweep.cpp in Sources */,
 				AA2A150122125003AA0000FB /* Sd2PinMap.h in Sources */,
 				AA2A150122125003AA0000FC /* SdFat.h in Sources */,
 				AA2A150122125003AA0000FD /* SdFatmainpage.h in Sources */,

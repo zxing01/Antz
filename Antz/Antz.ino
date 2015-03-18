@@ -20,8 +20,7 @@
 #include "Sender.h"
 #include "Receiver.h"
 #include "Motor.h"
-#include "Infrared.h"
-#include "ServoSweep.h"
+#include "Scanner.h"
 #include "Display.h"
 
 #define ID ((uint32_t)8)
@@ -31,8 +30,7 @@ using namespace Antz;
 Sender sender;
 Receiver recver;
 Motor motor;
-ServoSweep servo;
-Infrared ir;
+Scanner scanner;
 Display display;
 
 uint8_t target = 1; // 0 - nest, 1 - food
@@ -193,7 +191,7 @@ void beacon() {
 ////////////////////////////////////////////////////////////////
 void setup() {
     Serial.begin(9600);
-    servo.startup();
+    scanner.startup();
     randomSeed(analogRead(0));
 }
 
