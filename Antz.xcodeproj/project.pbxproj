@@ -695,7 +695,6 @@
 		3DD277A31A716FB900D3154B /* Antz */ = {
 			isa = PBXGroup;
 			children = (
-				3DD278081A716FB900D3154B /* Antz.ino */,
 				3DD278211A71703B00D3154B /* Communication.h */,
 				3DD278261A71703B00D3154B /* Receiver.cpp */,
 				3DD278271A71703B00D3154B /* Receiver.h */,
@@ -709,6 +708,7 @@
 				3DD278251A71703B00D3154B /* Motor.h */,
 				3DD277A41A716FB900D3154B /* main.cpp */,
 				3DD277A61A716FB900D3154B /* Makefile */,
+				3DD278081A716FB900D3154B /* Antz.ino */,
 				3DD277AC1A716FB900D3154B /* Sketchbook */,
 				AAAA150122125003AA000000 /* Resources */,
 				3DD277AE1A716FB900D3154B /* Configurations */,

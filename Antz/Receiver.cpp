@@ -39,56 +39,51 @@ Receiver::Receiver() {
 }
 
 ////////////////////////////////////////////////////////////////
-uint32_t Receiver::recvFrom(uint8_t index) {
+bool Receiver::recvFrom(uint8_t index, uint32_t *value) {
     switch (index) {
         case 0:
-            return getData(recver0);
+            return getData(recver0, value);
         case 1:
-            return getData(recver1);
+            return getData(recver1, value);
         case 2:
-            return getData(recver2);
+            return getData(recver2, value);
         case 3:
-            return getData(recver3);
+            return getData(recver3, value);
         case 4:
-            return getData(recver4);
+            return getData(recver4, value);
         case 5:
-            return getData(recver5);
+            return getData(recver5, value);
     }
 }
 
 ////////////////////////////////////////////////////////////////
-uint32_t Receiver::getData(volatile RecvState &recver) {
-    uint32_t ret = 0;
+bool Receiver::getData(volatile RecvState &recver, uint32_t *value) {
+    if (value == NULL)
+        return false;
     EIMSK |= (1 << recver.INTn); // enable interrupt for the receiver
     unsigned long start = micros();
     do {
         if (recver.state == STATE_DONE) {
-            EIMSK &= ~(1 << recver.INTn);
-            ret = recver.data;
+            EIMSK &= ~(1 << recver.INTn); // disable interrupt for the receiver
+            *value = recver.data;
             recver.EICRx &= ~(1 << recver.ISCn0);
             recver.state = STATE_IDLE;
             recver.data = 0;
             recver.bit = 0;
-            EIMSK |= (1 << recver.INTn);
+            
+            counter = 0;
+            return true;
         }
-        if (ret > 0)
-            break;
     } while (micros() - start < LEN_PRSV * 5);
     EIMSK &= ~(1 << recver.INTn); // disable interrupt for the receiver
     
-    if (ret == 0)
-        ++counter;
-    else
-        counter = 0;
-    
-    if (counter > RESET_THR) {
+    if (++counter > RESET_THR) {
         digitalWrite(SWITCH, LOW);
         delay(5); // a delay for the receivers to cool off
         digitalWrite(SWITCH, HIGH);
         counter = 0;
     }
-    
-    return ret;
+    return false;
 }
 
 ////////////////////////////////////////////////////////////////

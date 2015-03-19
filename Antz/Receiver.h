@@ -50,7 +50,7 @@ namespace Antz {
         };
         
         Receiver();
-        uint32_t recvFrom(uint8_t index); // blocking call, receive data from receiver #index
+        bool recvFrom(uint8_t index, uint32_t *value); // blocking call, receive data from receiver #index
         bool canHearSignal(); // non-blocking call, quickly check if there's any signal on all the receivers
         
         static void stateTransit(volatile RecvState &recver);
@@ -61,7 +61,7 @@ namespace Antz {
         static volatile RecvState recver4;
         static volatile RecvState recver5;
     private:
-        uint32_t getData(volatile RecvState &recver);
+        bool getData(volatile RecvState &recver, uint32_t *value);
         uint8_t counter; // count of null signals: if there has been more than RESET_THR, reset the receivers
     };
 }
