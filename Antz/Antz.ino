@@ -52,15 +52,12 @@ void walker() {
     //do {
     double angle;
     if (scanner.scan(&angle) <= 15) {
-        motor.changeSpeed(1);
         motor.backward();
         delay(500);
-        motor.changeSpeed(0.5);
-        motor.turnLeftInPlace();
+        motor.turnLeft();
         delay(500);
         while (scanner.scan(&angle) <= 15)
-            motor.turnLeftInPlace();
-        motor.changeSpeed(1);
+            motor.turnLeft();
         motor.forward();
         delay(500);
     }
@@ -106,16 +103,13 @@ void walker() {
     //state = 0;
     
     if (index == 0) {
-        motor.changeSpeed(1);
         motor.forward();
     }
     else if (index < 3) {
-        motor.changeSpeed(0.5);
-        motor.turnRightInPlace();
+        motor.turnRight();
     }
     else {
-        motor.changeSpeed(0.5);
-        motor.turnLeftInPlace();
+        motor.turnLeft();
     }
     //} while (millis() - cur < 3000);
     
@@ -261,7 +255,6 @@ void loop() {
     */
     
     //walker();
-    motor.changeSpeed(0.5);
     motor.turnRight();
     delay(1040 * 6);
     motor.stop();

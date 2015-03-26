@@ -19,19 +19,19 @@
 #define RIGHT_CUR A1
 
 #include <Arduino.h>
+#include "Receiver.h"
 
 namespace Antz {
     class Motor {
     public:
-        Motor(double speed = 1); // speed is 0 - 1
-        void changeSpeed(double speed);
+        Motor();
         void forward();
         void backward();
         void turnLeft();
         void turnRight();
         void stop();
     private:
-        uint8_t speed_;
+        double _msPerDegree;
     };
 }
 

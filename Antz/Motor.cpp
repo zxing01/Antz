@@ -11,7 +11,7 @@
 using namespace Antz;
 
 ////////////////////////////////////////////////////////////////
-Motor::Motor(double speed) : speed_(MAX_SPD * speed) {
+Motor::Motor() : _msPerDegree(18) {
     pinMode(TOGGLE, OUTPUT);
     pinMode(LEFT_DIR, OUTPUT);
     pinMode(LEFT_SPD, OUTPUT);
@@ -22,40 +22,35 @@ Motor::Motor(double speed) : speed_(MAX_SPD * speed) {
 }
 
 ////////////////////////////////////////////////////////////////
-void Motor::changeSpeed(double speed) {
-    speed_ = MAX_SPD * speed;
-}
-
-////////////////////////////////////////////////////////////////
 void Motor::forward() {
     digitalWrite(LEFT_DIR, LOW);
     digitalWrite(RIGHT_DIR, HIGH);
-    analogWrite(LEFT_SPD, speed_);
-    analogWrite(RIGHT_SPD, speed_);
+    analogWrite(LEFT_SPD, MAX_SPD);
+    analogWrite(RIGHT_SPD, MAX_SPD);
 }
 
 ////////////////////////////////////////////////////////////////
 void Motor::backward() {
     digitalWrite(LEFT_DIR, HIGH);
     digitalWrite(RIGHT_DIR, LOW);
-    analogWrite(LEFT_SPD, speed_);
-    analogWrite(RIGHT_SPD, speed_);
+    analogWrite(LEFT_SPD, MAX_SPD);
+    analogWrite(RIGHT_SPD, MAX_SPD);
 }
 
 ////////////////////////////////////////////////////////////////
 void Motor::turnLeft() {
     digitalWrite(LEFT_DIR, HIGH);
     digitalWrite(RIGHT_DIR, HIGH);
-    analogWrite(LEFT_SPD, speed_);
-    analogWrite(RIGHT_SPD, speed_);
+    analogWrite(LEFT_SPD, MAX_SPD/2);
+    analogWrite(RIGHT_SPD, MAX_SPD/2);
 }
 
 ////////////////////////////////////////////////////////////////
 void Motor::turnRight() {
     digitalWrite(LEFT_DIR, LOW);
     digitalWrite(RIGHT_DIR, LOW);
-    analogWrite(LEFT_SPD, speed_);
-    analogWrite(RIGHT_SPD, speed_);
+    analogWrite(LEFT_SPD, MAX_SPD/2);
+    analogWrite(RIGHT_SPD, MAX_SPD/2);
 }
 
 ////////////////////////////////////////////////////////////////

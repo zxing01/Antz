@@ -101,6 +101,24 @@ bool Receiver::canHearSignal() {
 }
 
 ////////////////////////////////////////////////////////////////
+bool Receiver::canHearSignal(uint8_t index) {
+    switch (index) {
+        case 0:
+            return !digitalRead(RECV_PIN0);
+        case 1:
+            return !digitalRead(RECV_PIN1);
+        case 2:
+            return !digitalRead(RECV_PIN2);
+        case 3:
+            return !digitalRead(RECV_PIN3);
+        case 4:
+            return !digitalRead(RECV_PIN4);
+        case 5:
+            return !digitalRead(RECV_PIN5);
+    }
+}
+
+////////////////////////////////////////////////////////////////
 void Receiver::stateTransit(volatile RecvState &recver) {
     uint32_t time = micros();
     uint32_t duration = time - recver.start; // duration of signal
