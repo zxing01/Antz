@@ -172,13 +172,13 @@ void Display::number(bool on, uint8_t n) {
                 digitalWrite(DOT, HIGH);
                 break;
             default:
-                digitalWrite(TOP, LOW);
-                digitalWrite(MID, LOW);
-                digitalWrite(BOT, LOW);
-                digitalWrite(TOPLEFT, LOW);
-                digitalWrite(TOPRGHT, LOW);
+                digitalWrite(TOP, HIGH);
+                digitalWrite(MID, HIGH);
+                digitalWrite(BOT, HIGH);
+                digitalWrite(TOPLEFT, HIGH);
+                digitalWrite(TOPRGHT, HIGH);
                 digitalWrite(BOTLEFT, HIGH);
-                digitalWrite(BOTRGHT, LOW);
+                digitalWrite(BOTRGHT, HIGH);
                 digitalWrite(DOT, LOW);
                 break;
         }

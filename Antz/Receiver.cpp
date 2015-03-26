@@ -33,7 +33,6 @@ Receiver::Receiver() {
     EICRA = (1 << ISC01) + (1 << ISC11) + (1 << ISC21) + (1 << ISC31);
     EICRB = (1 << ISC41) + (1 << ISC51);
     
-    counter = 0;
     // all interrupts are initially disabled
     //EIMSK = (1 << INT0) + (1 << INT1) + (1 << INT2) + (1 << INT3) + (1 << INT4) + (1 << INT5);
 }
@@ -71,18 +70,27 @@ bool Receiver::getData(volatile RecvState &recver, uint32_t *value) {
             recver.data = 0;
             recver.bit = 0;
             
-            counter = 0;
+            recver.counter = 0;
             return true;
         }
     } while (micros() - start < LEN_PRSV * 5);
     EIMSK &= ~(1 << recver.INTn); // disable interrupt for the receiver
     
-    if (++counter > RESET_THR) {
+    if (++recver.counter > RESET_THR) {
         digitalWrite(SWITCH, LOW);
         delay(5); // a delay for the receivers to cool off
         digitalWrite(SWITCH, HIGH);
-        counter = 0;
+        recver.counter = 0;
     }
+    /*
+    for (int i = 0 ; i < NUM_BITS; ++i) {
+        Serial.print(i);
+        Serial.print(":");
+        Serial.print(recver.duration[i]);
+        Serial.print("\t");
+    }
+    Serial.println();
+    */
     return false;
 }
 
@@ -97,6 +105,7 @@ void Receiver::stateTransit(volatile RecvState &recver) {
     uint32_t time = micros();
     uint32_t duration = time - recver.start; // duration of signal
     recver.start = time; // record starting time
+    //recver.duration[recver.bit] = duration;
     
     switch (recver.state) {
         case STATE_IDLE:

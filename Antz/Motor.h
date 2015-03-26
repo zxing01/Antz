@@ -29,10 +29,6 @@ namespace Antz {
         void backward();
         void turnLeft();
         void turnRight();
-        void turnLeftInPlace();
-        void turnRightInPlace();
-        void deviateLeft();
-        void deviateRight();
         void stop();
     private:
         uint8_t speed_;

@@ -23,7 +23,7 @@
 #define RECV_PIN4       2
 #define RECV_PIN5       3
 // signal tolerance
-#define TOLERANCE       0.25
+#define TOLERANCE       0.2
 #define LOW_LEN(us)     (int) (us * (1.0 - TOLERANCE))
 #define HIGH_LEN(us)    (int) (us * (1.0 + TOLERANCE))
 // switch pin
@@ -39,7 +39,7 @@ namespace Antz {
     public:
         struct RecvState {
             RecvState(uint8_t intn, uint8_t iscn0, volatile uint8_t &eicrx)
-            :INTn(intn), ISCn0(iscn0), EICRx(eicrx) {}
+            :INTn(intn), ISCn0(iscn0), EICRx(eicrx), counter(0) {}
             uint32_t data;   // output value, only valid when state is STATE_DONE
             uint8_t state;	// state of state machine
             uint8_t bit;    // the bit being received
@@ -47,6 +47,8 @@ namespace Antz {
             uint8_t INTn;
             uint8_t ISCn0;
             volatile uint8_t &EICRx;
+            uint8_t counter; // count of null signals: if there has been more than RESET_THR, reset the receivers
+            //uint32_t duration[NUM_BITS];
         };
         
         Receiver();
@@ -62,7 +64,6 @@ namespace Antz {
         static volatile RecvState recver5;
     private:
         bool getData(volatile RecvState &recver, uint32_t *value);
-        uint8_t counter; // count of null signals: if there has been more than RESET_THR, reset the receivers
     };
 }
 

@@ -44,22 +44,6 @@ void Motor::backward() {
 
 ////////////////////////////////////////////////////////////////
 void Motor::turnLeft() {
-    digitalWrite(LEFT_DIR, LOW);
-    digitalWrite(RIGHT_DIR, HIGH);
-    analogWrite(LEFT_SPD, 0);
-    analogWrite(RIGHT_SPD, speed_);
-}
-
-////////////////////////////////////////////////////////////////
-void Motor::turnRight() {
-    digitalWrite(LEFT_DIR, LOW);
-    digitalWrite(RIGHT_DIR, HIGH);
-    analogWrite(LEFT_SPD, speed_);
-    analogWrite(RIGHT_SPD, 0);
-}
-
-////////////////////////////////////////////////////////////////
-void Motor::turnLeftInPlace() {
     digitalWrite(LEFT_DIR, HIGH);
     digitalWrite(RIGHT_DIR, HIGH);
     analogWrite(LEFT_SPD, speed_);
@@ -67,27 +51,11 @@ void Motor::turnLeftInPlace() {
 }
 
 ////////////////////////////////////////////////////////////////
-void Motor::turnRightInPlace() {
+void Motor::turnRight() {
     digitalWrite(LEFT_DIR, LOW);
     digitalWrite(RIGHT_DIR, LOW);
     analogWrite(LEFT_SPD, speed_);
     analogWrite(RIGHT_SPD, speed_);
-}
-
-////////////////////////////////////////////////////////////////
-void Motor::deviateLeft() {
-    digitalWrite(LEFT_DIR, LOW);
-    digitalWrite(RIGHT_DIR, HIGH);
-    analogWrite(LEFT_SPD, speed_ * 3 / 4);
-    analogWrite(RIGHT_SPD, speed_);
-}
-
-////////////////////////////////////////////////////////////////
-void Motor::deviateRight() {
-    digitalWrite(LEFT_DIR, LOW);
-    digitalWrite(RIGHT_DIR, HIGH);
-    analogWrite(LEFT_SPD, speed_);
-    analogWrite(RIGHT_SPD, speed_ * 3 / 4);
 }
 
 ////////////////////////////////////////////////////////////////
