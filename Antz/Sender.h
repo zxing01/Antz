@@ -27,7 +27,7 @@ namespace Antz {
     class Sender {
     public:
         Sender();
-        void send(uint32_t data, uint32_t duration);
+        void send(uint32_t data, uint64_t duration);
     private:
         void signal(uint32_t time);
         void interval(uint32_t time);

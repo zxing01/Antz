@@ -34,14 +34,22 @@ Receiver::Receiver() {
     pinMode(RECV_PIN3, INPUT);
     pinMode(RECV_PIN4, INPUT);
     pinMode(RECV_PIN5, INPUT);
-    pinMode(SWITCH, OUTPUT);
-    digitalWrite(SWITCH, HIGH);
+    pinMode(POWER, OUTPUT);
+    digitalWrite(POWER, HIGH);
     
     EICRA = (1 << ISC01) + (1 << ISC11) + (1 << ISC21) + (1 << ISC31);
     EICRB = (1 << ISC41) + (1 << ISC51);
     
     // all interrupts are initially disabled
     //EIMSK = (1 << INT0) + (1 << INT1) + (1 << INT2) + (1 << INT3) + (1 << INT4) + (1 << INT5);
+}
+
+////////////////////////////////////////////////////////////////
+void Receiver::turnOnAll(bool on) {
+    if (on)
+        EIMSK |= ((1 << INT0) + (1 << INT1) + (1 << INT2) + (1 << INT3) + (1 << INT4) + (1 << INT5));
+    else
+        EIMSK &= ~((1 << INT0) + (1 << INT1) + (1 << INT2) + (1 << INT3) + (1 << INT4) + (1 << INT5));
 }
 
 ////////////////////////////////////////////////////////////////
@@ -83,20 +91,53 @@ bool Receiver::getData(volatile RecvState &recver, uint32_t *value) {
     EIMSK &= ~(1 << recver.INTn); // disable interrupt for the receiver
     
     if (++recver.counter > RESET_THR) {
-        digitalWrite(SWITCH, LOW);
+        digitalWrite(POWER, LOW);
         delay(5); // a delay for the receivers to cool off
-        digitalWrite(SWITCH, HIGH);
+        digitalWrite(POWER, HIGH);
         recver.counter = 0;
     }
-    /*
-    for (int i = 0 ; i < NUM_BITS; ++i) {
-        Serial.print(i);
-        Serial.print(":");
-        Serial.print(recver.duration[i]);
-        Serial.print("\t");
+    return false;
+}
+
+////////////////////////////////////////////////////////////////
+bool Receiver::recvFromNonBlocking(uint8_t index, uint32_t *value) {
+    switch (index) {
+        case 0:
+            return getDataNonBlocking(recver0, value);
+        case 1:
+            return getDataNonBlocking(recver1, value);
+        case 2:
+            return getDataNonBlocking(recver2, value);
+        case 3:
+            return getDataNonBlocking(recver3, value);
+        case 4:
+            return getDataNonBlocking(recver4, value);
+        case 5:
+            return getDataNonBlocking(recver5, value);
     }
-    Serial.println();
-    */
+}
+
+////////////////////////////////////////////////////////////////
+bool Receiver::getDataNonBlocking(volatile RecvState &recver, uint32_t *value) {
+    if (recver.state == STATE_DONE) {
+        EIMSK &= ~(1 << recver.INTn); // disable interrupt for the receiver
+        if (value)
+            *value = recver.data;
+        recver.EICRx &= ~(1 << recver.ISCn0);
+        recver.state = STATE_IDLE;
+        recver.data = 0;
+        recver.bit = 0;
+        EIMSK |= (1 << recver.INTn); // enable interrupt for the receiver
+        recver.counter = 0;
+        return true;
+    }
+    
+    if (++recver.counter > RESET_THR) {
+        digitalWrite(POWER, LOW);
+        delay(5); // a delay for the receivers to cool off
+        digitalWrite(POWER, HIGH);
+        recver.counter = 0;
+    }
     return false;
 }
 

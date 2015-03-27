@@ -19,7 +19,7 @@ Sender::Sender() {
 }
 
 ////////////////////////////////////////////////////////////////
-void Sender::send(uint32_t data, uint32_t duration) {    
+void Sender::send(uint32_t data, uint64_t duration) {
     uint8_t original = EIMSK;
     EIMSK = 0; // disable external interrupts
     

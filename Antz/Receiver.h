@@ -34,7 +34,7 @@
 #define LOW_LEN(us)     (int) (us * (1.0 - TOLERANCE))
 #define HIGH_LEN(us)    (int) (us * (1.0 + TOLERANCE))
 // switch pin
-#define SWITCH          52
+#define POWER          52
 #define RESET_THR       10
 
 #include <avr/interrupt.h>
@@ -59,7 +59,9 @@ namespace Antz {
         };
         
         Receiver();
+        void turnOnAll(bool on);
         bool recvFrom(uint8_t index, uint32_t *value); // blocking call, receive data from receiver #index
+        bool recvFromNonBlocking(uint8_t index, uint32_t *value); // non-blocking call, assuming turnOnAll(true) has been called sometime earlier
         bool canHearSignal(); // non-blocking call, quickly check if there's any signal on all the receivers
         bool canHearSignal(uint8_t);
         
@@ -72,6 +74,7 @@ namespace Antz {
         static volatile RecvState recver5;
     private:
         bool getData(volatile RecvState &recver, uint32_t *value);
+        bool getDataNonBlocking(volatile RecvState &recver, uint32_t *value);
     };
 }
 

@@ -27,15 +27,39 @@
 
 using namespace Antz;
 
-//Sender sender;
+Sender sender;
 Receiver recver;
 Motor motor;
 Scanner scanner;
 Display display;
 
+// for walker
 uint8_t target = 0; // 0 - nest, 1 - food
 uint32_t curSource = 0xFFFFFFFF;
 uint64_t sourceTime = 0;
+
+// for beacon
+uint8_t curFood = 0xFF;
+uint8_t curNest = 0xFF;
+uint64_t foodTimer = 0;
+uint64_t nestTimer = 0;
+
+////////////////////////////////////////////////////////////////
+void smartSend(uint32_t signal, uint64_t duration) {
+    uint8_t number = signal & 0xFF;
+    display.red(true);
+    display.green(false);
+    display.number(true, number);
+    if (!recver.canHearSignal()) {
+        delay(random(100) * 20);
+        if (!recver.canHearSignal()) {
+            display.red(false);
+            display.green(true);
+            display.number(true, number);
+            sender.send(signal, duration);
+        }
+    }
+}
 
 ////////////////////////////////////////////////////////////////
 void walker() {
@@ -76,7 +100,7 @@ void walker() {
     
     uint8_t cur = target == 0 ? curSource : (curSource >> 8);
     
-    if (min <= cur || millis() - sourceTime > 5000) {
+    if (min <= cur || millis() - sourceTime > 7000) {
         display.number(true, min);
         curSource = minNumber;
         sourceTime = millis();
@@ -90,77 +114,53 @@ void walker() {
     else // min > cur && millis() - sourceTime <= 3000
         motor.forward();
 }
-/*
- ////////////////////////////////////////////////////////////////
- void beacon() {
- //motor.changeSpeed(0.5);
- //motor.turnLeftInPlace();
- 
- //uint16_t id1 = 0;
- //uint16_t id2 = 0;
- //uint16_t id3 = 0;
- //unsigned long cur = millis();
- 
- //do {
- uint16_t minFood = 0x00FF;
- uint16_t minNest = 0x00FF;
- unsigned long cur2 = millis();
- do {
- for (int i = 0; i < 6; ++i) {
- uint32_t number = recver.recvFrom(i); // <- problem
- //uint16_t id = (uint16_t)(number >> 16);
- //Serial.println(number);
- //if (id1 == 0 || id1 == id)
- //id1 = id;
- //else if (id2 == 0 || id2 == id)
- //id2 = id;
- //else if (id > 0)
- //id3 = id;
- //else if (id > 0)
- //id2 = id;
- 
- uint8_t nest = (uint8_t)(number & 0xFF);
- uint8_t food = (uint8_t)(number >> 8);
- if (nest > 0 && nest < minNest)
- minNest = nest;
- if (food > 0 && food < minFood)
- minFood = food;
- }
- } while (millis() - cur2 < 1000);
- 
- Serial.print(" minNest: ");
- Serial.print(minNest);
- Serial.print(" minFood: ");
- Serial.println(minFood);
- 
- uint32_t myNumber = (ID << 16) | 0xFFFF;
- if (minNest < (uint16_t)0x00FF)
- myNumber = (myNumber & 0xFF00) | (minNest + 1);
- if (minFood < (uint16_t)0x00FF)
- myNumber = (myNumber & 0x00FF) | ((minFood + 1) << 8);
- //Serial.print(" Send: ");
- //Serial.print(myNumber, HEX);
- //Serial.print(" nest = ");
- //Serial.print(minNest + 1);
- //Serial.print(" food = ");
- //Serial.println(minFood + 1);
- 
- display.number(true, (uint8_t)(minNest + 1));
- for (int i = 0; i < 10; ++i)
- sender.send(myNumber, 0);
- //} while (millis() - cur < 5000);
- 
- //Serial.print(" id1 = ");
- //Serial.print(id1);
- //Serial.print(" id2 = ");
- //Serial.print(id2);
- //Serial.print(" id3 = ");
- //Serial.println(id3);
- 
- //if (id3 != 0)
- //state = 0;
- }
- */
+
+////////////////////////////////////////////////////////////////
+void beacon() {
+    unsigned long cur = millis();
+    
+    if (cur - nestTimer > 15000)
+        curNest = 0xFF;
+    if (cur - foodTimer > 15000)
+        curFood = 0xFF;
+
+    uint16_t minFood = 0x00FF;
+    uint16_t minNest = 0x00FF;
+    
+    recver.turnOnAll(true);
+    delay(1000);
+    for (int i = 0; i < 6; ++i) {
+        uint32_t number;
+        if (recver.recvFromNonBlocking(i, &number)) {
+            uint8_t nest = (uint8_t)(number & 0xFF);
+            uint8_t food = (uint8_t)(number >> 8);
+            if (nest > 0 && nest < minNest)
+                minNest = nest;
+            if (food > 0 && food < minFood)
+                minFood = food;
+        }
+    }
+    recver.turnOnAll(false);
+
+    if (minNest < (uint16_t)0x00FF && minNest + 1 <= curNest) {
+        curNest = minNest + 1;
+        nestTimer = millis();
+    }
+    if (minFood < (uint16_t)0x00FF && minFood + 1 <= curFood) {
+        curFood = minFood + 1;
+        foodTimer = millis();
+    }
+    
+    uint32_t myNumber = (ID << 16) | 0xFFFF;
+    myNumber = (myNumber & 0xFF00) | curNest;
+    myNumber = (myNumber & 0x00FF) | (curFood << 8);
+    display.number(true, curNest);
+    cur = millis();
+    do {
+        smartSend(myNumber, 1000);
+    } while (millis() - cur < 5000);
+}
+
 ////////////////////////////////////////////////////////////////
 void setup() {
     Serial.begin(9600);
@@ -170,91 +170,5 @@ void setup() {
 
 ////////////////////////////////////////////////////////////////
 void loop() {
-    /*
-     if (state == 0) {
-     display.number(false, 0);
-     if (target == 1)
-     display.red(true);
-     else if (target == 0)
-     display.yellow(true);
-     walker();
-     display.red(false);
-     display.yellow(false);
-     }
-     else if (state == 1) {
-     display.blue(true);
-     beacon();
-     display.blue(false);
-     }
-     */
-    
-    
-    //motor.forward();
-    /*
-    uint8_t min = 0xFF;
-    uint8_t index = 0;
-    
-    for (int i = 0; i < 6; ++i) {
-        uint32_t number;
-        if (recver.recvFrom(i, &number)) {
-            //uint16_t id = (uint16_t)(number >> 16);
-            
-            //if (id1 == 0 || id1 == id)
-            //id1 = id;
-            //else if (id > 0)
-            //id2 = id;
-            
-            if (target == 0) { // going towards nest
-                uint8_t nest = (uint8_t)(number & 0xFF);
-                if (nest == 1)
-                    target = 1;
-                else if (nest > 0 && nest < min) {
-                    min = nest;
-                    index = i;
-                }
-            }
-            else if (target == 1) {
-                uint8_t food = (uint8_t)(number >> 8);
-                if (food == 1)
-                    target = 0;
-                else if (food > 0 && food < min) {
-                    min = food;
-                    index = i;
-                }
-            }
-        }
-    }
-    
-    display.number(true, min);
-    */
-    
-    walker();
-    /*
-    for (int i = 0; i < 6; ++i) {
-        if (recver.recvFrom(i, NULL)) {
-            display.number(true, i);
-            delay(500);
-            display.number(false);
-        }
-    }
-    */
-    //display.number(true, 5);
-    //sender.send(0x0105, 0);
-    
-    /*
-    uint32_t signal = 0x0501;
-    uint8_t number = signal & 0xFF;
-    display.red(true);
-    display.green(false);
-    display.number(true, number);
-    if (!recver.canHearSignal()) {
-        delay(random(100) * 20);
-        if (!recver.canHearSignal()) {
-            display.red(false);
-            display.green(true);
-            display.number(true, number);
-            sender.send(signal, 1000);
-        }
-    }
-     */
+    beacon();
 }
