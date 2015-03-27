@@ -22,6 +22,13 @@
 #define RECV_PIN3       18
 #define RECV_PIN4       2
 #define RECV_PIN5       3
+//#define RECV_PIN0       21
+//#define RECV_PIN1       3
+//#define RECV_PIN2       20
+//#define RECV_PIN3       2
+//#define RECV_PIN4       19
+//#define RECV_PIN5       18
+
 // signal tolerance
 #define TOLERANCE       0.2
 #define LOW_LEN(us)     (int) (us * (1.0 - TOLERANCE))

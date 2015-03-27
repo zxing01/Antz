@@ -29,6 +29,8 @@ namespace Antz {
         void backward();
         void turnLeft();
         void turnRight();
+        void turnLeft(double degree);
+        void turnRight(double degree);
         void stop();
     private:
         double _msPerDegree;

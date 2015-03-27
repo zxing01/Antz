@@ -54,6 +54,20 @@ void Motor::turnRight() {
 }
 
 ////////////////////////////////////////////////////////////////
+void Motor::turnLeft(double degree) {
+    turnLeft();
+    delay(degree * _msPerDegree);
+    stop();
+}
+
+////////////////////////////////////////////////////////////////
+void Motor::turnRight(double degree) {
+    turnRight();
+    delay(degree * _msPerDegree);
+    stop();
+}
+
+////////////////////////////////////////////////////////////////
 void Motor::stop() {
     analogWrite(LEFT_SPD, 0);
     analogWrite(RIGHT_SPD, 0);

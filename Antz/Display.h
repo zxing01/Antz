@@ -35,6 +35,7 @@ namespace Antz {
         void blue(bool on);
         void yellow(bool on);
         void number(bool on, uint8_t n); // display n if n is in [1, 9], display 0 otherwise
+        void number(bool on);
         uint8_t currentNumber();
     private:
         uint8_t curNum;

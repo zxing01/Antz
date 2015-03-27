@@ -34,22 +34,16 @@ Scanner scanner;
 Display display;
 
 uint8_t target = 0; // 0 - nest, 1 - food
-uint8_t state = 0; // 0 - walker, 1 - beacon, 2 - explorer
+uint32_t curSource = 0xFFFFFFFF;
+uint64_t sourceTime = 0;
 
 ////////////////////////////////////////////////////////////////
 void walker() {
-    //uint16_t id1 = 0;
-    //uint16_t id2 = 0;
-    //unsigned long cur = millis();
-    
-    if (target == 0) {
+    if (target == 0)
         display.blue(false);
-    }
-    else if (target == 1) {
+    else if (target == 1)
         display.blue(true);
-    }
     
-    //do {
     double angle;
     if (scanner.scan(&angle) <= 15) {
         motor.backward();
@@ -64,57 +58,37 @@ void walker() {
     
     uint8_t min = 0xFF;
     uint8_t index = 0;
+    uint32_t minNumber = 0xFFFFFFFF;
     
     for (int i = 0; i < 6; ++i) {
         uint32_t number;
         if (recver.recvFrom(i, &number)) {
-            //uint16_t id = (uint16_t)(number >> 16);
-            
-            //if (id1 == 0 || id1 == id)
-            //id1 = id;
-            //else if (id > 0)
-            //id2 = id;
-            
-            if (target == 0) { // going towards nest
-                uint8_t nest = (uint8_t)(number & 0xFF);
-                if (nest == 1)
-                    target = 1;
-                else if (nest > 0 && nest < min) {
-                    min = nest;
-                    index = i;
-                }
-            }
-            else if (target == 1) {
-                uint8_t food = (uint8_t)(number >> 8);
-                if (food == 1)
-                    target = 0;
-                else if (food > 0 && food < min) {
-                    min = food;
-                    index = i;
-                }
+            uint8_t cardinality = target == 0 ? number : (number >> 8);
+            if (cardinality == 1)
+                target = 1 - target;
+            else if (cardinality > 0 && cardinality < min) {
+                min = cardinality;
+                index = i;
+                minNumber = number;
             }
         }
     }
     
-    display.number(true, min);
-    //if (min == 0xFF) // become explorer
-    //state = 2;
-    //else
-    //state = 0;
+    uint8_t cur = target == 0 ? curSource : (curSource >> 8);
     
-    if (index == 0) {
+    if (min <= cur || millis() - sourceTime > 5000) {
+        display.number(true, min);
+        curSource = minNumber;
+        sourceTime = millis();
+        if (index == 0)
+            motor.forward();
+        else if (index < 3)
+            motor.turnRight(index * 60);
+        else
+            motor.turnLeft((6 - index) * 60);
+    }
+    else // min > cur && millis() - sourceTime <= 3000
         motor.forward();
-    }
-    else if (index < 3) {
-        motor.turnRight();
-    }
-    else {
-        motor.turnLeft();
-    }
-    //} while (millis() - cur < 3000);
-    
-    //if (id2 == 0) // become beacon
-    //state = 1;
 }
 /*
  ////////////////////////////////////////////////////////////////
@@ -254,17 +228,21 @@ void loop() {
     display.number(true, min);
     */
     
-    //walker();
-    motor.turnRight();
-    delay(1040 * 6);
-    motor.stop();
-    delay(3000);
-    
+    walker();
+    /*
+    for (int i = 0; i < 6; ++i) {
+        if (recver.recvFrom(i, NULL)) {
+            display.number(true, i);
+            delay(500);
+            display.number(false);
+        }
+    }
+    */
     //display.number(true, 5);
     //sender.send(0x0105, 0);
     
     /*
-    uint32_t signal = 0x0105;
+    uint32_t signal = 0x0501;
     uint8_t number = signal & 0xFF;
     display.red(true);
     display.green(false);

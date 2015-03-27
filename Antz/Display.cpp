@@ -186,6 +186,11 @@ void Display::number(bool on, uint8_t n) {
 }
 
 ////////////////////////////////////////////////////////////////
+void Display::number(bool on) {
+    number(on, curNum);
+}
+
+////////////////////////////////////////////////////////////////
 uint8_t Display::currentNumber() {
     return curNum;
 }

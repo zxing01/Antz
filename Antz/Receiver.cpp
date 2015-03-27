@@ -19,6 +19,13 @@ volatile Receiver::RecvState Receiver::recver3(INT3, ISC30, EICRA);
 volatile Receiver::RecvState Receiver::recver4(INT4, ISC40, EICRB);
 volatile Receiver::RecvState Receiver::recver5(INT5, ISC50, EICRB);
 
+//volatile Receiver::RecvState Receiver::recver0(INT0, ISC00, EICRA);
+//volatile Receiver::RecvState Receiver::recver1(INT5, ISC50, EICRB);
+//volatile Receiver::RecvState Receiver::recver2(INT1, ISC10, EICRA);
+//volatile Receiver::RecvState Receiver::recver3(INT4, ISC40, EICRB);
+//volatile Receiver::RecvState Receiver::recver4(INT2, ISC20, EICRA);
+//volatile Receiver::RecvState Receiver::recver5(INT3, ISC30, EICRA);
+
 ////////////////////////////////////////////////////////////////
 Receiver::Receiver() {
     pinMode(RECV_PIN0, INPUT);
@@ -57,14 +64,13 @@ bool Receiver::recvFrom(uint8_t index, uint32_t *value) {
 
 ////////////////////////////////////////////////////////////////
 bool Receiver::getData(volatile RecvState &recver, uint32_t *value) {
-    if (value == NULL)
-        return false;
     EIMSK |= (1 << recver.INTn); // enable interrupt for the receiver
     unsigned long start = micros();
     do {
         if (recver.state == STATE_DONE) {
             EIMSK &= ~(1 << recver.INTn); // disable interrupt for the receiver
-            *value = recver.data;
+            if (value)
+                *value = recver.data;
             recver.EICRx &= ~(1 << recver.ISCn0);
             recver.state = STATE_IDLE;
             recver.data = 0;
