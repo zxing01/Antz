@@ -45,23 +45,6 @@ uint64_t foodTimer = 0;
 uint64_t nestTimer = 0;
 
 ////////////////////////////////////////////////////////////////
-void smartSend(uint32_t signal, uint64_t duration) {
-    uint8_t number = signal & 0xFF;
-    display.red(true);
-    display.green(false);
-    display.number(true, number);
-    if (!recver.canHearSignal()) {
-        delay(random(100) * 20);
-        if (!recver.canHearSignal()) {
-            display.red(false);
-            display.green(true);
-            display.number(true, number);
-            sender.send(signal, duration);
-        }
-    }
-}
-
-////////////////////////////////////////////////////////////////
 void walker() {
     if (target == 0)
         display.blue(false);
@@ -117,48 +100,53 @@ void walker() {
 
 ////////////////////////////////////////////////////////////////
 void beacon() {
-    unsigned long cur = millis();
+    uint16_t minFood = 0xFF;
+    uint16_t minNest = 0xFF;
     
-    if (cur - nestTimer > 15000)
-        curNest = 0xFF;
-    if (cur - foodTimer > 15000)
-        curFood = 0xFF;
-
-    uint16_t minFood = 0x00FF;
-    uint16_t minNest = 0x00FF;
-    
-    recver.turnOnAll(true);
-    delay(1000);
-    for (int i = 0; i < 6; ++i) {
-        uint32_t number;
-        if (recver.recvFromNonBlocking(i, &number)) {
-            uint8_t nest = (uint8_t)(number & 0xFF);
-            uint8_t food = (uint8_t)(number >> 8);
-            if (nest > 0 && nest < minNest)
-                minNest = nest;
-            if (food > 0 && food < minFood)
-                minFood = food;
+    display.red(true);
+    display.green(false);
+    bool wait = true;
+    while (wait || minFood == 0xFF && minNest == 0xFF) {
+        wait = false;
+        unsigned long cur = millis();
+        if (cur - nestTimer > 15000)
+            curNest = 0xFF;
+        if (cur - foodTimer > 15000)
+            curFood = 0xFF;
+        
+        for (int i = 0; i < 6; ++i) {
+            if (recver.canHearSignal(i)) {
+                wait = true;
+                uint32_t number;
+                if (recver.recvFrom(i, &number)) {
+                    uint8_t nest = (uint8_t)(number & 0xFF);
+                    uint8_t food = (uint8_t)(number >> 8);
+                    if (nest > 0 && nest < minNest)
+                        minNest = nest;
+                    if (food > 0 && food < minFood)
+                        minFood = food;
+                }
+            }
+        }
+        if (minNest < (uint16_t)0xFF && minNest + 1 <= curNest) {
+            curNest = minNest + 1;
+            nestTimer = millis();
+        }
+        if (minFood < (uint16_t)0xFF && minFood + 1 <= curFood) {
+            curFood = minFood + 1;
+            foodTimer = millis();
         }
     }
-    recver.turnOnAll(false);
-
-    if (minNest < (uint16_t)0x00FF && minNest + 1 <= curNest) {
-        curNest = minNest + 1;
-        nestTimer = millis();
+    delay(random(100) * 20);
+    if (!recver.canHearSignal()) {
+        uint32_t myNumber = (ID << 16) | 0xFFFF;
+        myNumber = (myNumber & 0xFF00) | curNest;
+        myNumber = (myNumber & 0x00FF) | (curFood << 8);
+        display.number(true, curNest);
+        display.red(false);
+        display.green(true);
+        sender.send(myNumber, 2000);
     }
-    if (minFood < (uint16_t)0x00FF && minFood + 1 <= curFood) {
-        curFood = minFood + 1;
-        foodTimer = millis();
-    }
-    
-    uint32_t myNumber = (ID << 16) | 0xFFFF;
-    myNumber = (myNumber & 0xFF00) | curNest;
-    myNumber = (myNumber & 0x00FF) | (curFood << 8);
-    display.number(true, curNest);
-    cur = millis();
-    do {
-        smartSend(myNumber, 1000);
-    } while (millis() - cur < 5000);
 }
 
 ////////////////////////////////////////////////////////////////
