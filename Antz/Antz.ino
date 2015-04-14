@@ -196,6 +196,7 @@ void setup() {
 
 ////////////////////////////////////////////////////////////////
 void loop() {
+    /*
     uint64_t curTime = millis();
     for (int i = 0; i < 5; ++i)
         if (curTime - id[i][1]> 10000)
@@ -230,6 +231,7 @@ void loop() {
                 id[i][0] = 0;
         }
     }
+    */
     /*
     display.green(true);
     display.red(false);

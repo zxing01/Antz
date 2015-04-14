@@ -34,7 +34,7 @@
 #define LOW_LEN(us)     (int) (us * (1.0 - TOLERANCE))
 #define HIGH_LEN(us)    (int) (us * (1.0 + TOLERANCE))
 // switch pin
-#define POWER          52
+#define POWER           52
 #define RESET_THR       10
 
 #include <avr/interrupt.h>
