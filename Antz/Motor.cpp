@@ -11,7 +11,7 @@
 using namespace Antz;
 
 ////////////////////////////////////////////////////////////////
-Motor::Motor() : _msPerDegree(18) {
+Motor::Motor() {
     pinMode(TOGGLE, OUTPUT);
     pinMode(LEFT_DIR, OUTPUT);
     pinMode(LEFT_SPD, OUTPUT);
@@ -22,19 +22,23 @@ Motor::Motor() : _msPerDegree(18) {
 }
 
 ////////////////////////////////////////////////////////////////
-void Motor::forward() {
+void Motor::forward(unsigned long ms) {
     digitalWrite(LEFT_DIR, LOW);
     digitalWrite(RIGHT_DIR, HIGH);
     analogWrite(LEFT_SPD, MAX_SPD);
     analogWrite(RIGHT_SPD, MAX_SPD);
+    delay(ms);
+    stop();
 }
 
 ////////////////////////////////////////////////////////////////
-void Motor::backward() {
+void Motor::backward(unsigned long ms) {
     digitalWrite(LEFT_DIR, HIGH);
     digitalWrite(RIGHT_DIR, LOW);
     analogWrite(LEFT_SPD, MAX_SPD);
     analogWrite(RIGHT_SPD, MAX_SPD);
+    delay(ms);
+    stop();
 }
 
 ////////////////////////////////////////////////////////////////
@@ -56,14 +60,14 @@ void Motor::turnRight() {
 ////////////////////////////////////////////////////////////////
 void Motor::turnLeft(double degree) {
     turnLeft();
-    delay(degree * _msPerDegree);
+    delay(degree * MS_PER_DEGREE);
     stop();
 }
 
 ////////////////////////////////////////////////////////////////
 void Motor::turnRight(double degree) {
     turnRight();
-    delay(degree * _msPerDegree);
+    delay(degree * MS_PER_DEGREE);
     stop();
 }
 

@@ -8,12 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		3D2278081A716FB900D3154B /* Antz.ino in Sources */ = {isa = PBXBuildFile; fileRef = 3DD278081A716FB900D3154B /* Antz.ino */; };
-		3D4CA2AD1A96650A0045B78E /* Display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D4CA2AB1A96650A0045B78E /* Display.cpp */; };
-		3DC8F1BC1AB9EBF1002ECEF2 /* Scanner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC8F1BA1AB9EBF1002ECEF2 /* Scanner.cpp */; };
-		3DD277A51A716FB900D3154B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD277A41A716FB900D3154B /* main.cpp */; };
-		3DD278331A71703B00D3154B /* Motor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD278241A71703B00D3154B /* Motor.cpp */; };
-		3DD278341A71703B00D3154B /* Receiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD278261A71703B00D3154B /* Receiver.cpp */; };
-		3DD278351A71703B00D3154B /* Sender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DD278281A71703B00D3154B /* Sender.cpp */; };
+		3DC1465A1AF2C96B004502D8 /* AntzRobot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC146481AF2C96B004502D8 /* AntzRobot.cpp */; };
+		3DC1465B1AF2C96B004502D8 /* Beacon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC1464A1AF2C96B004502D8 /* Beacon.cpp */; };
+		3DC1465C1AF2C96B004502D8 /* Display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC1464D1AF2C96B004502D8 /* Display.cpp */; };
+		3DC1465D1AF2C96B004502D8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC1464F1AF2C96B004502D8 /* main.cpp */; };
+		3DC1465E1AF2C96B004502D8 /* Motor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC146501AF2C96B004502D8 /* Motor.cpp */; };
+		3DC1465F1AF2C96B004502D8 /* Receiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC146521AF2C96B004502D8 /* Receiver.cpp */; };
+		3DC146601AF2C96B004502D8 /* Scanner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC146541AF2C96B004502D8 /* Scanner.cpp */; };
+		3DC146611AF2C96B004502D8 /* Sender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC146561AF2C96B004502D8 /* Sender.cpp */; };
+		3DC146621AF2C96B004502D8 /* Walker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC146581AF2C96B004502D8 /* Walker.cpp */; };
 		AA2A150122125003AA000005 /* Arduino.h in Sources */ = {isa = PBXBuildFile; fileRef = AAAA150122125003AA000005 /* Arduino.h */; };
 		AA2A150122125003AA000007 /* malloc.c in Sources */ = {isa = PBXBuildFile; fileRef = AAAA150122125003AA000007 /* malloc.c */; };
 		AA2A150122125003AA000008 /* realloc.c in Sources */ = {isa = PBXBuildFile; fileRef = AAAA150122125003AA000008 /* realloc.c */; };
@@ -295,13 +298,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3D4CA2AB1A96650A0045B78E /* Display.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Display.cpp; sourceTree = "<group>"; };
-		3D4CA2AC1A96650A0045B78E /* Display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Display.h; sourceTree = "<group>"; };
-		3DC8F1BA1AB9EBF1002ECEF2 /* Scanner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scanner.cpp; sourceTree = "<group>"; };
-		3DC8F1BB1AB9EBF1002ECEF2 /* Scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scanner.h; sourceTree = "<group>"; };
+		3DC146481AF2C96B004502D8 /* AntzRobot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AntzRobot.cpp; sourceTree = "<group>"; };
+		3DC146491AF2C96B004502D8 /* AntzRobot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AntzRobot.h; sourceTree = "<group>"; };
+		3DC1464A1AF2C96B004502D8 /* Beacon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Beacon.cpp; sourceTree = "<group>"; };
+		3DC1464B1AF2C96B004502D8 /* Beacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Beacon.h; sourceTree = "<group>"; };
+		3DC1464C1AF2C96B004502D8 /* Communication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Communication.h; sourceTree = "<group>"; };
+		3DC1464D1AF2C96B004502D8 /* Display.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Display.cpp; sourceTree = "<group>"; };
+		3DC1464E1AF2C96B004502D8 /* Display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Display.h; sourceTree = "<group>"; };
+		3DC1464F1AF2C96B004502D8 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		3DC146501AF2C96B004502D8 /* Motor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Motor.cpp; sourceTree = "<group>"; };
+		3DC146511AF2C96B004502D8 /* Motor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Motor.h; sourceTree = "<group>"; };
+		3DC146521AF2C96B004502D8 /* Receiver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Receiver.cpp; sourceTree = "<group>"; };
+		3DC146531AF2C96B004502D8 /* Receiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Receiver.h; sourceTree = "<group>"; };
+		3DC146541AF2C96B004502D8 /* Scanner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scanner.cpp; sourceTree = "<group>"; };
+		3DC146551AF2C96B004502D8 /* Scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scanner.h; sourceTree = "<group>"; };
+		3DC146561AF2C96B004502D8 /* Sender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sender.cpp; sourceTree = "<group>"; };
+		3DC146571AF2C96B004502D8 /* Sender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sender.h; sourceTree = "<group>"; };
+		3DC146581AF2C96B004502D8 /* Walker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Walker.cpp; sourceTree = "<group>"; };
+		3DC146591AF2C96B004502D8 /* Walker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Walker.h; sourceTree = "<group>"; };
 		3DD277A11A716FB900D3154B /* Index */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Index; sourceTree = BUILT_PRODUCTS_DIR; };
-		3DD277A41A716FB900D3154B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		3DD277A61A716FB900D3154B /* Makefile */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		3DD277A61A716FB900D3154B /* Makefile */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; name = Makefile; path = Antz/Makefile; sourceTree = "<group>"; };
 		3DD277AD1A716FB900D3154B /* Sketchbook.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = Sketchbook.txt; path = Sketchbook/Sketchbook.txt; sourceTree = "<group>"; };
 		3DD277AF1A716FB900D3154B /* 4D Systems PICadillo 35T.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "4D Systems PICadillo 35T.xcconfig"; path = "Configurations/4D Systems PICadillo 35T.xcconfig"; sourceTree = "<group>"; };
 		3DD277B01A716FB900D3154B /* Adafruit Pro Trinket 3V-12MHz.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "Adafruit Pro Trinket 3V-12MHz.xcconfig"; path = "Configurations/Adafruit Pro Trinket 3V-12MHz.xcconfig"; sourceTree = "<group>"; };
@@ -388,13 +404,6 @@
 		3DD278061A716FB900D3154B /* TemplateIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = TemplateIcon.icns; path = Utilities/TemplateIcon.icns; sourceTree = "<group>"; };
 		3DD278071A716FB900D3154B /* uploader_izmir.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = uploader_izmir.sh; path = Utilities/uploader_izmir.sh; sourceTree = "<group>"; };
 		3DD278081A716FB900D3154B /* Antz.ino */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; path = Antz.ino; sourceTree = "<group>"; };
-		3DD278211A71703B00D3154B /* Communication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Communication.h; sourceTree = "<group>"; };
-		3DD278241A71703B00D3154B /* Motor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Motor.cpp; sourceTree = "<group>"; };
-		3DD278251A71703B00D3154B /* Motor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Motor.h; sourceTree = "<group>"; };
-		3DD278261A71703B00D3154B /* Receiver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Receiver.cpp; sourceTree = "<group>"; };
-		3DD278271A71703B00D3154B /* Receiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Receiver.h; sourceTree = "<group>"; };
-		3DD278281A71703B00D3154B /* Sender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sender.cpp; sourceTree = "<group>"; };
-		3DD278291A71703B00D3154B /* Sender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sender.h; sourceTree = "<group>"; };
 		AAAA150122125003AA000005 /* Arduino.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Arduino.h; sourceTree = "<group>"; };
 		AAAA150122125003AA000007 /* malloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = malloc.c; sourceTree = "<group>"; };
 		AAAA150122125003AA000008 /* realloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = realloc.c; sourceTree = "<group>"; };
@@ -676,11 +685,56 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		3DC146631AF2C97D004502D8 /* robot */ = {
+			isa = PBXGroup;
+			children = (
+				3DC146481AF2C96B004502D8 /* AntzRobot.cpp */,
+				3DC146491AF2C96B004502D8 /* AntzRobot.h */,
+				3DC1464A1AF2C96B004502D8 /* Beacon.cpp */,
+				3DC1464B1AF2C96B004502D8 /* Beacon.h */,
+				3DC146581AF2C96B004502D8 /* Walker.cpp */,
+				3DC146591AF2C96B004502D8 /* Walker.h */,
+			);
+			name = robot;
+			sourceTree = "<group>";
+		};
+		3DC146641AF2C98F004502D8 /* component */ = {
+			isa = PBXGroup;
+			children = (
+				3DC1464C1AF2C96B004502D8 /* Communication.h */,
+				3DC1464D1AF2C96B004502D8 /* Display.cpp */,
+				3DC1464E1AF2C96B004502D8 /* Display.h */,
+				3DC146501AF2C96B004502D8 /* Motor.cpp */,
+				3DC146511AF2C96B004502D8 /* Motor.h */,
+				3DC146521AF2C96B004502D8 /* Receiver.cpp */,
+				3DC146531AF2C96B004502D8 /* Receiver.h */,
+				3DC146541AF2C96B004502D8 /* Scanner.cpp */,
+				3DC146551AF2C96B004502D8 /* Scanner.h */,
+				3DC146561AF2C96B004502D8 /* Sender.cpp */,
+				3DC146571AF2C96B004502D8 /* Sender.h */,
+			);
+			name = component;
+			sourceTree = "<group>";
+		};
+		3DC146651AF2C9E3004502D8 /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				3DD277A61A716FB900D3154B /* Makefile */,
+				3DD277AC1A716FB900D3154B /* Sketchbook */,
+				AAAA150122125003AA000000 /* Resources */,
+				3DD277AE1A716FB900D3154B /* Configurations */,
+				3DD277E51A716FB900D3154B /* Makefiles */,
+				3DD278001A716FB900D3154B /* Utilities */,
+			);
+			name = Others;
+			sourceTree = "<group>";
+		};
 		3DD277951A716FB900D3154B = {
 			isa = PBXGroup;
 			children = (
-				3DD277A31A716FB900D3154B /* Antz */,
+				3DD277A31A716FB900D3154B /* Code */,
 				3DD277A21A716FB900D3154B /* Products */,
+				3DC146651AF2C9E3004502D8 /* Others */,
 			);
 			sourceTree = "<group>";
 		};
@@ -692,29 +746,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3DD277A31A716FB900D3154B /* Antz */ = {
+		3DD277A31A716FB900D3154B /* Code */ = {
 			isa = PBXGroup;
 			children = (
-				3DD278211A71703B00D3154B /* Communication.h */,
-				3DD278261A71703B00D3154B /* Receiver.cpp */,
-				3DD278271A71703B00D3154B /* Receiver.h */,
-				3DD278281A71703B00D3154B /* Sender.cpp */,
-				3DD278291A71703B00D3154B /* Sender.h */,
-				3DC8F1BA1AB9EBF1002ECEF2 /* Scanner.cpp */,
-				3DC8F1BB1AB9EBF1002ECEF2 /* Scanner.h */,
-				3D4CA2AB1A96650A0045B78E /* Display.cpp */,
-				3D4CA2AC1A96650A0045B78E /* Display.h */,
-				3DD278241A71703B00D3154B /* Motor.cpp */,
-				3DD278251A71703B00D3154B /* Motor.h */,
-				3DD277A41A716FB900D3154B /* main.cpp */,
-				3DD277A61A716FB900D3154B /* Makefile */,
+				3DC146631AF2C97D004502D8 /* robot */,
+				3DC146641AF2C98F004502D8 /* component */,
+				3DC1464F1AF2C96B004502D8 /* main.cpp */,
 				3DD278081A716FB900D3154B /* Antz.ino */,
-				3DD277AC1A716FB900D3154B /* Sketchbook */,
-				AAAA150122125003AA000000 /* Resources */,
-				3DD277AE1A716FB900D3154B /* Configurations */,
-				3DD277E51A716FB900D3154B /* Makefiles */,
-				3DD278001A716FB900D3154B /* Utilities */,
 			);
+			name = Code;
 			path = Antz;
 			sourceTree = "<group>";
 		};
@@ -724,6 +764,7 @@
 				3DD277AD1A716FB900D3154B /* Sketchbook.txt */,
 			);
 			name = Sketchbook;
+			path = Antz;
 			sourceTree = "<group>";
 		};
 		3DD277AE1A716FB900D3154B /* Configurations */ = {
@@ -785,6 +826,7 @@
 				3DD277E41A716FB900D3154B /* Wiring S.xcconfig */,
 			);
 			name = Configurations;
+			path = Antz;
 			sourceTree = "<group>";
 		};
 		3DD277E51A716FB900D3154B /* Makefiles */ = {
@@ -816,6 +858,7 @@
 				3DD277FD1A716FB900D3154B /* Avrdude.mk */,
 			);
 			name = Makefiles;
+			path = Antz;
 			sourceTree = "<group>";
 		};
 		3DD278001A716FB900D3154B /* Utilities */ = {
@@ -829,6 +872,7 @@
 				3DD278071A716FB900D3154B /* uploader_izmir.sh */,
 			);
 			name = Utilities;
+			path = Antz;
 			sourceTree = "<group>";
 		};
 		AAAA150122125003AA000000 /* Resources */ = {
@@ -836,7 +880,8 @@
 			children = (
 				AAAA150122125003AA000001 /* Arduino */,
 			);
-			path = Resources;
+			name = Resources;
+			path = Antz/Resources;
 			sourceTree = "<group>";
 		};
 		AAAA150122125003AA000001 /* Arduino */ = {
@@ -1497,8 +1542,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DD277A51A716FB900D3154B /* main.cpp in Sources */,
 				3D2278081A716FB900D3154B /* Antz.ino in Sources */,
+				3DC146621AF2C96B004502D8 /* Walker.cpp in Sources */,
 				AA2A150122125003AA000005 /* Arduino.h in Sources */,
 				AA2A150122125003AA000007 /* malloc.c in Sources */,
 				AA2A150122125003AA000008 /* realloc.c in Sources */,
@@ -1527,6 +1572,7 @@
 				AA2A150122125003AA00001F /* USBAPI.h in Sources */,
 				AA2A150122125003AA000020 /* USBCore.cpp in Sources */,
 				AA2A150122125003AA000021 /* USBCore.h in Sources */,
+				3DC1465E1AF2C96B004502D8 /* Motor.cpp in Sources */,
 				AA2A150122125003AA000022 /* USBDesc.h in Sources */,
 				AA2A150122125003AA000023 /* WCharacter.h in Sources */,
 				AA2A150122125003AA000024 /* WInterrupts.c in Sources */,
@@ -1558,6 +1604,8 @@
 				AA2A150122125003AA00003F /* Server.h in Sources */,
 				AA2A150122125003AA000040 /* Stream.cpp in Sources */,
 				AA2A150122125003AA000041 /* Stream.h in Sources */,
+				3DC146601AF2C96B004502D8 /* Scanner.cpp in Sources */,
+				3DC1465A1AF2C96B004502D8 /* AntzRobot.cpp in Sources */,
 				AA2A150122125003AA000042 /* Tone.cpp in Sources */,
 				AA2A150122125003AA000043 /* Udp.h in Sources */,
 				AA2A150122125003AA000044 /* USBAPI.h in Sources */,
@@ -1587,7 +1635,6 @@
 				AA2A150122125003AA000060 /* Ethernet.h in Sources */,
 				AA2A150122125003AA000061 /* EthernetClient.cpp in Sources */,
 				AA2A150122125003AA000062 /* EthernetClient.h in Sources */,
-				3DD278341A71703B00D3154B /* Receiver.cpp in Sources */,
 				AA2A150122125003AA000063 /* EthernetServer.cpp in Sources */,
 				AA2A150122125003AA000064 /* EthernetServer.h in Sources */,
 				AA2A150122125003AA000065 /* EthernetUdp.cpp in Sources */,
@@ -1599,8 +1646,8 @@
 				AA2A150122125003AA00006C /* w5100.h in Sources */,
 				AA2A150122125003AA00006E /* Boards.h in Sources */,
 				AA2A150122125003AA00006F /* Firmata.cpp in Sources */,
+				3DC1465D1AF2C96B004502D8 /* main.cpp in Sources */,
 				AA2A150122125003AA000070 /* Firmata.h in Sources */,
-				3D4CA2AD1A96650A0045B78E /* Display.cpp in Sources */,
 				AA2A150122125003AA000072 /* GSM.h in Sources */,
 				AA2A150122125003AA000073 /* GSM3CircularBuffer.cpp in Sources */,
 				AA2A150122125003AA000074 /* GSM3CircularBuffer.h in Sources */,
@@ -1659,9 +1706,9 @@
 				AA2A150122125003AA0000A9 /* GSM3ShieldV1ServerProvider.cpp in Sources */,
 				AA2A150122125003AA0000AA /* GSM3ShieldV1ServerProvider.h in Sources */,
 				AA2A150122125003AA0000AB /* GSM3ShieldV1SMSProvider.cpp in Sources */,
-				3DC8F1BC1AB9EBF1002ECEF2 /* Scanner.cpp in Sources */,
 				AA2A150122125003AA0000AC /* GSM3ShieldV1SMSProvider.h in Sources */,
 				AA2A150122125003AA0000AD /* GSM3ShieldV1VoiceProvider.cpp in Sources */,
+				3DC1465B1AF2C96B004502D8 /* Beacon.cpp in Sources */,
 				AA2A150122125003AA0000AE /* GSM3ShieldV1VoiceProvider.h in Sources */,
 				AA2A150122125003AA0000AF /* GSM3SMSService.cpp in Sources */,
 				AA2A150122125003AA0000B0 /* GSM3SMSService.h in Sources */,
@@ -1704,6 +1751,7 @@
 				AA2A150122125003AA0000D7 /* SdCard.h in Sources */,
 				AA2A150122125003AA0000D8 /* SdInfo.h in Sources */,
 				AA2A150122125003AA0000D9 /* Sensors.cpp in Sources */,
+				3DC1465F1AF2C96B004502D8 /* Receiver.cpp in Sources */,
 				AA2A150122125003AA0000DA /* SPI.cpp in Sources */,
 				AA2A150122125003AA0000DB /* SPI.h in Sources */,
 				AA2A150122125003AA0000DC /* Squawk.cpp in Sources */,
@@ -1714,7 +1762,7 @@
 				AA2A150122125003AA0000E2 /* RobotTextManager.h in Sources */,
 				AA2A150122125003AA0000E3 /* scripts_Hello_User.h in Sources */,
 				AA2A150122125003AA0000E4 /* twi.c in Sources */,
-				3DD278351A71703B00D3154B /* Sender.cpp in Sources */,
+				3DC146611AF2C96B004502D8 /* Sender.cpp in Sources */,
 				AA2A150122125003AA0000E5 /* twi.h in Sources */,
 				AA2A150122125003AA0000E6 /* VirtualKeyboard.cpp in Sources */,
 				AA2A150122125003AA0000E7 /* VirtualKeyboard.h in Sources */,
@@ -1758,6 +1806,7 @@
 				AA2A150122125003AA000116 /* glcdfont.c in Sources */,
 				AA2A150122125003AA000117 /* PImage.h in Sources */,
 				AA2A150122125003AA00011A /* debug.h in Sources */,
+				3DC1465C1AF2C96B004502D8 /* Display.cpp in Sources */,
 				AA2A150122125003AA00011B /* server_drv.cpp in Sources */,
 				AA2A150122125003AA00011C /* server_drv.h in Sources */,
 				AA2A150122125003AA00011D /* socket.c in Sources */,
@@ -1781,7 +1830,6 @@
 				AA2A150122125003AA000131 /* twi.h in Sources */,
 				AA2A150122125003AA000132 /* Wire.cpp in Sources */,
 				AA2A150122125003AA000133 /* Wire.h in Sources */,
-				3DD278331A71703B00D3154B /* Motor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
