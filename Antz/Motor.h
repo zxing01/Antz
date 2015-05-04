@@ -17,21 +17,17 @@
 #define MAX_SPD         64
 #define LEFT_CUR        A0
 #define RIGHT_CUR       A1
-#define MS_PER_DEGREE   18
 
 #include <Arduino.h>
-#include "Receiver.h"
 
 namespace Antz {
     class Motor {
     public:
         Motor();
-        void forward(unsigned long ms);
-        void backward(unsigned long ms);
-        void turnLeft();
-        void turnRight();
-        void turnLeft(double degree);
-        void turnRight(double degree);
+        void forward();
+        void backward();
+        void left();
+        void right();
         void stop();
     };
 }

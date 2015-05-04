@@ -11,11 +11,11 @@
 
 #define IR_PIN A15
 #define SERVO_PIN     53
-#define SERVO_SPD     120.0 // per 60 degrees
-#define MIN_POS       10.0
-#define MAX_POS       170.0
-#define NUM_OF_STOPS  11
-#define INTERVAL      (MAX_POS - MIN_POS) / (NUM_OF_STOPS - 1)
+#define SERVO_SPD     (120.f / 60.f) // per degree
+#define MIN_POS       30.f
+#define MAX_POS       150.f
+#define NUM_OF_STOPS  3
+#define INTERVAL      ((MAX_POS - MIN_POS) / (NUM_OF_STOPS - 1))
 
 #include <Arduino.h>
 #include <Servo.h>
@@ -24,7 +24,7 @@ namespace Antz {
     class Infrared {
     public:
         Infrared(uint8_t nReadings = 5);
-        double getDistance(); // in centimeter(s)
+        float getDistance(); // in centimeter(s)
     private:
         uint8_t _nReadings;
     };
@@ -33,7 +33,7 @@ namespace Antz {
     public:
         Scanner();
         void startup();
-        double scan(double* angle);
+        float scan(float* angle);
     private:
         bool forward;
         Servo servo;

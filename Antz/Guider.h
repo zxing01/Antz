@@ -1,21 +1,21 @@
 //
-//  Beacon.h
+//  Guider.h
 //  Antz
 //
 //  Created by Zhi Xing on 4/20/15.
 //  Copyright (c) 2015 Zhi Xing. All rights reserved.
 //
 
-#ifndef __Antz__Beacon__
-#define __Antz__Beacon__
+#ifndef __Antz__Guider__
+#define __Antz__Guider__
 
 #include "AntzRobot.h"
 
 namespace Antz {
-    class Beacon: public AntzRobot {
+    class Guider: public AntzRobot {
     public:
-        Beacon(uint32_t robotId);
-        virtual ~Beacon() {}
+        Guider(uint32_t robotId);
+        virtual ~Guider() {}
         virtual void setup();
         virtual void loop();
     private:
@@ -27,4 +27,4 @@ namespace Antz {
     };
 }
 
-#endif /* defined(__Antz__Beacon__) */
+#endif /* defined(__Antz__Guider__) */

@@ -1,21 +1,21 @@
 //
-//  Walker.h
+//  Worker.h
 //  Antz
 //
 //  Created by Zhi Xing on 4/20/15.
 //  Copyright (c) 2015 Zhi Xing. All rights reserved.
 //
 
-#ifndef __Antz__Walker__
-#define __Antz__Walker__
+#ifndef __Antz__Worker__
+#define __Antz__Worker__
 
 #include "AntzRobot.h"
 
 namespace Antz {
-    class Walker: public AntzRobot {
+    class Worker: public AntzRobot {
     public:
-        Walker(uint32_t robotId);
-        virtual ~Walker() {}
+        Worker(uint32_t robotId);
+        virtual ~Worker() {}
         virtual void setup();
         virtual void loop();
     private:
@@ -25,4 +25,4 @@ namespace Antz {
     };
 }
 
-#endif /* defined(__Antz__Walker__) */
+#endif /* defined(__Antz__Worker__) */

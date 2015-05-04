@@ -22,27 +22,23 @@ Motor::Motor() {
 }
 
 ////////////////////////////////////////////////////////////////
-void Motor::forward(unsigned long ms) {
+void Motor::forward() {
     digitalWrite(LEFT_DIR, LOW);
     digitalWrite(RIGHT_DIR, HIGH);
     analogWrite(LEFT_SPD, MAX_SPD);
     analogWrite(RIGHT_SPD, MAX_SPD);
-    delay(ms);
-    stop();
 }
 
 ////////////////////////////////////////////////////////////////
-void Motor::backward(unsigned long ms) {
+void Motor::backward() {
     digitalWrite(LEFT_DIR, HIGH);
     digitalWrite(RIGHT_DIR, LOW);
     analogWrite(LEFT_SPD, MAX_SPD);
     analogWrite(RIGHT_SPD, MAX_SPD);
-    delay(ms);
-    stop();
 }
 
 ////////////////////////////////////////////////////////////////
-void Motor::turnLeft() {
+void Motor::left() {
     digitalWrite(LEFT_DIR, HIGH);
     digitalWrite(RIGHT_DIR, HIGH);
     analogWrite(LEFT_SPD, MAX_SPD/2);
@@ -50,25 +46,11 @@ void Motor::turnLeft() {
 }
 
 ////////////////////////////////////////////////////////////////
-void Motor::turnRight() {
+void Motor::right() {
     digitalWrite(LEFT_DIR, LOW);
     digitalWrite(RIGHT_DIR, LOW);
     analogWrite(LEFT_SPD, MAX_SPD/2);
     analogWrite(RIGHT_SPD, MAX_SPD/2);
-}
-
-////////////////////////////////////////////////////////////////
-void Motor::turnLeft(double degree) {
-    turnLeft();
-    delay(degree * MS_PER_DEGREE);
-    stop();
-}
-
-////////////////////////////////////////////////////////////////
-void Motor::turnRight(double degree) {
-    turnRight();
-    delay(degree * MS_PER_DEGREE);
-    stop();
 }
 
 ////////////////////////////////////////////////////////////////

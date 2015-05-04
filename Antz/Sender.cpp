@@ -12,7 +12,7 @@ using namespace Antz;
 
 ////////////////////////////////////////////////////////////////
 Sender::Sender() {
-    TIMSK1 = 0; //Timer2 Overflow Interrupt
+    TIMSK1 = 0; // disable timer 1 interrupt
     pinMode(TIMER_PWM_PIN, OUTPUT);
     digitalWrite(TIMER_PWM_PIN, HIGH); // When not sending PWM, we want it high (because the transistor will invert the output)
     randomSeed(analogRead(0));

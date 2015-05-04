@@ -1,29 +1,29 @@
 //
-//  Walker.cpp
+//  Worker.cpp
 //  Antz
 //
 //  Created by Zhi Xing on 4/20/15.
 //  Copyright (c) 2015 Zhi Xing. All rights reserved.
 //
 
-#include "Walker.h"
+#include "Worker.h"
 
 using namespace Antz;
 
 ////////////////////////////////////////////////////////////////
 // Contructor
-Walker::Walker(uint32_t robotId): AntzRobot(robotId), target(0), curSource(0xFFFFFFFF), sourceTime(0) {
+Worker::Worker(uint32_t robotId): AntzRobot(robotId), target(0), curSource(0xFFFFFFFF), sourceTime(0) {
 }
 
 ////////////////////////////////////////////////////////////////
 // Setup
-void Walker::setup() {
+void Worker::setup() {
     AntzRobot::setup();
 }
 
 ////////////////////////////////////////////////////////////////
 // Main loop
-void Walker::loop() {
+void Worker::loop() {
     display.red(false);
     display.green(false);
     motor.stop();
@@ -47,19 +47,6 @@ void Walker::loop() {
             received = true;
             randomWalkReset();
             uint8_t cardinality = target == 0 ? number : (number >> 8);
-            /*
-             uint16_t thisID = (number >> 16);
-             for (int i = 0; i < 5; ++i)
-             if (id[i][0] == thisID)
-             id[i][0] = 0;
-             for (int i = 0; i < 5; ++i) {
-             if (id[i][0] == 0) {
-             id[i][0] = thisID;
-             id[i][1] = millis();
-             break;
-             }
-             }
-             */
             
             if (cardinality == 1)
                 target = 1 - target;
@@ -74,9 +61,11 @@ void Walker::loop() {
     uint8_t cur = target == 0 ? curSource : (curSource >> 8);
     
     if (received && min != 0xFF && (min <= cur || millis() - sourceTime > 10000)) {
+        Serial.println("following beacon.");
         display.number(true, min);
         curSource = minNumber;
         sourceTime = millis();
+        /*
         if (index == 0) {
             int cnt = 0;
             while (avoid() == false && cnt < 3) {
@@ -88,11 +77,12 @@ void Walker::loop() {
             motor.turnRight(index * 60);
         else
             motor.turnLeft((6 - index) * 60);
-        if (!avoid()) {
+        if (!avoid())
             motor.forward(1000);
-        }
+         */
     }
     else {
+        Serial.println("random walking.");
         randomWalkGo();
     }
     //else { // min > cur && millis() - sourceTime <= 3000

@@ -1,29 +1,29 @@
 //
-//  Beacon.cpp
+//  Guider.cpp
 //  Antz
 //
 //  Created by Zhi Xing on 4/20/15.
 //  Copyright (c) 2015 Zhi Xing. All rights reserved.
 //
 
-#include "Beacon.h"
+#include "Guider.h"
 
 using namespace Antz;
 
 ////////////////////////////////////////////////////////////////
 // Contructor
-Beacon::Beacon(uint32_t robotId): AntzRobot(robotId), curFood(0xFF), curNest(0xFF), foodTimer(0), nestTimer(0) {
+Guider::Guider(uint32_t robotId): AntzRobot(robotId), curFood(0xFF), curNest(0xFF), foodTimer(0), nestTimer(0) {
 }
 
 ////////////////////////////////////////////////////////////////
 // Setup
-void Beacon::setup() {
+void Guider::setup() {
     AntzRobot::setup();
 }
 
 ////////////////////////////////////////////////////////////////
 // Main loop
-void Beacon::loop() {
+void Guider::loop() {
     motor.stop();
     uint16_t minFood = 0xFF; // to store the minimum food cardinality
     uint16_t minNest = 0xFF; // to store the minimum nest cardinality
