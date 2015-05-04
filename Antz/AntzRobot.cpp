@@ -84,7 +84,7 @@ void AntzRobot::turnLeft(float degree) {
     motor.left();
     curMovement = mt_left;
     motorStartMillis = millis();
-    motorStopMillis = motorStartMillis + MTR_MS_PER_DEG * degree;
+    motorStopMillis = motorStartMillis + MTR_MSPERDEG * degree;
 }
 
 ////////////////////////////////////////////////////////////////
@@ -94,7 +94,7 @@ void AntzRobot::turnRight(float degree) {
     motor.right();
     curMovement = mt_right;
     motorStartMillis = millis();
-    motorStopMillis = motorStartMillis + MTR_MS_PER_DEG * degree;
+    motorStopMillis = motorStartMillis + MTR_MSPERDEG * degree;
 }
 
 ////////////////////////////////////////////////////////////////
@@ -112,7 +112,7 @@ void AntzRobot::stopMoving() {
 bool AntzRobot::avoid() {
     bool detected = false;
     float angle;
-    while (scanner.scan(&angle) <= 30) {
+    while (scanner.scan(&angle) <= 35) {
         detected = true;
         if (angle > 90)
             turnRight(60);
@@ -149,13 +149,13 @@ void AntzRobot::bayesUpdate() {
     
     if (curMovement == mt_forward || curMovement == mt_backward) {
         float avg = (1 - likelihood[IDX_FRONT] - likelihood[IDX_REAR]) / 4;
-        likelihood[IDX_LEFT_FRONT] = avg;
-        likelihood[IDX_LEFT_REAR] = avg;
-        likelihood[IDX_RIGHT_FRONT] = avg;
-        likelihood[IDX_RIGHT_REAR] = avg;
+        likelihood[IDX_LFRONT] = avg;
+        likelihood[IDX_LREAR] = avg;
+        likelihood[IDX_RFRONT] = avg;
+        likelihood[IDX_RREAR] = avg;
     }
     else {
-        int64_t shifts = duration / MTR_MS_PER_DEG / 60;
+        int64_t shifts = duration / MTR_MSPERDEG / 60;
         shifts = shifts % 6;
         float temp[shifts];
         if (curMovement == mt_left) { // array shifts right
@@ -170,7 +170,7 @@ void AntzRobot::bayesUpdate() {
         }
         else if (curMovement == mt_right) { // array shifts left
             for (int i = 0; i < 6; ++i) {
-                if (i < shifts) {
+                if (i + shifts < 6) {
                     temp[i] = likelihood[i];
                     likelihood[i] = likelihood[i + shifts];
                 }

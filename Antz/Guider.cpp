@@ -24,7 +24,7 @@ void Guider::setup() {
 ////////////////////////////////////////////////////////////////
 // Main loop
 void Guider::loop() {
-    motor.stop();
+    stopMoving();
     uint16_t minFood = 0xFF; // to store the minimum food cardinality
     uint16_t minNest = 0xFF; // to store the minimum nest cardinality
     
@@ -36,9 +36,9 @@ void Guider::loop() {
     while (wait || minFood == 0xFF && minNest == 0xFF) {
         wait = false;
         unsigned long cur = millis();
-        if (cur - nestTimer > 15000)
+        if (cur - nestTimer > 5000)
             curNest = 0xFF;
-        if (cur - foodTimer > 15000)
+        if (cur - foodTimer > 5000)
             curFood = 0xFF;
         
         for (int i = 0; i < 6; ++i) {
@@ -46,19 +46,6 @@ void Guider::loop() {
                 wait = true;
                 uint32_t number; // to store the 32-bit signal
                 if (recver.recvFrom(i, &number)) {
-                    /*
-                     uint16_t thisID = (number >> 16);
-                     for (int i = 0; i < 5; ++i)
-                     if (id[i][0] == thisID)
-                     id[i][0] = 0;
-                     for (int i = 0; i < 5; ++i) {
-                     if (id[i][0] == 0) {
-                     id[i][0] = thisID;
-                     id[i][1] = millis();
-                     break;
-                     }
-                     }
-                     */
                     uint8_t nest = (uint8_t)(number & 0xFF);
                     uint8_t food = (uint8_t)(number >> 8);
                     if (nest > 0 && nest < minNest)
@@ -77,7 +64,7 @@ void Guider::loop() {
             foodTimer = millis();
         }
     }
-    delay(random(100) * 20);
+    delay(random(50) * 10);
     if (!recver.canHearSignal()) {
         uint32_t myNumber = 0;
         myNumber |= (identifier << 16);
@@ -88,6 +75,6 @@ void Guider::loop() {
         display.number(true, curFood);
         delay(200);
         display.number(true, curNest);
-        sender.send(myNumber, 2000);
+        sender.send(myNumber, 500);
     }
 }

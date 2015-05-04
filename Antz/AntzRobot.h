@@ -16,13 +16,13 @@
 #include "Sender.h"
 #include "TimerThree.h"
 
-#define IDX_FRONT           0
-#define IDX_REAR            3
-#define IDX_LEFT_FRONT      5
-#define IDX_LEFT_REAR       4
-#define IDX_RIGHT_FRONT     1
-#define IDX_RIGHT_REAR      2
-#define MTR_MS_PER_DEG    18
+#define IDX_FRONT       0
+#define IDX_RFRONT      1
+#define IDX_RREAR       2
+#define IDX_REAR        3
+#define IDX_LREAR       4
+#define IDX_LFRONT      5
+#define MTR_MSPERDEG    18
 
 namespace Antz {
     class AntzRobot {
@@ -42,6 +42,8 @@ namespace Antz {
         static void turnRight(float degree);
         static void stopMoving();
         static bool avoid();
+        // the six signal should be: front, right front, right rear
+        //   rear, left rear, and left front
         static void bayesUpdate(bool (*signals)[6]);
         static void bayesUpdate();
         static void bayesReset();

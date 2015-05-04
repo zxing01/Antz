@@ -26,7 +26,6 @@ void Worker::setup() {
 void Worker::loop() {
     display.red(false);
     display.green(false);
-    motor.stop();
     if (target == 0) { // i'm going towards nest
         display.blue(false);
         display.yellow(true);
@@ -41,9 +40,10 @@ void Worker::loop() {
     uint8_t index = 6; // index of the receiver that receives the signal
     uint32_t minNumber = 0xFFFFFFFF; // 32-bit signal containing the min value
     bool received = false;
+    int idx[6] = {IDX_FRONT, IDX_LFRONT, IDX_RFRONT, IDX_LREAR, IDX_RREAR, IDX_REAR};
     for (int i = 0; i < 6; ++i) { // poll from 6 receivers
         uint32_t number;
-        if (recver.recvFrom(i, &number)) {
+        if (recver.recvFrom(idx[i], &number)) {
             received = true;
             randomWalkReset();
             uint8_t cardinality = target == 0 ? number : (number >> 8);
@@ -52,7 +52,7 @@ void Worker::loop() {
                 target = 1 - target;
             else if (cardinality > 0 && cardinality < min) {
                 min = cardinality;
-                index = i;
+                index = idx[i];
                 minNumber = number;
             }
         }
@@ -60,31 +60,37 @@ void Worker::loop() {
     
     uint8_t cur = target == 0 ? curSource : (curSource >> 8);
     
-    if (received && min != 0xFF && (min <= cur || millis() - sourceTime > 10000)) {
-        Serial.println("following beacon.");
+    if (received && min != 0xFF && (min <= cur || millis() - sourceTime > 5000)) {
         display.number(true, min);
         curSource = minNumber;
         sourceTime = millis();
-        /*
-        if (index == 0) {
-            int cnt = 0;
-            while (avoid() == false && cnt < 3) {
-                motor.forward(500);
-                ++cnt;
-            }
+        
+        switch (index) {
+            case IDX_FRONT:
+                if (avoid() == false)
+                    goForward(1500);
+                break;
+            case IDX_REAR:
+                turnLeft(180);
+                break;
+            case IDX_LFRONT:
+                turnLeft(60);
+                break;
+            case IDX_LREAR:
+                turnLeft(120);
+                break;
+            case IDX_RFRONT:
+                turnRight(60);
+                break;
+            case IDX_RREAR:
+                turnRight(120);
+                break;
         }
-        else if (index < 3)
-            motor.turnRight(index * 60);
-        else
-            motor.turnLeft((6 - index) * 60);
-        if (!avoid())
-            motor.forward(1000);
-         */
     }
-    else {
-        Serial.println("random walking.");
-        randomWalkGo();
-    }
+    //else {
+        //Serial.println("random walking.");
+        //randomWalkGo();
+    //}
     //else { // min > cur && millis() - sourceTime <= 3000
     //motor.forward();
     //}

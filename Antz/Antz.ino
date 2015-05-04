@@ -24,7 +24,7 @@
 
 using namespace Antz;
 
-AntzRobot *antz = AntzRobot::createAntzRobot("Tester", ID);
+AntzRobot *antz = AntzRobot::createAntzRobot("Worker", ID);
 
 ////////////////////////////////////////////////////////////////
 void setup() {
