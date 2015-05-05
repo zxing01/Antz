@@ -22,6 +22,7 @@
 #define IDX_REAR        3
 #define IDX_LREAR       4
 #define IDX_LFRONT      5
+#define IDX_NULL        6
 #define MTR_MSPERDEG    18
 
 namespace Antz {
@@ -36,31 +37,32 @@ namespace Antz {
     
     protected:
         AntzRobot(uint32_t robotId);
-        static void goForward(uint64_t msecs);
-        static void goBackward(uint64_t msecs);
-        static void turnLeft(float degree);
-        static void turnRight(float degree);
+        static void goForward(uint64_t msecs, bool async = true);
+        static void goBackward(uint64_t msecs, bool async = true);
+        static void turnLeft(float degree, bool async = true);
+        static void turnRight(float degree, bool async = true);
         static void stopMoving();
         static bool avoid();
         // the six signal should be: front, right front, right rear
         //   rear, left rear, and left front
-        static void bayesUpdate(bool (*signals)[6]);
+        static void bayesUpdate(bool signals[]);
         static void bayesUpdate();
         static void bayesReset();
+        static uint8_t bayesDecision();
         static void randomWalkGo();
         static void randomWalkReset();
         static void isr();
         
-        static uint32_t identifier;
         static uint16_t movePhase;
-        static float likelihood[6];
+        static uint32_t identifier;
         static int64_t motorStartMillis;
         static int64_t motorStopMillis;
+        static float likelihood[6];
+        static MoveType curMovement;
         static Display display;
         static Motor motor;
         static Receiver recver;
         static Scanner scanner;
-        static MoveType curMovement;
     };
 }
 #endif /* defined(__Antz__AntzRobot__) */

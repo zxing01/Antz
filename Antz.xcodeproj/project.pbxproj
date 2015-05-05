@@ -8,18 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		3D2278081A716FB900D3154B /* Antz.ino in Sources */ = {isa = PBXBuildFile; fileRef = 3DD278081A716FB900D3154B /* Antz.ino */; };
-		3D9968AF1AF5EFF40017F7BB /* TimerOne.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D9968AB1AF5EFF40017F7BB /* TimerOne.cpp */; };
-		3D9968B01AF5EFF40017F7BB /* TimerThree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D9968AD1AF5EFF40017F7BB /* TimerThree.cpp */; };
-		3D9968B31AF6B79E0017F7BB /* Tester.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D9968B11AF6B79E0017F7BB /* Tester.cpp */; };
-		3D9968B81AF6B8710017F7BB /* Guider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D9968B41AF6B8710017F7BB /* Guider.cpp */; };
-		3D9968B91AF6B8710017F7BB /* Worker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D9968B61AF6B8710017F7BB /* Worker.cpp */; };
-		3DC1465A1AF2C96B004502D8 /* AntzRobot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC146481AF2C96B004502D8 /* AntzRobot.cpp */; };
-		3DC1465C1AF2C96B004502D8 /* Display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC1464D1AF2C96B004502D8 /* Display.cpp */; };
+		3D74E4271AF855DF00396A16 /* Display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74E40D1AF855DF00396A16 /* Display.cpp */; };
+		3D74E4281AF855DF00396A16 /* Motor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74E4101AF855DF00396A16 /* Motor.cpp */; };
+		3D74E4291AF855DF00396A16 /* Receiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74E4121AF855DF00396A16 /* Receiver.cpp */; };
+		3D74E42A1AF855DF00396A16 /* Scanner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74E4141AF855DF00396A16 /* Scanner.cpp */; };
+		3D74E42B1AF855DF00396A16 /* Sender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74E4161AF855DF00396A16 /* Sender.cpp */; };
+		3D74E42C1AF855DF00396A16 /* TimerOne.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74E4181AF855DF00396A16 /* TimerOne.cpp */; };
+		3D74E42D1AF855DF00396A16 /* TimerThree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74E41A1AF855DF00396A16 /* TimerThree.cpp */; };
+		3D74E42E1AF855DF00396A16 /* AntzRobot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74E41D1AF855DF00396A16 /* AntzRobot.cpp */; };
+		3D74E42F1AF855DF00396A16 /* BayesWorker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74E41F1AF855DF00396A16 /* BayesWorker.cpp */; };
+		3D74E4301AF855DF00396A16 /* Guider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74E4211AF855DF00396A16 /* Guider.cpp */; };
+		3D74E4311AF855DF00396A16 /* Tester.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74E4231AF855DF00396A16 /* Tester.cpp */; };
+		3D74E4321AF855DF00396A16 /* Worker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74E4251AF855DF00396A16 /* Worker.cpp */; };
 		3DC1465D1AF2C96B004502D8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC1464F1AF2C96B004502D8 /* main.cpp */; };
-		3DC1465E1AF2C96B004502D8 /* Motor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC146501AF2C96B004502D8 /* Motor.cpp */; };
-		3DC1465F1AF2C96B004502D8 /* Receiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC146521AF2C96B004502D8 /* Receiver.cpp */; };
-		3DC146601AF2C96B004502D8 /* Scanner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC146541AF2C96B004502D8 /* Scanner.cpp */; };
-		3DC146611AF2C96B004502D8 /* Sender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3DC146561AF2C96B004502D8 /* Sender.cpp */; };
 		AA2A150122125003AA000005 /* Arduino.h in Sources */ = {isa = PBXBuildFile; fileRef = AAAA150122125003AA000005 /* Arduino.h */; };
 		AA2A150122125003AA000007 /* malloc.c in Sources */ = {isa = PBXBuildFile; fileRef = AAAA150122125003AA000007 /* malloc.c */; };
 		AA2A150122125003AA000008 /* realloc.c in Sources */ = {isa = PBXBuildFile; fileRef = AAAA150122125003AA000008 /* realloc.c */; };
@@ -301,31 +302,33 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3D9968AA1AF5EFF40017F7BB /* known_16bit_timers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = known_16bit_timers.h; sourceTree = "<group>"; };
-		3D9968AB1AF5EFF40017F7BB /* TimerOne.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TimerOne.cpp; sourceTree = "<group>"; };
-		3D9968AC1AF5EFF40017F7BB /* TimerOne.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimerOne.h; sourceTree = "<group>"; };
-		3D9968AD1AF5EFF40017F7BB /* TimerThree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TimerThree.cpp; sourceTree = "<group>"; };
-		3D9968AE1AF5EFF40017F7BB /* TimerThree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimerThree.h; sourceTree = "<group>"; };
-		3D9968B11AF6B79E0017F7BB /* Tester.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tester.cpp; sourceTree = "<group>"; };
-		3D9968B21AF6B79E0017F7BB /* Tester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tester.h; sourceTree = "<group>"; };
-		3D9968B41AF6B8710017F7BB /* Guider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Guider.cpp; sourceTree = "<group>"; };
-		3D9968B51AF6B8710017F7BB /* Guider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Guider.h; sourceTree = "<group>"; };
-		3D9968B61AF6B8710017F7BB /* Worker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Worker.cpp; sourceTree = "<group>"; };
-		3D9968B71AF6B8710017F7BB /* Worker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Worker.h; sourceTree = "<group>"; };
-		3DC146481AF2C96B004502D8 /* AntzRobot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AntzRobot.cpp; sourceTree = "<group>"; };
-		3DC146491AF2C96B004502D8 /* AntzRobot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AntzRobot.h; sourceTree = "<group>"; };
-		3DC1464C1AF2C96B004502D8 /* Communication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Communication.h; sourceTree = "<group>"; };
-		3DC1464D1AF2C96B004502D8 /* Display.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Display.cpp; sourceTree = "<group>"; };
-		3DC1464E1AF2C96B004502D8 /* Display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Display.h; sourceTree = "<group>"; };
+		3D74E40C1AF855DF00396A16 /* Communication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Communication.h; sourceTree = "<group>"; };
+		3D74E40D1AF855DF00396A16 /* Display.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Display.cpp; sourceTree = "<group>"; };
+		3D74E40E1AF855DF00396A16 /* Display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Display.h; sourceTree = "<group>"; };
+		3D74E40F1AF855DF00396A16 /* known_16bit_timers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = known_16bit_timers.h; sourceTree = "<group>"; };
+		3D74E4101AF855DF00396A16 /* Motor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Motor.cpp; sourceTree = "<group>"; };
+		3D74E4111AF855DF00396A16 /* Motor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Motor.h; sourceTree = "<group>"; };
+		3D74E4121AF855DF00396A16 /* Receiver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Receiver.cpp; sourceTree = "<group>"; };
+		3D74E4131AF855DF00396A16 /* Receiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Receiver.h; sourceTree = "<group>"; };
+		3D74E4141AF855DF00396A16 /* Scanner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scanner.cpp; sourceTree = "<group>"; };
+		3D74E4151AF855DF00396A16 /* Scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scanner.h; sourceTree = "<group>"; };
+		3D74E4161AF855DF00396A16 /* Sender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sender.cpp; sourceTree = "<group>"; };
+		3D74E4171AF855DF00396A16 /* Sender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sender.h; sourceTree = "<group>"; };
+		3D74E4181AF855DF00396A16 /* TimerOne.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TimerOne.cpp; sourceTree = "<group>"; };
+		3D74E4191AF855DF00396A16 /* TimerOne.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimerOne.h; sourceTree = "<group>"; };
+		3D74E41A1AF855DF00396A16 /* TimerThree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TimerThree.cpp; sourceTree = "<group>"; };
+		3D74E41B1AF855DF00396A16 /* TimerThree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimerThree.h; sourceTree = "<group>"; };
+		3D74E41D1AF855DF00396A16 /* AntzRobot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AntzRobot.cpp; sourceTree = "<group>"; };
+		3D74E41E1AF855DF00396A16 /* AntzRobot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AntzRobot.h; sourceTree = "<group>"; };
+		3D74E41F1AF855DF00396A16 /* BayesWorker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BayesWorker.cpp; sourceTree = "<group>"; };
+		3D74E4201AF855DF00396A16 /* BayesWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BayesWorker.h; sourceTree = "<group>"; };
+		3D74E4211AF855DF00396A16 /* Guider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Guider.cpp; sourceTree = "<group>"; };
+		3D74E4221AF855DF00396A16 /* Guider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Guider.h; sourceTree = "<group>"; };
+		3D74E4231AF855DF00396A16 /* Tester.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tester.cpp; sourceTree = "<group>"; };
+		3D74E4241AF855DF00396A16 /* Tester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tester.h; sourceTree = "<group>"; };
+		3D74E4251AF855DF00396A16 /* Worker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Worker.cpp; sourceTree = "<group>"; };
+		3D74E4261AF855DF00396A16 /* Worker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Worker.h; sourceTree = "<group>"; };
 		3DC1464F1AF2C96B004502D8 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		3DC146501AF2C96B004502D8 /* Motor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Motor.cpp; sourceTree = "<group>"; };
-		3DC146511AF2C96B004502D8 /* Motor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Motor.h; sourceTree = "<group>"; };
-		3DC146521AF2C96B004502D8 /* Receiver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Receiver.cpp; sourceTree = "<group>"; };
-		3DC146531AF2C96B004502D8 /* Receiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Receiver.h; sourceTree = "<group>"; };
-		3DC146541AF2C96B004502D8 /* Scanner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scanner.cpp; sourceTree = "<group>"; };
-		3DC146551AF2C96B004502D8 /* Scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scanner.h; sourceTree = "<group>"; };
-		3DC146561AF2C96B004502D8 /* Sender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sender.cpp; sourceTree = "<group>"; };
-		3DC146571AF2C96B004502D8 /* Sender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sender.h; sourceTree = "<group>"; };
 		3DD277A11A716FB900D3154B /* Index */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Index; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DD277A61A716FB900D3154B /* Makefile */ = {isa = PBXFileReference; explicitFileType = sourcecode.make; name = Makefile; path = Antz/Makefile; sourceTree = "<group>"; };
 		3DD277AD1A716FB900D3154B /* Sketchbook.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = Sketchbook.txt; path = Sketchbook/Sketchbook.txt; sourceTree = "<group>"; };
@@ -695,42 +698,44 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		3DC146631AF2C97D004502D8 /* robot */ = {
+		3D74E40B1AF855DF00396A16 /* component */ = {
 			isa = PBXGroup;
 			children = (
-				3DC146481AF2C96B004502D8 /* AntzRobot.cpp */,
-				3DC146491AF2C96B004502D8 /* AntzRobot.h */,
-				3D9968B41AF6B8710017F7BB /* Guider.cpp */,
-				3D9968B51AF6B8710017F7BB /* Guider.h */,
-				3D9968B61AF6B8710017F7BB /* Worker.cpp */,
-				3D9968B71AF6B8710017F7BB /* Worker.h */,
-				3D9968B11AF6B79E0017F7BB /* Tester.cpp */,
-				3D9968B21AF6B79E0017F7BB /* Tester.h */,
+				3D74E40C1AF855DF00396A16 /* Communication.h */,
+				3D74E40D1AF855DF00396A16 /* Display.cpp */,
+				3D74E40E1AF855DF00396A16 /* Display.h */,
+				3D74E40F1AF855DF00396A16 /* known_16bit_timers.h */,
+				3D74E4101AF855DF00396A16 /* Motor.cpp */,
+				3D74E4111AF855DF00396A16 /* Motor.h */,
+				3D74E4121AF855DF00396A16 /* Receiver.cpp */,
+				3D74E4131AF855DF00396A16 /* Receiver.h */,
+				3D74E4141AF855DF00396A16 /* Scanner.cpp */,
+				3D74E4151AF855DF00396A16 /* Scanner.h */,
+				3D74E4161AF855DF00396A16 /* Sender.cpp */,
+				3D74E4171AF855DF00396A16 /* Sender.h */,
+				3D74E4181AF855DF00396A16 /* TimerOne.cpp */,
+				3D74E4191AF855DF00396A16 /* TimerOne.h */,
+				3D74E41A1AF855DF00396A16 /* TimerThree.cpp */,
+				3D74E41B1AF855DF00396A16 /* TimerThree.h */,
 			);
-			name = robot;
+			path = component;
 			sourceTree = "<group>";
 		};
-		3DC146641AF2C98F004502D8 /* component */ = {
+		3D74E41C1AF855DF00396A16 /* robot */ = {
 			isa = PBXGroup;
 			children = (
-				3DC1464C1AF2C96B004502D8 /* Communication.h */,
-				3DC1464D1AF2C96B004502D8 /* Display.cpp */,
-				3DC1464E1AF2C96B004502D8 /* Display.h */,
-				3DC146501AF2C96B004502D8 /* Motor.cpp */,
-				3DC146511AF2C96B004502D8 /* Motor.h */,
-				3DC146521AF2C96B004502D8 /* Receiver.cpp */,
-				3DC146531AF2C96B004502D8 /* Receiver.h */,
-				3DC146541AF2C96B004502D8 /* Scanner.cpp */,
-				3DC146551AF2C96B004502D8 /* Scanner.h */,
-				3DC146561AF2C96B004502D8 /* Sender.cpp */,
-				3DC146571AF2C96B004502D8 /* Sender.h */,
-				3D9968AB1AF5EFF40017F7BB /* TimerOne.cpp */,
-				3D9968AC1AF5EFF40017F7BB /* TimerOne.h */,
-				3D9968AD1AF5EFF40017F7BB /* TimerThree.cpp */,
-				3D9968AE1AF5EFF40017F7BB /* TimerThree.h */,
-				3D9968AA1AF5EFF40017F7BB /* known_16bit_timers.h */,
+				3D74E41D1AF855DF00396A16 /* AntzRobot.cpp */,
+				3D74E41E1AF855DF00396A16 /* AntzRobot.h */,
+				3D74E41F1AF855DF00396A16 /* BayesWorker.cpp */,
+				3D74E4201AF855DF00396A16 /* BayesWorker.h */,
+				3D74E4211AF855DF00396A16 /* Guider.cpp */,
+				3D74E4221AF855DF00396A16 /* Guider.h */,
+				3D74E4231AF855DF00396A16 /* Tester.cpp */,
+				3D74E4241AF855DF00396A16 /* Tester.h */,
+				3D74E4251AF855DF00396A16 /* Worker.cpp */,
+				3D74E4261AF855DF00396A16 /* Worker.h */,
 			);
-			name = component;
+			path = robot;
 			sourceTree = "<group>";
 		};
 		3DC146651AF2C9E3004502D8 /* Others */ = {
@@ -766,8 +771,8 @@
 		3DD277A31A716FB900D3154B /* Code */ = {
 			isa = PBXGroup;
 			children = (
-				3DC146631AF2C97D004502D8 /* robot */,
-				3DC146641AF2C98F004502D8 /* component */,
+				3D74E40B1AF855DF00396A16 /* component */,
+				3D74E41C1AF855DF00396A16 /* robot */,
 				3DC1464F1AF2C96B004502D8 /* main.cpp */,
 				3DD278081A716FB900D3154B /* Antz.ino */,
 			);
@@ -1588,7 +1593,6 @@
 				AA2A150122125003AA00001F /* USBAPI.h in Sources */,
 				AA2A150122125003AA000020 /* USBCore.cpp in Sources */,
 				AA2A150122125003AA000021 /* USBCore.h in Sources */,
-				3DC1465E1AF2C96B004502D8 /* Motor.cpp in Sources */,
 				AA2A150122125003AA000022 /* USBDesc.h in Sources */,
 				AA2A150122125003AA000023 /* WCharacter.h in Sources */,
 				AA2A150122125003AA000024 /* WInterrupts.c in Sources */,
@@ -1601,8 +1605,8 @@
 				AA2A150122125003AA00002B /* WMath.cpp in Sources */,
 				AA2A150122125003AA00002C /* WString.cpp in Sources */,
 				AA2A150122125003AA00002D /* WString.h in Sources */,
-				3D9968B81AF6B8710017F7BB /* Guider.cpp in Sources */,
 				AA2A150122125003AA00002F /* Arduino.h in Sources */,
+				3D74E42F1AF855DF00396A16 /* BayesWorker.cpp in Sources */,
 				AA2A150122125003AA000030 /* binary.h in Sources */,
 				AA2A150122125003AA000031 /* CDC.cpp in Sources */,
 				AA2A150122125003AA000032 /* Client.h in Sources */,
@@ -1621,8 +1625,6 @@
 				AA2A150122125003AA00003F /* Server.h in Sources */,
 				AA2A150122125003AA000040 /* Stream.cpp in Sources */,
 				AA2A150122125003AA000041 /* Stream.h in Sources */,
-				3DC146601AF2C96B004502D8 /* Scanner.cpp in Sources */,
-				3DC1465A1AF2C96B004502D8 /* AntzRobot.cpp in Sources */,
 				AA2A150122125003AA000042 /* Tone.cpp in Sources */,
 				AA2A150122125003AA000043 /* Udp.h in Sources */,
 				AA2A150122125003AA000044 /* USBAPI.h in Sources */,
@@ -1639,7 +1641,6 @@
 				AA2A150122125003AA00004F /* wiring_shift.c in Sources */,
 				AA2A150122125003AA000050 /* WMath.cpp in Sources */,
 				AA2A150122125003AA000051 /* WString.cpp in Sources */,
-				3D9968B01AF5EFF40017F7BB /* TimerThree.cpp in Sources */,
 				AA2A150122125003AA000052 /* WString.h in Sources */,
 				AA2A150122125003AA000055 /* EEPROM.cpp in Sources */,
 				AA2A150122125003AA000056 /* EEPROM.h in Sources */,
@@ -1678,6 +1679,7 @@
 				AA2A150122125003AA00007B /* GSM3MobileClientService.cpp in Sources */,
 				AA2A150122125003AA00007C /* GSM3MobileClientService.h in Sources */,
 				AA2A150122125003AA00007D /* GSM3MobileDataNetworkProvider.cpp in Sources */,
+				3D74E42D1AF855DF00396A16 /* TimerThree.cpp in Sources */,
 				AA2A150122125003AA00007E /* GSM3MobileDataNetworkProvider.h in Sources */,
 				AA2A150122125003AA00007F /* GSM3MobileMockupProvider.cpp in Sources */,
 				AA2A150122125003AA000080 /* GSM3MobileMockupProvider.h in Sources */,
@@ -1692,6 +1694,7 @@
 				AA2A150122125003AA000089 /* GSM3MobileSMSProvider.cpp in Sources */,
 				AA2A150122125003AA00008A /* GSM3MobileSMSProvider.h in Sources */,
 				AA2A150122125003AA00008B /* GSM3MobileVoiceProvider.cpp in Sources */,
+				3D74E42E1AF855DF00396A16 /* AntzRobot.cpp in Sources */,
 				AA2A150122125003AA00008C /* GSM3MobileVoiceProvider.h in Sources */,
 				AA2A150122125003AA00008D /* GSM3ShieldV1.cpp in Sources */,
 				AA2A150122125003AA00008E /* GSM3ShieldV1.h in Sources */,
@@ -1700,6 +1703,7 @@
 				AA2A150122125003AA000091 /* GSM3ShieldV1BandManagement.cpp in Sources */,
 				AA2A150122125003AA000092 /* GSM3ShieldV1BandManagement.h in Sources */,
 				AA2A150122125003AA000093 /* GSM3ShieldV1BaseProvider.cpp in Sources */,
+				3D74E4291AF855DF00396A16 /* Receiver.cpp in Sources */,
 				AA2A150122125003AA000094 /* GSM3ShieldV1BaseProvider.h in Sources */,
 				AA2A150122125003AA000095 /* GSM3ShieldV1CellManagement.cpp in Sources */,
 				AA2A150122125003AA000096 /* GSM3ShieldV1CellManagement.h in Sources */,
@@ -1710,9 +1714,9 @@
 				AA2A150122125003AA00009B /* GSM3ShieldV1DirectModemProvider.cpp in Sources */,
 				AA2A150122125003AA00009C /* GSM3ShieldV1DirectModemProvider.h in Sources */,
 				AA2A150122125003AA00009D /* GSM3ShieldV1ModemCore.cpp in Sources */,
+				3D74E4271AF855DF00396A16 /* Display.cpp in Sources */,
 				AA2A150122125003AA00009E /* GSM3ShieldV1ModemCore.h in Sources */,
 				AA2A150122125003AA00009F /* GSM3ShieldV1ModemVerification.cpp in Sources */,
-				3D9968AF1AF5EFF40017F7BB /* TimerOne.cpp in Sources */,
 				AA2A150122125003AA0000A0 /* GSM3ShieldV1ModemVerification.h in Sources */,
 				AA2A150122125003AA0000A1 /* GSM3ShieldV1MultiClientProvider.cpp in Sources */,
 				AA2A150122125003AA0000A2 /* GSM3ShieldV1MultiClientProvider.h in Sources */,
@@ -1723,6 +1727,7 @@
 				AA2A150122125003AA0000A7 /* GSM3ShieldV1ScanNetworks.cpp in Sources */,
 				AA2A150122125003AA0000A8 /* GSM3ShieldV1ScanNetworks.h in Sources */,
 				AA2A150122125003AA0000A9 /* GSM3ShieldV1ServerProvider.cpp in Sources */,
+				3D74E4281AF855DF00396A16 /* Motor.cpp in Sources */,
 				AA2A150122125003AA0000AA /* GSM3ShieldV1ServerProvider.h in Sources */,
 				AA2A150122125003AA0000AB /* GSM3ShieldV1SMSProvider.cpp in Sources */,
 				AA2A150122125003AA0000AC /* GSM3ShieldV1SMSProvider.h in Sources */,
@@ -1739,7 +1744,6 @@
 				AA2A150122125003AA0000B9 /* Adafruit_GFX.cpp in Sources */,
 				AA2A150122125003AA0000BA /* Adafruit_GFX.h in Sources */,
 				AA2A150122125003AA0000BB /* Arduino_LCD.cpp in Sources */,
-				3D9968B91AF6B8710017F7BB /* Worker.cpp in Sources */,
 				AA2A150122125003AA0000BC /* Arduino_LCD.h in Sources */,
 				AA2A150122125003AA0000BD /* ArduinoRobot.cpp in Sources */,
 				AA2A150122125003AA0000BE /* ArduinoRobot.h in Sources */,
@@ -1750,6 +1754,7 @@
 				AA2A150122125003AA0000C3 /* EasyTransfer2.h in Sources */,
 				AA2A150122125003AA0000C4 /* EEPROM_I2C.cpp in Sources */,
 				AA2A150122125003AA0000C5 /* EEPROM_I2C.h in Sources */,
+				3D74E42B1AF855DF00396A16 /* Sender.cpp in Sources */,
 				AA2A150122125003AA0000C6 /* Fat16.cpp in Sources */,
 				AA2A150122125003AA0000C7 /* Fat16.h in Sources */,
 				AA2A150122125003AA0000C8 /* Fat16Config.h in Sources */,
@@ -1770,7 +1775,6 @@
 				AA2A150122125003AA0000D7 /* SdCard.h in Sources */,
 				AA2A150122125003AA0000D8 /* SdInfo.h in Sources */,
 				AA2A150122125003AA0000D9 /* Sensors.cpp in Sources */,
-				3DC1465F1AF2C96B004502D8 /* Receiver.cpp in Sources */,
 				AA2A150122125003AA0000DA /* SPI.cpp in Sources */,
 				AA2A150122125003AA0000DB /* SPI.h in Sources */,
 				AA2A150122125003AA0000DC /* Squawk.cpp in Sources */,
@@ -1781,7 +1785,6 @@
 				AA2A150122125003AA0000E2 /* RobotTextManager.h in Sources */,
 				AA2A150122125003AA0000E3 /* scripts_Hello_User.h in Sources */,
 				AA2A150122125003AA0000E4 /* twi.c in Sources */,
-				3DC146611AF2C96B004502D8 /* Sender.cpp in Sources */,
 				AA2A150122125003AA0000E5 /* twi.h in Sources */,
 				AA2A150122125003AA0000E6 /* VirtualKeyboard.cpp in Sources */,
 				AA2A150122125003AA0000E7 /* VirtualKeyboard.h in Sources */,
@@ -1802,6 +1805,7 @@
 				AA2A150122125003AA0000F9 /* Sd2Card.cpp in Sources */,
 				AA2A150122125003AA0000FA /* Sd2Card.h in Sources */,
 				AA2A150122125003AA0000FB /* Sd2PinMap.h in Sources */,
+				3D74E4321AF855DF00396A16 /* Worker.cpp in Sources */,
 				AA2A150122125003AA0000FC /* SdFat.h in Sources */,
 				AA2A150122125003AA0000FD /* SdFatmainpage.h in Sources */,
 				AA2A150122125003AA0000FE /* SdFatUtil.h in Sources */,
@@ -1819,14 +1823,15 @@
 				AA2A150122125003AA00010F /* TFT.cpp in Sources */,
 				AA2A150122125003AA000110 /* TFT.h in Sources */,
 				AA2A150122125003AA000112 /* Adafruit_GFX.cpp in Sources */,
+				3D74E42A1AF855DF00396A16 /* Scanner.cpp in Sources */,
+				3D74E4301AF855DF00396A16 /* Guider.cpp in Sources */,
 				AA2A150122125003AA000113 /* Adafruit_GFX.h in Sources */,
 				AA2A150122125003AA000114 /* Adafruit_ST7735.cpp in Sources */,
 				AA2A150122125003AA000115 /* Adafruit_ST7735.h in Sources */,
 				AA2A150122125003AA000116 /* glcdfont.c in Sources */,
 				AA2A150122125003AA000117 /* PImage.h in Sources */,
 				AA2A150122125003AA00011A /* debug.h in Sources */,
-				3D9968B31AF6B79E0017F7BB /* Tester.cpp in Sources */,
-				3DC1465C1AF2C96B004502D8 /* Display.cpp in Sources */,
+				3D74E4311AF855DF00396A16 /* Tester.cpp in Sources */,
 				AA2A150122125003AA00011B /* server_drv.cpp in Sources */,
 				AA2A150122125003AA00011C /* server_drv.h in Sources */,
 				AA2A150122125003AA00011D /* socket.c in Sources */,
@@ -1835,6 +1840,7 @@
 				AA2A150122125003AA000120 /* spi_drv.h in Sources */,
 				AA2A150122125003AA000121 /* wifi_drv.cpp in Sources */,
 				AA2A150122125003AA000122 /* wifi_drv.h in Sources */,
+				3D74E42C1AF855DF00396A16 /* TimerOne.cpp in Sources */,
 				AA2A150122125003AA000123 /* wifi_spi.h in Sources */,
 				AA2A150122125003AA000124 /* wl_definitions.h in Sources */,
 				AA2A150122125003AA000125 /* wl_types.h in Sources */,
@@ -1890,7 +1896,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(inherited)";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(inherited)/**",
+				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PATH = "$(PATH):$(PROJECT_DIR)";
@@ -1927,7 +1936,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = "$(inherited)";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(inherited)/**",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PATH = "$(PATH):$(PROJECT_DIR)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

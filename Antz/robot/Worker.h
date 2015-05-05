@@ -19,9 +19,9 @@ namespace Antz {
         virtual void setup();
         virtual void loop();
     private:
-        uint8_t target = 0;
-        uint32_t curSource = 0xFFFFFFFF;
-        uint64_t sourceTime = 0;
+        uint8_t target;
+        uint32_t curSource;
+        uint64_t sourceTime;
     };
 }
 

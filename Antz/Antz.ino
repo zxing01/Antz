@@ -24,11 +24,10 @@
 
 using namespace Antz;
 
-AntzRobot *antz = AntzRobot::createAntzRobot("Worker", ID);
+AntzRobot *antz = AntzRobot::createAntzRobot("Tester", ID);
 
 ////////////////////////////////////////////////////////////////
 void setup() {
-    Serial.begin(9600);
     antz->setup();
 }
 
