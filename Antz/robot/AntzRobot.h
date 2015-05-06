@@ -25,11 +25,16 @@
 #define IDX_NULL        6
 #define MTR_MSPERDEG    18
 
+#define TRUE_POS        0.95f
+#define FALSE_NEG       0.05f
+#define TRUE_NEG        (2.f/3)
+#define FALSE_POS       (1.f/3)
+
 namespace Antz {
     class AntzRobot {
     
     public:
-        enum MoveType {mt_forward, mt_backward, mt_left, mt_right, mt_stop};
+        enum MoveType {mt_forward, mt_backward, mt_left, mt_right, mt_stop, mt_unknown};
         virtual ~AntzRobot() {}
         virtual void setup();
         virtual void loop();
@@ -57,7 +62,7 @@ namespace Antz {
         static uint32_t identifier;
         static int64_t motorStartMillis;
         static int64_t motorStopMillis;
-        static float likelihood[6];
+        static float condProb[6];
         static MoveType curMovement;
         static Display display;
         static Motor motor;

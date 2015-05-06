@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D1F4CEA1AF98881007F8EDB /* ExpGuider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D1F4CE81AF98881007F8EDB /* ExpGuider.cpp */; };
 		3D2278081A716FB900D3154B /* Antz.ino in Sources */ = {isa = PBXBuildFile; fileRef = 3DD278081A716FB900D3154B /* Antz.ino */; };
 		3D74E4271AF855DF00396A16 /* Display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74E40D1AF855DF00396A16 /* Display.cpp */; };
 		3D74E4281AF855DF00396A16 /* Motor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3D74E4101AF855DF00396A16 /* Motor.cpp */; };
@@ -302,6 +303,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D1F4CE81AF98881007F8EDB /* ExpGuider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExpGuider.cpp; sourceTree = "<group>"; };
+		3D1F4CE91AF98881007F8EDB /* ExpGuider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpGuider.h; sourceTree = "<group>"; };
 		3D74E40C1AF855DF00396A16 /* Communication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Communication.h; sourceTree = "<group>"; };
 		3D74E40D1AF855DF00396A16 /* Display.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Display.cpp; sourceTree = "<group>"; };
 		3D74E40E1AF855DF00396A16 /* Display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Display.h; sourceTree = "<group>"; };
@@ -728,6 +731,8 @@
 				3D74E41E1AF855DF00396A16 /* AntzRobot.h */,
 				3D74E41F1AF855DF00396A16 /* BayesWorker.cpp */,
 				3D74E4201AF855DF00396A16 /* BayesWorker.h */,
+				3D1F4CE81AF98881007F8EDB /* ExpGuider.cpp */,
+				3D1F4CE91AF98881007F8EDB /* ExpGuider.h */,
 				3D74E4211AF855DF00396A16 /* Guider.cpp */,
 				3D74E4221AF855DF00396A16 /* Guider.h */,
 				3D74E4231AF855DF00396A16 /* Tester.cpp */,
@@ -1838,6 +1843,7 @@
 				AA2A150122125003AA00011E /* socket.h in Sources */,
 				AA2A150122125003AA00011F /* spi_drv.cpp in Sources */,
 				AA2A150122125003AA000120 /* spi_drv.h in Sources */,
+				3D1F4CEA1AF98881007F8EDB /* ExpGuider.cpp in Sources */,
 				AA2A150122125003AA000121 /* wifi_drv.cpp in Sources */,
 				AA2A150122125003AA000122 /* wifi_drv.h in Sources */,
 				3D74E42C1AF855DF00396A16 /* TimerOne.cpp in Sources */,

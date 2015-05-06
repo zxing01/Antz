@@ -18,13 +18,12 @@
 
 
 #include "AntzRobot.h"
-#include "Scanner.h"
 
 #define ID ((uint32_t)0)
 
 using namespace Antz;
 
-AntzRobot *antz = AntzRobot::createAntzRobot("Tester", ID);
+AntzRobot *antz = AntzRobot::createAntzRobot("ExpGuider", ID);
 
 ////////////////////////////////////////////////////////////////
 void setup() {

@@ -9,6 +9,7 @@
 #include "AntzRobot.h"
 #include "Worker.h"
 #include "Guider.h"
+#include "ExpGuider.h"
 #include "Tester.h"
 #include "BayesWorker.h"
 
@@ -16,7 +17,7 @@ using namespace Antz;
 
 uint32_t AntzRobot::identifier = 0;
 uint16_t AntzRobot::movePhase = 0;
-float AntzRobot::likelihood[] = {1.f/6};
+float AntzRobot::condProb[] = {1.f/6};
 int64_t AntzRobot::motorStartMillis = -1;
 int64_t AntzRobot::motorStopMillis = -1;
 AntzRobot::MoveType AntzRobot::curMovement = mt_stop;
@@ -38,6 +39,8 @@ AntzRobot* AntzRobot::createAntzRobot(char* type, uint32_t robotId) {
         return new Worker(robotId);
     else if (strcmp(type, "Guider") == 0)
         return new Guider(robotId);
+    else if (strcmp(type, "ExpGuider") == 0)
+        return new ExpGuider(robotId);
     else if (strcmp(type, "Tester") == 0)
         return new Tester(robotId);
     else if (strcmp(type, "BayesWorker") == 0)
@@ -153,28 +156,26 @@ bool AntzRobot::avoid() {
 }
 
 ////////////////////////////////////////////////////////////////
-// Update likelihoods using Bayes rule according to new signals
+// Update conditional probabilities using Bayes rule according
+//   to new signals
 void AntzRobot::bayesUpdate(bool signals[]) {
-    if (sizeof(signals)/sizeof(bool) != 6)
-        return;
     Timer3.detachInterrupt();
     for (int i = 0; i < 6; ++i) {
-        float condProb, evidProb;
         if (signals[i]) {
-            condProb = 9.f / 10;
-            evidProb = 1.f / 6;
+            float marginal = TRUE_POS * condProb[i] + FALSE_POS * (1 - condProb[i]);
+            condProb[i] = TRUE_POS * condProb[i] / marginal;
         }
         else {
-            condProb = 1.f / 10;
-            evidProb = 5.f / 6;
+            float marginal = TRUE_NEG * (1 - condProb[i]) + FALSE_NEG * condProb[i];
+            condProb[i] = 1 - TRUE_NEG * (1 - condProb[i]) / marginal;
         }
-        likelihood[i] = condProb * likelihood[i] / evidProb;
     }
     Timer3.attachInterrupt(isr);
 }
 
 ////////////////////////////////////////////////////////////////
-// Update likelihoods using Bayes rule according to new movement
+// Update conditional probabilities using Bayes rule according
+//   to new movement
 void AntzRobot::bayesUpdate() {
     int64_t duration = 0;
     Timer3.detachInterrupt();
@@ -184,34 +185,34 @@ void AntzRobot::bayesUpdate() {
     }
     
     if (curMovement == mt_forward || curMovement == mt_backward) {
-        float avg = (1 - likelihood[IDX_FRONT] - likelihood[IDX_REAR]) / 4;
-        likelihood[IDX_LFRONT] = avg;
-        likelihood[IDX_LREAR] = avg;
-        likelihood[IDX_RFRONT] = avg;
-        likelihood[IDX_RREAR] = avg;
+        float avg = (1 - condProb[IDX_FRONT] - condProb[IDX_REAR]) / 4;
+        condProb[IDX_LFRONT] = avg;
+        condProb[IDX_LREAR] = avg;
+        condProb[IDX_RFRONT] = avg;
+        condProb[IDX_RREAR] = avg;
     }
-    else {
-        int64_t shifts = duration / MTR_MSPERDEG / 60; // TODO: consider 60 for (30, 90) instead of (60, 119)
+    else if (curMovement == mt_left || curMovement == mt_right) {
+        int shifts = (duration / MTR_MSPERDEG - 30) / 60 + 1;
         shifts = shifts % 6;
         float temp[shifts];
         if (curMovement == mt_left) { // array shifts right
-            for (int i = shifts; i < 6 + shifts; ++i) {
-                if (i < 6) {
-                    temp[i - shifts] = likelihood[i];
-                    likelihood[i] = likelihood[i - shifts];
-                }
+            for (int i = 5; i >= 0; --i) {
+                if (i + shifts >= 6)
+                    temp[i + shifts - 6] = condProb[i];
+                if (i - shifts >= 0)
+                    condProb[i] = condProb[i - shifts];
                 else
-                    likelihood[i - 6] = temp[i - 6];
+                    condProb[i] = temp[i];
             }
         }
         else if (curMovement == mt_right) { // array shifts left
             for (int i = 0; i < 6; ++i) {
-                if (i + shifts < 6) {
-                    temp[i] = likelihood[i];
-                    likelihood[i] = likelihood[i + shifts];
-                }
+                if (i - shifts < 0)
+                    temp[i] = condProb[i];
+                if (i + shifts < 6)
+                    condProb[i] = condProb[i + shifts];
                 else
-                    likelihood[i] = temp[i - shifts];
+                    condProb[i] = temp[i + shifts - 6];
             }
         }
     }
@@ -219,11 +220,12 @@ void AntzRobot::bayesUpdate() {
 }
 
 ////////////////////////////////////////////////////////////////
-// Reset likelihood
+// Reset conditional probabilities
 void AntzRobot::bayesReset() {
     Timer3.detachInterrupt();
     for (int i = 0; i < 6; ++i)
-        likelihood[i] = 1.f / 6.f;
+        condProb[i] = 1.f / 6;
+    curMovement = mt_unknown;
     Timer3.attachInterrupt(isr);
 }
 
@@ -234,7 +236,7 @@ uint8_t AntzRobot::bayesDecision() {
     Timer3.detachInterrupt();
     int idx[] = {IDX_FRONT, IDX_LFRONT, IDX_RFRONT, IDX_LREAR, IDX_RREAR, IDX_REAR};
     for (int i = 0; i < 6; ++i) {
-        if (likelihood[idx[i]] > 0.8) {
+        if (condProb[idx[i]] > 0.8) {
             Timer3.attachInterrupt(isr);
             return idx[i];
         }

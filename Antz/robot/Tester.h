@@ -18,7 +18,7 @@ namespace Antz {
         virtual ~Tester() {}
         virtual void setup();
         virtual void loop();
-        virtual void bayesPrint();
+        virtual void bayesPrint(const char *description);
     };
 }
 

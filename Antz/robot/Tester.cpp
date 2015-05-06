@@ -29,7 +29,7 @@ void Tester::bayesPrint(const char *description) {
     Serial.print(": [");
     for (int i = 0; i < 6; ++i) {
         Serial.print(" ");
-        Serial.print(likelihood[i]);
+        Serial.print(condProb[i]);
     }
     Serial.println(" ]");
 }
@@ -73,13 +73,14 @@ void Tester::loop() {
     
     // test bayesian updates
     bool signals[] = {true, false, false, false, false, false};
-    
+
     Serial.println("=== TEST 1 ===");
-    
     bayesReset();
     bayesPrint("reset");
     bayesUpdate(signals);
-    bayesPrint("update");
+    bayesPrint("update 1");
+    bayesUpdate(signals);
+    bayesPrint("update 2");
     goForward(500, false);
     bayesPrint("go forward");
     goBackward(500, false);
@@ -94,25 +95,22 @@ void Tester::loop() {
     bayesPrint("turn right 120");
 
     Serial.println("=== TEST 2 ===");
-    
     bayesReset();
     bayesPrint("reset");
     bayesUpdate(signals);
-    bayesPrint("update 1");
-    bayesUpdate(signals);
-    bayesPrint("update 2");
+    bayesPrint("update");
     goForward(500);
-    delay(500);
+    delay(600);
     bayesPrint("go forward");
     goBackward(500);
-    delay(500);
+    delay(200);
+    bayesUpdate();
     bayesPrint("go backward");
     turnLeft(120);
-    delay(MTR_MSPERDEG * 60);
-    stopMoving();
-    bayesPrint("turn left 60");
+    delay(MTR_MSPERDEG * 120 + 100);
+    bayesPrint("turn left 120");
     turnRight(180);
     delay(MTR_MSPERDEG * 120);
-    stopMoving();
-    bayesPrint("turn left 120");
+    bayesUpdate();
+    bayesPrint("turn right 120");
 }
