@@ -12,7 +12,7 @@ using namespace Antz;
 
 ////////////////////////////////////////////////////////////////
 // Contructor
-ExpGuider::ExpGuider(uint32_t robotId): AntzRobot(robotId), curFood(0xFF), curNest(0xFF), foodTimer(0), nestTimer(0) {
+ExpGuider::ExpGuider(uint32_t robotId): AntzRobot(robotId), curFood(0xFF), curNest(0xFF), foodTimer(0), nestTimer(0), cnt(0) {
 }
 
 ////////////////////////////////////////////////////////////////
@@ -24,7 +24,7 @@ void ExpGuider::setup() {
 ////////////////////////////////////////////////////////////////
 // Main loop
 void ExpGuider::loop() {
-    if (cnt > 3)
+    if (cnt > 5)
         explore();
     else
         signal();
@@ -110,29 +110,29 @@ void ExpGuider::explore() {
     }
 
     if (i < 6) {
-        int index = idx[(i + 3) % 6];
-        switch (index) {
+        switch (idx[i]) {
             case IDX_FRONT:
-                turnLeft(180);
+                turnLeft(180, false);
                 break;
             case IDX_REAR:
                 if (avoid() == false)
-                    goForward(1500);
+                    goForward(1500, false);
                 break;
             case IDX_LFRONT:
-                turnRight(120);
+                turnRight(120, false);
                 break;
             case IDX_LREAR:
-                turnRight(60);
+                turnRight(60, false);
                 break;
             case IDX_RFRONT:
-                turnLeft(120);
+                turnLeft(120, false);
                 break;
             case IDX_RREAR:
-                turnLeft(60);
+                turnLeft(60, false);
                 break;
         }
+        --cnt;
     }
-    else
-        goBackward(500);
+    //else
+        //goBackward(500, false);
 }
