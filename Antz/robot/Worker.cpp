@@ -12,7 +12,14 @@ using namespace Antz;
 
 ////////////////////////////////////////////////////////////////
 // Contructor
-Worker::Worker(uint32_t robotId): AntzRobot(robotId), target(0), curSource(0xFFFFFFFF), sourceTime(0) {
+Worker::Worker(uint32_t robotId):
+AntzRobot(robotId),
+target(0),
+curNumber(0xFFFFFFFF),
+numberTimer(0),
+minSignal(0xFF),
+signalIndex(6),
+minNumber(0xFFFFFFFF) {
 }
 
 ////////////////////////////////////////////////////////////////
@@ -35,10 +42,29 @@ void Worker::loop() {
         display.yellow(false);
     }
     
-    // signal format (high to low): 16-bit ID + 8-bit food cardinality + 8-bit nest cardinality
-    uint8_t min = 0xFF; // cardinality value I'm following
-    uint8_t index = 6; // index of the receiver that receives the signal
-    uint32_t minNumber = 0xFFFFFFFF; // 32-bit signal containing the min value
+    minSignal = 0xFF;
+    signalIndex = 6;
+    minNumber = 0xFFFFFFFF;
+    bool received = receiveSignal();
+    
+    uint8_t cur = target == 0 ? curNumber : (curNumber >> 8);
+    
+    if (received && minSignal != 0xFF && (minSignal <= cur || millis() - numberTimer > 5000)) {
+        display.number(true, min);
+        curNumber = minNumber;
+        numberTimer = millis();
+        makeMovement();
+    }
+    else
+        randomWalkGo();
+    //else { // min > cur && millis() - numberTimer <= 3000
+    //motor.forward();
+    //}
+}
+
+////////////////////////////////////////////////////////////////
+// Receive signal from all the recievers
+bool Worker::receiveSignal() {
     bool received = false;
     int idx[6] = {IDX_FRONT, IDX_LFRONT, IDX_RFRONT, IDX_LREAR, IDX_RREAR, IDX_REAR};
     for (int i = 0; i < 6; ++i) { // poll from 6 receivers
@@ -50,48 +76,40 @@ void Worker::loop() {
             
             if (cardinality == 1)
                 target = 1 - target;
-            else if (cardinality > 0 && cardinality < min) {
-                min = cardinality;
-                index = idx[i];
+            else if (cardinality > 0 && cardinality < minSignal) {
+                minSignal = cardinality;
+                signalIndex = idx[i];
                 minNumber = number;
             }
         }
     }
-    
-    uint8_t cur = target == 0 ? curSource : (curSource >> 8);
-    
-    if (received && min != 0xFF && (min <= cur || millis() - sourceTime > 5000)) {
-        display.number(true, min);
-        curSource = minNumber;
-        sourceTime = millis();
-        
-        switch (index) {
-            case IDX_FRONT:
-                if (avoid() == false)
-                    goForward(1500);
-                break;
-            case IDX_REAR:
-                turnLeft(180);
-                break;
-            case IDX_LFRONT:
-                turnLeft(60);
-                break;
-            case IDX_LREAR:
-                turnLeft(120);
-                break;
-            case IDX_RFRONT:
-                turnRight(60);
-                break;
-            case IDX_RREAR:
-                turnRight(120);
-                break;
-        }
-    }
-    //else {
-        //Serial.println("random walking.");
-        //randomWalkGo();
-    //}
-    //else { // min > cur && millis() - sourceTime <= 3000
-    //motor.forward();
-    //}
+    return received;
 }
+
+
+////////////////////////////////////////////////////////////////
+// Make a movement basing on current signal index
+void Worker::makeMovement() {
+    switch (signalIndex) {
+        case IDX_FRONT:
+            if (avoid() == false)
+                goForward(1000);
+            break;
+        case IDX_REAR:
+            turnLeft(180);
+            break;
+        case IDX_LFRONT:
+            turnLeft(60);
+            break;
+        case IDX_LREAR:
+            turnLeft(120);
+            break;
+        case IDX_RFRONT:
+            turnRight(60);
+            break;
+        case IDX_RREAR:
+            turnRight(120);
+            break;
+    }
+}
+

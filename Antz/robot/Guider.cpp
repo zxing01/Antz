@@ -12,7 +12,13 @@ using namespace Antz;
 
 ////////////////////////////////////////////////////////////////
 // Contructor
-Guider::Guider(uint32_t robotId): AntzRobot(robotId), curFood(0xFF), curNest(0xFF), foodTimer(0), nestTimer(0), priority(DEFAULT_PRIORITY) {
+Guider::Guider(uint32_t robotId):
+AntzRobot(robotId),
+curFood(0xFF),
+curNest(0xFF),
+foodTimer(0),
+nestTimer(0),
+priority(DEFAULT_PRIORITY) {
 }
 
 ////////////////////////////////////////////////////////////////
@@ -40,12 +46,19 @@ void Guider::loop() {
     
     if (!recver.canHearSignal()) {
         priority = DEFAULT_PRIORITY;
+        display.red(false);
+        display.green(true);
+        display.number(true, curFood);
+        delay(100);
+        display.number(true, curNest);
         sendSignal();
     }
     else if (priority >= 5)
         priority -= 5;
 }
 
+////////////////////////////////////////////////////////////////
+// Receive signals from all the receivers
 bool Guider::receiveSignal() {
     bool received = false;
     unsigned long cur = millis();
@@ -79,15 +92,12 @@ bool Guider::receiveSignal() {
     return received;
 }
 
+////////////////////////////////////////////////////////////////
+// Send signals from all the senders
 void Guider::sendSignal() {
     uint32_t myNumber = 0;
     myNumber |= (identifier << 16);
     myNumber |= (curFood << 8);
     myNumber |= curNest;
-    display.red(false);
-    display.green(true);
-    display.number(true, curFood);
-    delay(100);
-    display.number(true, curNest);
     sender.send(myNumber, 500);
 }

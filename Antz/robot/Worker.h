@@ -18,10 +18,15 @@ namespace Antz {
         virtual ~Worker() {}
         virtual void setup();
         virtual void loop();
-    private:
+    protected:
+        virtual void receiveSignal();
+        virtual void makeMovement();
         uint8_t target;
-        uint32_t curSource;
-        uint64_t sourceTime;
+        uint32_t curNumber;
+        uint64_t numberTimer;
+        uint8_t minSignal;
+        uint8_t signalIndex;
+        uint32_t minNumber;
     };
 }
 

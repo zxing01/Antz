@@ -23,7 +23,7 @@
 
 using namespace Antz;
 
-AntzRobot *antz = AntzRobot::createAntzRobot("Guider", ID);
+AntzRobot *antz = AntzRobot::createAntzRobot("Worker", ID);
 
 ////////////////////////////////////////////////////////////////
 void setup() {

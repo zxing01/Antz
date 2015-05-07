@@ -147,19 +147,19 @@ bool AntzRobot::avoid() {
     bool async = true;
     uint8_t cnt = 0;
     uint8_t deg = 60;
-    while (scanner.scan(&angle) <= 40) {
+    while (scanner.scan(&angle) <= 35) {
         detected = true;
         ++cnt;
         if (cnt > 5) { // possible deadlock
             async = false;
             deg = 90;
         }
-        if (angle > 90)
-            turnRight(deg, async);
-        else
+        //if (angle > 90)
+            //turnRight(deg, async);
+        //else
             turnLeft(deg, async);
     }
-    goForward(1500);
+    goForward(1000);
     return detected;
 }
 
