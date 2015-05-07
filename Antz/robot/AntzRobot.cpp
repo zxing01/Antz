@@ -144,12 +144,20 @@ void AntzRobot::stopMoving() {
 bool AntzRobot::avoid() {
     bool detected = false;
     float angle;
+    bool async = true;
+    uint8_t cnt = 0;
+    uint8_t deg = 60;
     while (scanner.scan(&angle) <= 40) {
         detected = true;
+        ++cnt;
+        if (cnt > 5) { // possible deadlock
+            async = false;
+            deg = 90;
+        }
         if (angle > 90)
-            turnRight(60);
+            turnRight(deg, async);
         else
-            turnLeft(60);
+            turnLeft(deg, async);
     }
     goForward(1500);
     return detected;
@@ -162,12 +170,12 @@ void AntzRobot::bayesUpdate(bool signals[]) {
     Timer3.detachInterrupt();
     for (int i = 0; i < 6; ++i) {
         if (signals[i]) {
-            float marginal = TRUE_POS * condProb[i] + FALSE_POS * (1 - condProb[i]);
-            condProb[i] = TRUE_POS * condProb[i] / marginal;
+            float marginal = PROB_TPOS * condProb[i] + PROB_FPOS * (1 - condProb[i]);
+            condProb[i] = PROB_TPOS * condProb[i] / marginal;
         }
         else {
-            float marginal = TRUE_NEG * (1 - condProb[i]) + FALSE_NEG * condProb[i];
-            condProb[i] = 1 - TRUE_NEG * (1 - condProb[i]) / marginal;
+            float marginal = PROB_TNEG * (1 - condProb[i]) + PROB_FNEG * condProb[i];
+            condProb[i] = 1 - PROB_TNEG * (1 - condProb[i]) / marginal;
         }
     }
     Timer3.attachInterrupt(isr);

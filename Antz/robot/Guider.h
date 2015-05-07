@@ -11,6 +11,8 @@
 
 #include "AntzRobot.h"
 
+#define DEFAULT_PRIORITY 50
+
 namespace Antz {
     class Guider: public AntzRobot {
     public:
@@ -18,12 +20,17 @@ namespace Antz {
         virtual ~Guider() {}
         virtual void setup();
         virtual void loop();
-    private:
+    protected:
+        bool receiveSignal();
+        void sendSignal();
         Sender sender;
+        uint16_t minFood;
+        uint16_t minNest;
         uint8_t curFood;
         uint8_t curNest;
         uint64_t foodTimer;
         uint64_t nestTimer;
+        uint8_t priority;
     };
 }
 

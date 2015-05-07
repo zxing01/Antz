@@ -17,6 +17,6 @@
 #define LEN_ZERO        300
 #define LEN_INTR        300
 // preservation time for received data
-#define LEN_PRSV        ((uint32_t)LEN_INTR * NUM_BITS * 2)
+#define LEN_PRSV        ((uint32_t)(LEN_INTR + LEN_ZERO) * NUM_BITS)
 
 #endif

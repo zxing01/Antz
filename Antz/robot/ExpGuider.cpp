@@ -12,7 +12,7 @@ using namespace Antz;
 
 ////////////////////////////////////////////////////////////////
 // Contructor
-ExpGuider::ExpGuider(uint32_t robotId): AntzRobot(robotId), curFood(0xFF), curNest(0xFF), foodTimer(0), nestTimer(0), cnt(0) {
+ExpGuider::ExpGuider(uint32_t robotId): AntzRobot(robotId), curFood(0xFF), curNest(0xFF), foodTimer(0), nestTimer(0), count(0), priority(30) {
 }
 
 ////////////////////////////////////////////////////////////////
@@ -24,7 +24,7 @@ void ExpGuider::setup() {
 ////////////////////////////////////////////////////////////////
 // Main loop
 void ExpGuider::loop() {
-    if (cnt > 5)
+    if (count > 5)
         explore();
     else
         signal();
@@ -45,7 +45,7 @@ void ExpGuider::signal() {
     bool gotFood = false;
     bool gotNest = false;
     
-    while (wait || minFood == 0xFF && minNest == 0xFF) {
+    while (wait || curFood == 0xFF && curNest == 0xFF) {
         wait = false;
         unsigned long cur = millis();
         if (cur - nestTimer > 5000)
@@ -80,12 +80,13 @@ void ExpGuider::signal() {
             foodTimer = millis();
         }
     }
-    delay(random(50) * 10);
+    delay(random(priority) * 10);
     if (!recver.canHearSignal()) {
+        priority = 30;
         if (!gotFood || !gotNest)
-            ++cnt;
+            ++count;
         else
-            cnt = 0;
+            count = 0;
         uint32_t myNumber = 0;
         myNumber |= (identifier << 16);
         myNumber |= (curFood << 8);
@@ -93,46 +94,64 @@ void ExpGuider::signal() {
         display.red(false);
         display.green(true);
         display.number(true, curFood);
-        delay(200);
+        delay(100);
         display.number(true, curNest);
-        sender.send(myNumber, 500);
+        sender.send(myNumber, 300);
     }
+    else if (priority >= 5)
+        priority -= 5;
 }
 
 ////////////////////////////////////////////////////////////////
 // Explore around
 void ExpGuider::explore() {
     int idx[6] = {IDX_FRONT, IDX_RFRONT, IDX_RREAR, IDX_REAR, IDX_LREAR, IDX_LFRONT};
-    int i;
-    for (i = 0; i < 6; ++i) { // poll from 6 receivers
-        if (recver.recvFrom(idx[i], NULL))
-            break;
+    int cnt[6] = {0};
+    int num = 5;
+    
+    for (int i = 0; i < num; ++i) {
+        for (int j = 0; j < 6; ++j) {
+            if (recver.recvFrom(idx[i], NULL))
+                ++cnt[i];
+        }
     }
-
-    if (i < 6) {
-        switch (idx[i]) {
+    
+    int index;
+    bool gotSignal = false;
+    for (index = 0; index < 6; ++index) {
+        if (cnt[index] == num)
+            break;
+        else if (cnt[index] > 0)
+            gotSignal = true;
+    }
+    
+    if (index < 6) {
+        switch (idx[index]) {
             case IDX_FRONT:
-                turnLeft(180, false);
+                turnLeft(180);
                 break;
             case IDX_REAR:
                 if (avoid() == false)
-                    goForward(1500, false);
+                    goForward(1500);
                 break;
             case IDX_LFRONT:
-                turnRight(120, false);
+                turnRight(120);
                 break;
             case IDX_LREAR:
-                turnRight(60, false);
+                turnRight(60);
                 break;
             case IDX_RFRONT:
-                turnLeft(120, false);
+                turnLeft(120);
                 break;
             case IDX_RREAR:
-                turnLeft(60, false);
+                turnLeft(60);
                 break;
         }
-        --cnt;
+        --count;
     }
-    //else
-        //goBackward(500, false);
+    else if (!gotSignal) {
+        turnLeft(180, false);
+        if (avoid() == false)
+            goForward(1500);
+    }
 }

@@ -24,11 +24,11 @@
 #define IDX_LFRONT      5
 #define IDX_NULL        6
 #define MTR_MSPERDEG    18
-
-#define TRUE_POS        0.95f
-#define FALSE_NEG       0.05f
-#define TRUE_NEG        (2.f/3)
-#define FALSE_POS       (1.f/3)
+#define PROB_TPOS       0.95f
+#define PROB_FNEG       0.05f
+#define PROB_TNEG       (2.f/3)
+#define PROB_FPOS       (1.f/3)
+#define SIG_MAXLEN      ((uint32_t)LEN_SIGN + NUM_BITS * (LEN_ONE + LEN_INTR))
 
 namespace Antz {
     class AntzRobot {

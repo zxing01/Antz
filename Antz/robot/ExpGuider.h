@@ -26,7 +26,8 @@ namespace Antz {
         uint8_t curNest;
         uint64_t foodTimer;
         uint64_t nestTimer;
-        uint8_t cnt;
+        uint8_t count;
+        uint8_t priority;
     };
 }
 
