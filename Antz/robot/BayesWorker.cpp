@@ -45,7 +45,6 @@ void BayesWorker::loop() {
         uint32_t number;
         if (recver.recvFrom(idx[i], &number)) {
             received = true;
-            randomWalkReset();
             uint8_t cardinality = target == 0 ? number : (number >> 8);
             
             if (cardinality == 1)
@@ -92,7 +91,6 @@ void BayesWorker::loop() {
             turnRight(120);
             break;
         case IDX_NULL:
-            randomWalkGo();
             break;
     }
 }

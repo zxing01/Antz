@@ -19,14 +19,25 @@ namespace Antz {
         virtual void setup();
         virtual void loop();
     protected:
-        virtual void receiveSignal();
+        virtual bool receiveSignal();
         virtual void makeMovement();
+        virtual void randomWalkGo();
+        virtual void randomWalkReset();
+
         uint8_t target;
         uint32_t curNumber;
         uint64_t numberTimer;
         uint8_t minSignal;
         uint8_t signalIndex;
         uint32_t minNumber;
+        uint8_t minFood;
+        uint8_t minNest;
+        uint8_t curFood;
+        uint8_t curNest;
+        uint8_t foodIndex;
+        uint8_t nestIndex;
+        uint16_t movePhase;
+        uint8_t noMoveCnt;
     };
 }
 

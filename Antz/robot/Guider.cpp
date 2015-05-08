@@ -39,7 +39,7 @@ void Guider::loop() {
     display.red(true);
     display.green(false);
     bool wait = true; // a flag indicating whether there're more signals to be heard
-    while (wait || curFood == 0xFF && curNest == 0xFF)
+    while (wait || minNest == 0xFF && minFood == 0xFF)
         wait = receiveSignal();
     
     delay(random(priority) * 10);

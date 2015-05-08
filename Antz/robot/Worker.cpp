@@ -19,13 +19,16 @@ curNumber(0xFFFFFFFF),
 numberTimer(0),
 minSignal(0xFF),
 signalIndex(6),
-minNumber(0xFFFFFFFF) {
+minNumber(0xFFFFFFFF),
+movePhase(0),
+noMoveCnt(0) {
 }
 
 ////////////////////////////////////////////////////////////////
 // Setup
 void Worker::setup() {
     AntzRobot::setup();
+    Serial.begin(9600);
 }
 
 ////////////////////////////////////////////////////////////////
@@ -45,37 +48,45 @@ void Worker::loop() {
     minSignal = 0xFF;
     signalIndex = 6;
     minNumber = 0xFFFFFFFF;
-    bool received = receiveSignal();
+    receiveSignal();
     
     uint8_t cur = target == 0 ? curNumber : (curNumber >> 8);
     
-    if (received && minSignal != 0xFF && (minSignal <= cur || millis() - numberTimer > 5000)) {
-        display.number(true, min);
+    if (minSignal != 0xFF && minSignal <= cur) {
+        display.number(true, minSignal);
         curNumber = minNumber;
         numberTimer = millis();
         makeMovement();
+        randomWalkReset();
     }
-    else
-        randomWalkGo();
-    //else { // min > cur && millis() - numberTimer <= 3000
-    //motor.forward();
+    //else if (minSignal == 0xFF) {
+        //if (noMoveCnt > 10)
+            //randomWalkGo();
+        //else
+            //++noMoveCnt;
     //}
 }
 
 ////////////////////////////////////////////////////////////////
 // Receive signal from all the recievers
 bool Worker::receiveSignal() {
+    if (millis() - numberTimer > 5000) {
+        curNumber = 0xFFFFFFFF;
+        numberTimer = millis();
+    }
     bool received = false;
     int idx[6] = {IDX_FRONT, IDX_LFRONT, IDX_RFRONT, IDX_LREAR, IDX_RREAR, IDX_REAR};
     for (int i = 0; i < 6; ++i) { // poll from 6 receivers
         uint32_t number;
         if (recver.recvFrom(idx[i], &number)) {
             received = true;
-            randomWalkReset();
             uint8_t cardinality = target == 0 ? number : (number >> 8);
             
-            if (cardinality == 1)
+            if (cardinality == 1) {
                 target = 1 - target;
+                received = false;
+                break;
+            }
             else if (cardinality > 0 && cardinality < minSignal) {
                 minSignal = cardinality;
                 signalIndex = idx[i];
@@ -85,7 +96,6 @@ bool Worker::receiveSignal() {
     }
     return received;
 }
-
 
 ////////////////////////////////////////////////////////////////
 // Make a movement basing on current signal index
@@ -111,5 +121,35 @@ void Worker::makeMovement() {
             turnRight(120);
             break;
     }
+}
+
+////////////////////////////////////////////////////////////////
+// Reset random walk state
+void Worker::randomWalkReset() {
+    movePhase = 0;
+}
+
+////////////////////////////////////////////////////////////////
+// Make one random movement
+void Worker::randomWalkGo() {
+    switch (movePhase) {
+        case 0:
+            turnLeft(30);
+            break;
+        case 1:
+            turnRight(30);
+            break;
+        case 2:
+            turnRight(60, false);
+            if (!avoid())
+                goForward(100 * movePhase, false);
+            break;
+        default:
+            turnLeft(60, false);
+            if (!avoid())
+                goForward(100 * movePhase, false);
+            break;
+    }
+    ++movePhase;
 }
 

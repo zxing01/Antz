@@ -21,8 +21,8 @@ namespace Antz {
         virtual void setup();
         virtual void loop();
     protected:
-        bool receiveSignal();
-        void sendSignal();
+        virtual bool receiveSignal();
+        virtual void sendSignal();
         Sender sender;
         uint16_t minFood;
         uint16_t minNest;

@@ -54,14 +54,12 @@ namespace Antz {
         static void bayesUpdate();
         static void bayesReset();
         static uint8_t bayesDecision();
-        static void randomWalkGo();
-        static void randomWalkReset();
         static void isr();
         
-        static uint16_t movePhase;
         static uint32_t identifier;
         static int64_t motorStartMillis;
         static int64_t motorStopMillis;
+        static uint8_t avoidCnt;
         static float condProb[6];
         static MoveType curMovement;
         static Display display;

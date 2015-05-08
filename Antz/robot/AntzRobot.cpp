@@ -15,8 +15,8 @@
 
 using namespace Antz;
 
+uint8_t AntzRobot::avoidCnt = 0;
 uint32_t AntzRobot::identifier = 0;
-uint16_t AntzRobot::movePhase = 0;
 float AntzRobot::condProb[] = {1.f/6};
 int64_t AntzRobot::motorStartMillis = -1;
 int64_t AntzRobot::motorStopMillis = -1;
@@ -145,12 +145,11 @@ bool AntzRobot::avoid() {
     bool detected = false;
     float angle;
     bool async = true;
-    uint8_t cnt = 0;
     uint8_t deg = 60;
     while (scanner.scan(&angle) <= 35) {
         detected = true;
-        ++cnt;
-        if (cnt > 5) { // possible deadlock
+        ++avoidCnt;
+        if (avoidCnt > 5) { // possible deadlock
             async = false;
             deg = 90;
         }
@@ -160,6 +159,8 @@ bool AntzRobot::avoid() {
             turnLeft(deg, async);
     }
     goForward(1000);
+    if (!detected)
+        avoidCnt = 0;
     return detected;
 }
 
@@ -251,31 +252,6 @@ uint8_t AntzRobot::bayesDecision() {
     }
     Timer3.attachInterrupt(isr);
     return IDX_NULL;
-}
-
-////////////////////////////////////////////////////////////////
-// Reset random walk state
-void AntzRobot::randomWalkReset() {
-    movePhase = 0;
-}
-
-////////////////////////////////////////////////////////////////
-// Make one random movement
-void AntzRobot::randomWalkGo() {
-    switch (movePhase) {
-        case 0:
-            ++movePhase;
-            break;
-        case 1:
-            ++movePhase;
-            break;
-        case 2:
-            ++movePhase;
-            break;
-        default:
-            ++movePhase;
-            break;
-    }
 }
 
 ////////////////////////////////////////////////////////////////
