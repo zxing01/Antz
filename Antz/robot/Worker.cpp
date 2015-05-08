@@ -15,11 +15,6 @@ using namespace Antz;
 Worker::Worker(uint32_t robotId):
 AntzRobot(robotId),
 target(0),
-curNumber(0xFFFFFFFF),
-numberTimer(0),
-minSignal(0xFF),
-signalIndex(6),
-minNumber(0xFFFFFFFF),
 movePhase(0),
 noMoveCnt(0) {
 }
@@ -28,7 +23,6 @@ noMoveCnt(0) {
 // Setup
 void Worker::setup() {
     AntzRobot::setup();
-    Serial.begin(9600);
 }
 
 ////////////////////////////////////////////////////////////////
@@ -45,62 +39,42 @@ void Worker::loop() {
         display.yellow(false);
     }
     
-    minSignal = 0xFF;
-    signalIndex = 6;
-    minNumber = 0xFFFFFFFF;
     receiveSignal();
     
-    uint8_t cur = target == 0 ? curNumber : (curNumber >> 8);
+    if (target == 0 && minNest == 1) {
+        target = 1;
+        minFood = curMinFood;
+        foodTimer = millis();
+    }
+    else if (target == 1 && minFood == 1) {
+        target = 0;
+        minNest = curMinNest;
+        nestTimer = millis();
+    }
     
-    if (minSignal != 0xFF && minSignal <= cur) {
-        display.number(true, minSignal);
-        curNumber = minNumber;
-        numberTimer = millis();
-        makeMovement();
+    if (target == 0 && curMinNest != 0xFF && curMinNest <= minNest) { // go to nest
+        display.number(true, minNest);
+        makeMovement(nestIndex);
         randomWalkReset();
+        noMoveCnt = 0;
     }
-    //else if (minSignal == 0xFF) {
-        //if (noMoveCnt > 10)
-            //randomWalkGo();
-        //else
-            //++noMoveCnt;
-    //}
-}
-
-////////////////////////////////////////////////////////////////
-// Receive signal from all the recievers
-bool Worker::receiveSignal() {
-    if (millis() - numberTimer > 5000) {
-        curNumber = 0xFFFFFFFF;
-        numberTimer = millis();
+    else if (target == 1 && curMinFood != 0xFF && curMinFood <= minFood) { // go to food
+        display.number(true, minFood);
+        makeMovement(foodIndex);
+        randomWalkReset();
+        noMoveCnt = 0;
     }
-    bool received = false;
-    int idx[6] = {IDX_FRONT, IDX_LFRONT, IDX_RFRONT, IDX_LREAR, IDX_RREAR, IDX_REAR};
-    for (int i = 0; i < 6; ++i) { // poll from 6 receivers
-        uint32_t number;
-        if (recver.recvFrom(idx[i], &number)) {
-            received = true;
-            uint8_t cardinality = target == 0 ? number : (number >> 8);
-            
-            if (cardinality == 1) {
-                target = 1 - target;
-                received = false;
-                break;
-            }
-            else if (cardinality > 0 && cardinality < minSignal) {
-                minSignal = cardinality;
-                signalIndex = idx[i];
-                minNumber = number;
-            }
-        }
+    else {
+        if (noMoveCnt > 20)
+            randomWalkGo();
+        ++noMoveCnt;
     }
-    return received;
 }
 
 ////////////////////////////////////////////////////////////////
 // Make a movement basing on current signal index
-void Worker::makeMovement() {
-    switch (signalIndex) {
+void Worker::makeMovement(uint8_t index) {
+    switch (index) {
         case IDX_FRONT:
             if (avoid() == false)
                 goForward(1000);

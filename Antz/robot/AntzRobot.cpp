@@ -15,6 +15,15 @@
 
 using namespace Antz;
 
+uint8_t AntzRobot::curMinFood = 0xFF;
+uint8_t AntzRobot::curMinNest = 0xFF;
+uint64_t AntzRobot::foodIndex = IDX_NULL;
+uint64_t AntzRobot::nestIndex = IDX_NULL;
+uint8_t AntzRobot::minFood = 0xFF;
+uint8_t AntzRobot::minNest = 0xFF;
+uint64_t AntzRobot::foodTimer = 0;
+uint64_t AntzRobot::nestTimer = 0;
+
 uint8_t AntzRobot::avoidCnt = 0;
 uint32_t AntzRobot::identifier = 0;
 float AntzRobot::condProb[] = {1.f/6};
@@ -261,3 +270,46 @@ void AntzRobot::isr() {
     if (motorStopMillis >= 0 && millis() >= motorStopMillis)
         stopMoving();
 }
+
+////////////////////////////////////////////////////////////////
+// Receive signals from all the receivers
+bool AntzRobot::receiveSignal() {
+    bool received = false;
+    unsigned long cur = millis();
+    if (cur - nestTimer > SIG_PRSV)
+        minNest = 0xFF;
+    if (cur - foodTimer > SIG_PRSV)
+        minFood = 0xFF;
+    
+    curMinFood = curMinNest = 0xFF;
+    foodIndex = nestIndex = IDX_NULL;
+    uint8_t idx[6] = {IDX_FRONT, IDX_LFRONT, IDX_RFRONT, IDX_LREAR, IDX_RREAR, IDX_REAR};
+    for (int i = 0; i < 6; ++i) {
+        if (recver.canHearSignal(i)) {
+            uint32_t number; // to store the 32-bit signal
+            if (recver.recvFrom(idx[i], &number)) {
+                received = true;
+                uint8_t nest = (uint8_t)(number & 0xFF);
+                uint8_t food = (uint8_t)(number >> 8);
+                if (nest > 0 && nest < minNest) {
+                    curMinNest = nest;
+                    nestIndex = idx[i];
+                }
+                if (food > 0 && food < minFood) {
+                    curMinFood = food;
+                    foodIndex = idx[i];
+                }
+            }
+        }
+    }
+    if (curMinNest < 0xFF && curMinNest <= minNest) {
+        minNest = curMinNest;
+        nestTimer = millis();
+    }
+    if (curMinFood < 0xFF &&curMinFood <= minFood) {
+        minFood = curMinFood;
+        foodTimer = millis();
+    }
+    return received;
+}
+

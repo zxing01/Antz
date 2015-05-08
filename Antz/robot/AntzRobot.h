@@ -29,6 +29,7 @@
 #define PROB_TNEG       (2.f/3)
 #define PROB_FPOS       (1.f/3)
 #define SIG_MAXLEN      ((uint32_t)LEN_SIGN + NUM_BITS * (LEN_ONE + LEN_INTR))
+#define SIG_PRSV        10000 // in milliseconds
 
 namespace Antz {
     class AntzRobot {
@@ -48,6 +49,7 @@ namespace Antz {
         static void turnRight(float degree, bool async = true);
         static void stopMoving();
         static bool avoid();
+        static bool receiveSignal();
         // the six signal should be: front, right front, right rear
         //   rear, left rear, and left front
         static void bayesUpdate(bool signals[]);
@@ -55,6 +57,15 @@ namespace Antz {
         static void bayesReset();
         static uint8_t bayesDecision();
         static void isr();
+        
+        static uint8_t curMinFood; // after each receiveSignal call, store the minimum food signal during the call
+        static uint8_t curMinNest; // after each receiveSignal call, store the minimum nest signal during the call
+        static uint64_t foodIndex; // the index curMinFood received from
+        static uint64_t nestIndex; // the index curMinNest received from
+        static uint8_t minFood; // after each receiveSignal call, store the minimum food signal in the past SIG_PRSV time
+        static uint8_t minNest; // after each receiveSignal call, store the minimum nest signal in the past SIG_PRSV time
+        static uint64_t foodTimer; // start time of current minFood
+        static uint64_t nestTimer; // start time of current minNest
         
         static uint32_t identifier;
         static int64_t motorStartMillis;
