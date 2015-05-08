@@ -23,6 +23,7 @@ noMoveCnt(0) {
 // Setup
 void Worker::setup() {
     AntzRobot::setup();
+    Serial.begin(9600);
 }
 
 ////////////////////////////////////////////////////////////////
@@ -33,10 +34,14 @@ void Worker::loop() {
     if (target == 0) { // i'm going towards nest
         display.blue(false);
         display.yellow(true);
+        
+        //display.number(true, nestDirect);
     }
     else if (target == 1) {
         display.blue(true);
         display.yellow(false);
+        
+        //display.number(true, foodDirect);
     }
     
     receiveSignal();
@@ -52,29 +57,55 @@ void Worker::loop() {
         nestTimer = millis();
     }
     
+    //uint8_t idx[6] = {IDX_FRONT, IDX_RFRONT, IDX_RREAR, IDX_REAR, IDX_LREAR, IDX_LFRONT};
+    //uint8_t idx_cur, idx_est;
+    
     if (target == 0 && curMinNest != 0xFF && curMinNest <= minNest) { // go to nest
-        display.number(true, minNest);
-        makeMovement(nestIndex);
+        Serial.println("1");
+        //for (int i = 0; i < 6; ++i) {
+            //if (nestDirect == idx[i])
+                //idx_est = i;
+            //else if (nestIndex == idx[i])
+                //idx_cur = i;
+        //}
+        display.number(true, curMinNest);
+        //if ((idx_est - idx_cur) % 6 == 1 || (idx_est - idx_cur) % 6 == 5)
+            makeMovement(nestIndex);
         randomWalkReset();
         noMoveCnt = 0;
     }
     else if (target == 1 && curMinFood != 0xFF && curMinFood <= minFood) { // go to food
-        display.number(true, minFood);
-        makeMovement(foodIndex);
+        Serial.println("2");
+        //for (int i = 0; i < 6; ++i) {
+            //if (foodDirect == idx[i])
+                //idx_est = i;
+            //else if (foodIndex == idx[i])
+                //idx_cur = i;
+        //}
+        display.number(true, curMinFood);
+        //if ((idx_est - idx_cur) % 6 == 1 || (idx_est - idx_cur) % 6 == 5)
+            makeMovement(foodIndex);
         randomWalkReset();
         noMoveCnt = 0;
     }
-    else {
-        if (noMoveCnt > 10 && noMoveCnt < 20) {
-            display.number(true, 0xFF);
-            makeMovement(target == 0 ? nestDirect : foodDirect);
+    /*else {
+        Serial.println("3");
+        bayesUpdate();
+        if (target == 0 && nestDirect != IDX_NULL && minNest == 0xFF) {
+            //display.number(true, 0xFF);
+            makeMovement(nestDirect);
         }
-        else if (noMoveCnt >= 20) {
-            display.number(true, 0xFF);
-            randomWalkGo();
+        else if (target == 1 && foodDirect != IDX_NULL && minFood == 0xFF) {
+            //display.number(true, 0xFF);
+            makeMovement(foodDirect);
         }
+        //else if (noMoveCnt >= 10) {
+            //display.number(true, 0xFF);
+            //randomWalkGo();
+        //}
         ++noMoveCnt;
     }
+     */
 }
 
 ////////////////////////////////////////////////////////////////
