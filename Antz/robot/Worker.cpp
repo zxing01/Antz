@@ -65,8 +65,14 @@ void Worker::loop() {
         noMoveCnt = 0;
     }
     else {
-        if (noMoveCnt > 20)
+        if (noMoveCnt > 10 && noMoveCnt < 20) {
+            display.number(true, 0xFF);
+            makeMovement(target == 0 ? nestDirect : foodDirect);
+        }
+        else if (noMoveCnt >= 20) {
+            display.number(true, 0xFF);
             randomWalkGo();
+        }
         ++noMoveCnt;
     }
 }

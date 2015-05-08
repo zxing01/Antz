@@ -66,17 +66,24 @@ namespace Antz {
         static uint8_t minNest; // after each receiveSignal call, store the minimum nest signal in the past SIG_PRSV time
         static uint64_t foodTimer; // start time of current minFood
         static uint64_t nestTimer; // start time of current minNest
+        static uint8_t trueMinFood; // minimum food signal of all time
+        static uint8_t trueMinNest; // minimum nest signal of all time
+        static uint8_t foodDirect; // estimated direction of food
+        static uint8_t nestDirect; // estimated direction of nest
         
+        static float condProb[6]; // conditional probability for Bayesian model
         static uint32_t identifier;
+        static Display display;
+        static Receiver recver;
+        static Scanner scanner;
+        
+    private:
         static int64_t motorStartMillis;
         static int64_t motorStopMillis;
         static uint8_t avoidCnt;
-        static float condProb[6];
         static MoveType curMovement;
-        static Display display;
         static Motor motor;
-        static Receiver recver;
-        static Scanner scanner;
+        static void directUpdate(MoveType moveType, uint64_t moveDuration);
     };
 }
 #endif /* defined(__Antz__AntzRobot__) */

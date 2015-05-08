@@ -23,12 +23,17 @@ uint8_t AntzRobot::minFood = 0xFF;
 uint8_t AntzRobot::minNest = 0xFF;
 uint64_t AntzRobot::foodTimer = 0;
 uint64_t AntzRobot::nestTimer = 0;
+uint8_t AntzRobot::trueMinFood = 0xFF;
+uint8_t AntzRobot::trueMinNest = 0xFF;
+uint8_t AntzRobot::foodDirect = IDX_NULL;
+uint8_t AntzRobot::nestDirect = IDX_NULL;
 
 uint8_t AntzRobot::avoidCnt = 0;
 uint32_t AntzRobot::identifier = 0;
 float AntzRobot::condProb[] = {1.f/6};
 int64_t AntzRobot::motorStartMillis = -1;
 int64_t AntzRobot::motorStopMillis = -1;
+
 AntzRobot::MoveType AntzRobot::curMovement = mt_stop;
 Display AntzRobot::display;
 Motor AntzRobot::motor;
@@ -201,7 +206,6 @@ void AntzRobot::bayesUpdate() {
         duration = millis() - motorStartMillis;
         motorStartMillis = millis();
     }
-    
     if (curMovement == mt_forward || curMovement == mt_backward) {
         float avg = (1 - condProb[IDX_FRONT] - condProb[IDX_REAR]) / 4;
         condProb[IDX_LFRONT] = avg;
@@ -234,6 +238,9 @@ void AntzRobot::bayesUpdate() {
             }
         }
     }
+    
+    directUpdate(curMovement, duration); // update target directions
+    
     Timer3.attachInterrupt(isr);
 }
 
@@ -302,14 +309,103 @@ bool AntzRobot::receiveSignal() {
             }
         }
     }
-    if (curMinNest < 0xFF && curMinNest <= minNest) {
+    if (curMinNest <= minNest) {
         minNest = curMinNest;
         nestTimer = millis();
     }
-    if (curMinFood < 0xFF &&curMinFood <= minFood) {
+    if (curMinFood <= minFood) {
         minFood = curMinFood;
         foodTimer = millis();
     }
+    if (curMinNest <= trueMinNest) {
+        trueMinNest = curMinNest;
+        nestDirect = nestIndex;
+    }
+    if (curMinFood <= trueMinFood) {
+        trueMinFood = curMinFood;
+        foodDirect = foodIndex;
+    }
     return received;
 }
+
+////////////////////////////////////////////////////////////////
+// Update estimated food and nest directions according to new
+//   movement (only called in bayesUpdate method)
+void AntzRobot::directUpdate(MoveType moveType, uint64_t moveDuration) {
+    uint8_t idx[6] = {IDX_FRONT, IDX_RFRONT, IDX_RREAR, IDX_REAR, IDX_LREAR, IDX_LFRONT};
+    int shifts = ((moveDuration / MTR_MSPERDEG - 30) / 60 + 1) % 6;
+    int index;
+
+    if (moveType == mt_forward) {
+        switch (nestDirect) {
+            case IDX_FRONT: break;
+            case IDX_LFRONT: nestDirect = IDX_LREAR; break;
+            case IDX_RFRONT: nestDirect = IDX_RREAR; break;
+            default: nestDirect = IDX_REAR; break;
+        }
+        
+        switch (foodDirect) {
+            case IDX_FRONT: break;
+            case IDX_LFRONT: foodDirect = IDX_LREAR; break;
+            case IDX_RFRONT: foodDirect = IDX_RREAR; break;
+            default: foodDirect = IDX_REAR; break;
+        }
+    }
+    else if (moveType == mt_backward) {
+        switch (nestDirect) {
+            case IDX_REAR: break;
+            case IDX_LREAR: nestDirect = IDX_LFRONT; break;
+            case IDX_RREAR: nestDirect = IDX_RFRONT; break;
+            default: nestDirect = IDX_FRONT; break;
+        }
+        
+        switch (foodDirect) {
+            case IDX_REAR: break;
+            case IDX_LREAR: foodDirect = IDX_LFRONT; break;
+            case IDX_RREAR: foodDirect = IDX_RFRONT; break;
+            default: foodDirect = IDX_FRONT; break;
+        }
+    }
+    else if (moveType == mt_left) {
+        switch (nestDirect) {
+            case IDX_FRONT: index = 0; break;
+            case IDX_RFRONT: index = 1; break;
+            case IDX_RREAR: index = 2; break;
+            case IDX_REAR: index = 3; break;
+            case IDX_LREAR: index = 4; break;
+            case IDX_LFRONT: index = 5; break;
+        }
+        nestDirect = idx[(index + shifts) % 6];
+        switch (foodDirect) {
+            case IDX_FRONT: index = 0; break;
+            case IDX_RFRONT: index = 1; break;
+            case IDX_RREAR: index = 2; break;
+            case IDX_REAR: index = 3; break;
+            case IDX_LREAR: index = 4; break;
+            case IDX_LFRONT: index = 5; break;
+        }
+        foodDirect = idx[(index + shifts) % 6];
+    }
+    else if (moveType == mt_right) {
+        switch (nestDirect) {
+            case IDX_FRONT: index = 0; break;
+            case IDX_RFRONT: index = 1; break;
+            case IDX_RREAR: index = 2; break;
+            case IDX_REAR: index = 3; break;
+            case IDX_LREAR: index = 4; break;
+            case IDX_LFRONT: index = 5; break;
+        }
+        nestDirect = idx[(index - shifts) % 6];
+        switch (foodDirect) {
+            case IDX_FRONT: index = 0; break;
+            case IDX_RFRONT: index = 1; break;
+            case IDX_RREAR: index = 2; break;
+            case IDX_REAR: index = 3; break;
+            case IDX_LREAR: index = 4; break;
+            case IDX_LFRONT: index = 5; break;
+        }
+        foodDirect = idx[(index - shifts) % 6];
+    }
+}
+
 

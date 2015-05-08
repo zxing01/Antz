@@ -25,7 +25,7 @@ namespace Antz {
 
         uint8_t target;
         uint16_t movePhase;
-        uint8_t noMoveCnt;
+        uint16_t noMoveCnt;
     };
 }
 
