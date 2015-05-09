@@ -72,8 +72,9 @@ void Tester::loop() {
     //avoid();
     
     // test bayesian updates
+    /*
     bool signals[] = {true, false, false, false, false, false};
-
+    
     Serial.println("=== TEST 1 ===");
     bayesReset();
     bayesPrint("reset");
@@ -113,4 +114,11 @@ void Tester::loop() {
     delay(MTR_MSPERDEG * 120);
     bayesUpdate();
     bayesPrint("turn right 120");
+     */
+    
+    // test higher speed
+    motor.left();
+    delay(500);
+    motor.stop();
+    delay(5000);
 }

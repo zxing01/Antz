@@ -15,8 +15,14 @@ using namespace Antz;
 Worker::Worker(uint32_t robotId):
 AntzRobot(robotId),
 target(0),
+curNumber(0xFFFFFFFF),
+numberTimer(0),
+minSignal(0xFF),
+signalIndex(6),
+minNumber(0xFFFFFFFF),
 movePhase(0),
-noMoveCnt(0) {
+noMoveCnt(0),
+randomMoveTimer(0){
 }
 
 ////////////////////////////////////////////////////////////////
@@ -34,87 +40,72 @@ void Worker::loop() {
     if (target == 0) { // i'm going towards nest
         display.blue(false);
         display.yellow(true);
-        
-        //display.number(true, nestDirect);
     }
     else if (target == 1) {
         display.blue(true);
         display.yellow(false);
-        
-        //display.number(true, foodDirect);
     }
     
+    minSignal = 0xFF;
+    signalIndex = 6;
+    minNumber = 0xFFFFFFFF;
     receiveSignal();
     
-    if (target == 0 && minNest == 1) {
-        target = 1;
-        minFood = curMinFood;
-        foodTimer = millis();
-    }
-    else if (target == 1 && minFood == 1) {
-        target = 0;
-        minNest = curMinNest;
-        nestTimer = millis();
-    }
+    uint8_t cur = target == 0 ? curNumber : (curNumber >> 8);
     
-    //uint8_t idx[6] = {IDX_FRONT, IDX_RFRONT, IDX_RREAR, IDX_REAR, IDX_LREAR, IDX_LFRONT};
-    //uint8_t idx_cur, idx_est;
-    
-    if (target == 0 && curMinNest != 0xFF && curMinNest <= minNest) { // go to nest
-        Serial.println("1");
-        //for (int i = 0; i < 6; ++i) {
-            //if (nestDirect == idx[i])
-                //idx_est = i;
-            //else if (nestIndex == idx[i])
-                //idx_cur = i;
-        //}
-        display.number(true, curMinNest);
-        //if ((idx_est - idx_cur) % 6 == 1 || (idx_est - idx_cur) % 6 == 5)
-            makeMovement(nestIndex);
+    if (minSignal != 0xFF && minSignal <= cur) {
+        display.number(true, minSignal);
+        curNumber = minNumber;
+        numberTimer = millis();
+        makeMovement();
         randomWalkReset();
         noMoveCnt = 0;
     }
-    else if (target == 1 && curMinFood != 0xFF && curMinFood <= minFood) { // go to food
-        Serial.println("2");
-        //for (int i = 0; i < 6; ++i) {
-            //if (foodDirect == idx[i])
-                //idx_est = i;
-            //else if (foodIndex == idx[i])
-                //idx_cur = i;
-        //}
-        display.number(true, curMinFood);
-        //if ((idx_est - idx_cur) % 6 == 1 || (idx_est - idx_cur) % 6 == 5)
-            makeMovement(foodIndex);
-        randomWalkReset();
-        noMoveCnt = 0;
-    }
-    /*else {
-        Serial.println("3");
-        bayesUpdate();
-        if (target == 0 && nestDirect != IDX_NULL && minNest == 0xFF) {
-            //display.number(true, 0xFF);
-            makeMovement(nestDirect);
+    else if (curNumber == 0xFFFFFFFF) {
+        if (millis() - randomMoveTimer > 1000) {
+            randomWalkGo();
+            randomMoveTimer = millis();
         }
-        else if (target == 1 && foodDirect != IDX_NULL && minFood == 0xFF) {
-            //display.number(true, 0xFF);
-            makeMovement(foodDirect);
-        }
-        //else if (noMoveCnt >= 10) {
-            //display.number(true, 0xFF);
-            //randomWalkGo();
-        //}
-        ++noMoveCnt;
     }
-     */
+}
+
+////////////////////////////////////////////////////////////////
+// Receive signal from all the recievers
+bool Worker::receiveSignal() {
+    if (millis() - numberTimer > 5000) {
+        curNumber = 0xFFFFFFFF;
+        numberTimer = millis();
+    }
+    bool received = false;
+    int idx[6] = {IDX_FRONT, IDX_LFRONT, IDX_RFRONT, IDX_LREAR, IDX_RREAR, IDX_REAR};
+    for (int i = 0; i < 6; ++i) { // poll from 6 receivers
+        uint32_t number;
+        if (recver.recvFrom(idx[i], &number)) {
+            received = true;
+            uint8_t cardinality = target == 0 ? number : (number >> 8);
+            
+            if (cardinality == 1) {
+                target = 1 - target;
+                received = false;
+                break;
+            }
+            else if (cardinality > 0 && cardinality < minSignal) {
+                minSignal = cardinality;
+                signalIndex = idx[i];
+                minNumber = number;
+            }
+        }
+    }
+    return received;
 }
 
 ////////////////////////////////////////////////////////////////
 // Make a movement basing on current signal index
-void Worker::makeMovement(uint8_t index) {
-    switch (index) {
+void Worker::makeMovement() {
+    switch (signalIndex) {
         case IDX_FRONT:
             if (avoid() == false)
-                goForward(1000);
+                goForward(500);
             break;
         case IDX_REAR:
             turnLeft(180);
@@ -153,12 +144,15 @@ void Worker::randomWalkGo() {
         case 2:
             turnRight(60, false);
             if (!avoid())
-                goForward(100 * movePhase, false);
+                goForward(500);
             break;
         default:
             turnLeft(60, false);
-            if (!avoid())
-                goForward(100 * movePhase, false);
+            int cnt = movePhase;
+            while (cnt-- > 0) {
+                if (!avoid())
+                    goForward(500);
+            }
             break;
     }
     ++movePhase;
